@@ -1,0 +1,82 @@
+%%=====================================================================================
+%%
+%%       Filename:  channel.tex
+%%
+%%    Description:  Here is a channel.
+%%
+%%        Version:  1.0
+%%        Created:  05/04/2017
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2017, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+% CHANNEL{node}{height}{width}{slope}{color}
+\newcommand\CHANNEL[5]{%
+    \pgfmathsetmacro\a{#2*0.5}
+    \pgfmathsetmacro\b{\a*0.3}
+
+    \pgfmathsetmacro\w{#2}
+    \pgfmathsetmacro\h{#3}
+
+    \pgfmathsetmacro\al{\a-(0.5*\h*tan(#4))}
+    \pgfmathsetmacro\bl{\al*0.3}
+
+    % Plot two funnels.
+    \begin{scope}[ shift={(#1)}, ]
+
+        % center of lower and upper arc
+        \coordinate (#1_c1) at (0,0);
+        \coordinate (#1_c2) at (0,-\h);
+
+        % Upper elliptic arc
+        \pgfmathsetmacro\xarc{\a*cos(-45)}
+        \pgfmathsetmacro\yarc{\b*sin(-45)}
+
+        % Lower elliptic arc
+        \pgfmathsetmacro\xlarc{\al*cos(-45)}
+        \pgfmathsetmacro\ylarc{\bl*sin(-45)-\h}
+
+
+        \path[opacity=1,fill=#5] (#1_c1) -- (\xarc,\yarc) arc (-45:225:\a cm and
+            \b cm) node[ ] (#1_upper_end) {};
+        \path[opacity=1,fill=#5] (#1_c2) -- (\xlarc,\ylarc) arc (-45:225:\al cm and \bl cm)
+            node [ ] (#1_lower_end) {};
+
+        \path[fill=#5!30] (#1_lower_end.center) -- (#1_upper_end.center) 
+            -- (#1_c1.center) -- (\xarc, \yarc) -- (\xlarc, \ylarc)
+            -- (#1_c2.center) -- cycle;
+
+        % Fill outer surface. One should also compute the arc here to make
+        % surface look curvy here. Or we can just make it opaque!
+        \path[fill=#5,opacity=0.5] (-\a,0) -- (-\al,-\h) --
+            (#1_lower_end.center) -- (#1_upper_end.center);
+        \path[fill=#5,opacity=0.5] (\a,0) -- (\al,-\h) -- (\xlarc,\ylarc) -- (\xarc,\yarc);
+
+        % Put a hollow cylinder inside the funnel.
+        \node[rotate=90,minimum height=1.05*\h cm,fill=white!50 , minimum width=2*\bl cm
+            , cylinder, aspect=0.25,draw=#5!10] at ($(#1_c1.center)!0.58!(#1_c2.center)$) { };
+
+    \end{scope}
+}
+
+%\begin{document}
+%\RequirePackage{luatex85}
+%\documentclass[crop,tikz]{standalone}
+%\usepackage{tikz,pgfplots}
+%\usetikzlibrary{shapes,calc,positioning}
+
+%\begin{tikzpicture}[scale=1, every node/.style={} ]
+    %\node (a) at (0,0) { };
+    %\CHANNEL{a}{1}{0.8}{60}{green};
+    %\CHANNEL{a}{0.7}{0.5}{10}{blue};
+
+%\end{tikzpicture}    
+
+%\end{document}
+

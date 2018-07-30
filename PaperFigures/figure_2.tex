@@ -1,0 +1,202 @@
+%=====================================================================================
+%
+%       Filename:  figure_2.tex
+%
+%    Description:  Figure showing effect of subunit exchange on single bistable
+%                  switch.
+%
+%        Version:  1.0
+%        Created:  Friday 12 January 2018
+%       Revision:  none
+%
+%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%   Organization:  NCBS Bangalore
+%      Copyright:  Copyright (c) 2018, Dilawar Singh
+%
+%          Notes:  
+%
+%=====================================================================================
+
+\RequirePackage{luatex85,shellesc}
+\documentclass[9pt,multi=false,varwidth=11.4cm,class=../pnas-new]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\usepgfplotslibrary{units}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=newest}
+
+\renewcommand\familydefault{\sfdefault}
+\usetikzlibrary{calc,positioning}
+\usepackage{siunitx}
+\usepackage{pgfplotstable}
+\usepackage{anyfontsize}
+
+\begin{document}
+
+\pgfmathsetmacro{\figW}{11.4}
+\pgfmathsetmacro{\colW}{0.4*\figW}
+\pgfmathsetmacro{\plotW}{0.95*\figW}
+\pgfmathsetmacro{\plotH}{4}
+
+\pgfplotsset{
+    , xtick align=center
+    , ytick align=center
+    , unit markings=parenthesis
+    , legend style={fill=none,draw=none,font=\small}
+    , ylabel style={align=center}
+    , axis lines*=left
+}
+
+\begin{tikzpicture}[ scale=1 ]
+    \begin{axis}[ name=A
+            , width=\plotW cm, height=\plotH cm
+            , enlarge y limits={abs=0.2}
+            , enlarge x limits={abs=0.8}
+            , ytick = {0,1,1.5,2.5}
+            , yticklabels = {0,1,0,1}
+            , xtick ={0,5,10,15,20,25,30}
+            , xlabel = Time, x unit=day
+            , legend style={fill=none,draw=none,at={(1.0, 1.2)}}
+            , legend columns=-1
+            , ylabel={Active CaMKII}
+            , y unit=frac
+        ]
+        \addplot+ [no marks,blue] gnuplot [ raw gnuplot ] {
+            plot "./_data/CaM12_PP192_voxels1_suON.dat_processed.dat"
+            using (column("time")/86400):(1.5+column("CaMKII*")/12) every 10;
+        };
+        \addplot+ [no marks,red] gnuplot [ raw gnuplot ] {
+            plot "./_data/CaM12_PP120_voxels1_suOFF.dat_processed.dat"
+            using (column("time")/86400):(column("CaMKII*")/10) every 10;
+        };
+        \legend{+SE,-SE}
+    \end{axis} 
+    \node[xshift=-15mm, yshift=5mm] (labela) at (A.north west) {\bf A};
+
+    % Second subplot.
+    \begin{axis}[ name=B, at=(A.south west), anchor=north west, yshift=-25mm
+            % , xlabel=$\frac{N_{PP1}}{N_{CaMKII}}$ %, ylabel=Time (sec)
+            , xlabel={N\textsubscript{PP1}/N\textsubscript{CaMKII}}
+            , width = 1.2*\colW cm , height=\plotH cm
+            , legend style={font=\small, draw=none,at={(0.8,1.5)}}
+            , legend columns=1
+            % , axis lines=box
+            , grid = none
+            , enlargelimits
+            , ylabel={Fraction of time \\ spent in stable states}
+            , ylabel style={align=center}
+            , ytick={0,1.0}
+        ]
+
+        % With subunit-exchange
+        \addplot+ [mark=o,only marks]  gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            plot "./_data/summary_CaM8.png.csv"
+            using 1:2;
+        };
+
+        \addplot+ [blue,no marks,smooth,very thick ] gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            FIT_LIMIT=1.e-14;
+            k=0.6; x0=15;
+            f(x)=a/(1.0+exp(k*(x-x0)));
+            fit f(x) "./_data/summary_CaM8.png.csv" using 1:2 via k,a,x0;
+            plot [x=5:30] f(x);
+        };
+
+
+        % Without subunit-exchange
+        \addplot+ [mark=x,only marks,red] gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            plot "./_data/summary_CaM8.png.csv"
+            using 4:5;
+        };
+
+        \addplot+ [red,no marks,smooth,very thick] gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            f(x)=a/(1.0+exp(k*(x-x0)));
+            fit f(x) "./_data/summary_CaM8.png.csv" using 4:5 via k,a,x0;
+            plot [x=3:30] f(x);
+        };
+
+        \legend{,{+SE ($\frac{1}{1+\exp\left(0.58(x-17.77)\right)}$)},
+            ,{-SE ($\frac{0.95}{1+\exp\left({0.6(x-11.2)}\right)}$)} 
+        }
+    \end{axis} 
+    \begin{axis}[name=dashed, at={(B.center)}, anchor=center
+            , width = 1.2*\colW cm , height=\plotH cm
+            , axis y line*=right
+            , ymax = 1.0
+            , enlargelimits
+            , ylabel={Time spent in transition}
+            , ytick = {0,1}
+            , legend style={font=\small, draw=none,at={(1.2,1.5)}}
+        ]
+        \addplot+ [thick,blue,no marks,dashed]  gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            plot "./_data/summary_CaM8.png.csv"
+            using 1:3;
+        };
+        \addplot+ [thick,red,no marks,dashed]  gnuplot [ raw gnuplot ] {
+            set datafile separator ",";
+            plot "./_data/summary_CaM8.png.csv"
+            using 4:6;
+        };
+        \legend{+SE,-SE}
+    \end{axis}
+    \node[xshift=-15mm, yshift=10mm] at (B.north west) {\bf B};
+
+    \begin{axis}[ name=C, xshift=22mm
+            , at=(B.north east), anchor=north west
+            , xlabel={N\textsubscript{PP1}/N\textsubscript{CaMKII}}
+            , width=\colW cm, height=\plotH cm
+            , unbounded coords=jump
+            , ylabel=Relaxation Time
+            , y unit={sec}
+            , title style={at={(0.5,1.3)}}
+            , legend style={at={(1,1.2)}}
+            , scaled y ticks=base 10:-3
+            , enlargelimits
+        ]
+        \addplot [blue, smooth, very thick, mark=.
+            % , error bars/.cd, y dir=both, y explicit % Use shaded area for % std.
+            ] table [ col sep=comma
+                , y=suON_relaxation_time_mean
+                , y error=suON_relaxation_time_std
+            ]{_data/summary_CaM8.png.csv};
+
+        \addplot [blue!20, thin, name path=A] table [ col sep=comma
+            , y expr={\thisrow{suON_relaxation_time_mean}+\thisrow{suON_relaxation_time_std}}
+            ]{_data/summary_CaM8.png.csv};
+
+        \addplot [blue!20, thin, name path=B] table [ col sep=comma
+            , y expr={\thisrow{suON_relaxation_time_mean}-\thisrow{suON_relaxation_time_std}}
+            ]{_data/summary_CaM8.png.csv};
+
+        \addplot[blue!20] fill between[of=A and B];
+
+        \addplot [ red, smooth, very thick
+            %, mark=., error bars/.cd, y dir=both, y explicit
+            ] table [ col sep=comma
+                , y=suOFF_relaxation_time_mean
+                , y error=suOFF_relaxation_time_std
+            ]{_data/summary_CaM8.png.csv};
+
+        \addplot [ red!20, smooth, name path=A] table [ col sep=comma
+            , y expr=\thisrow{suOFF_relaxation_time_mean}+\thisrow{suOFF_relaxation_time_std}
+            ]{_data/summary_CaM8.png.csv};
+
+        \addplot [ red!20, smooth, name path=B] table [ col sep=comma
+            , y expr=\thisrow{suOFF_relaxation_time_mean}-\thisrow{suOFF_relaxation_time_std}
+            ]{_data/summary_CaM8.png.csv};
+
+        \addplot[red!20] fill between[of=A and B];
+
+        \legend{+SE,,,,-SE}
+    \end{axis} 
+    \node[xshift=10mm, yshift=10mm] (labelc) at (C.north west) {\bf C};
+
+\end{tikzpicture}
+
+\end{document}
+

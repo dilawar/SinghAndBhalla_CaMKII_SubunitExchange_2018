@@ -1,0 +1,48 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[crop,tikz]{standalone}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepgfplotslibrary{units}
+\begin{document}
+
+\newcommand\SUB[2]{#1\textsubscript{#2}}
+
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+        \begin{loglogaxis}[
+            name=c2
+            % , at={(c1.south west)}, anchor=north west, yshift=-10mm
+            % , at={(c1.south east)}, anchor=south west, xshift=12mm
+            , view={0}{90}
+            , xlabel= \SUB{D}{PP1}, x unit=\si{\meter \squared \per \second}
+            , xtick={1e-15,1e-13}
+            , ytick={3,2,1}
+            , ylabel = \SUB{D}{xy}, y unit=\si{\meter \squared \per \second}
+            , label style={font=\scriptsize}
+            % , title={Avg CaMKII\textsuperscript{*}}
+            , title style={at={(0.5,1.25)}}
+            % , height=\HEIGHT, width=\WidthImage
+            , colorbar horizontal
+            , colorbar style={ height=1.5mm, samples=3, draw=none
+               , xticklabel style={font=\tiny},at={(0,1.1)},anchor=south west
+               , xticklabel pos=upper }
+            , enlargelimits=false
+            , unbounded coords=jump
+            ]
+            \addplot3 [surf, mesh/cols=6] table 
+                [col sep=comma
+                    , x expr={10^\thisrow{Dpp1}}
+                    , y expr={10^\thisrow{Dxy}}
+                    , z=Mean CaMKII
+                ]{./data_fig_sync_camkii_6.csv};
+
+                \addplot3[ scatter, only marks, mark=*, mark options={fill=black}] table [
+                    col sep=comma
+                    , x expr={10^\thisrow{Dpp1}}
+                    , y expr={10^\thisrow{Dxy}}
+                    , z expr={\thisrow{is_bistable}==0?nan:1}
+                ]{./data_fig_sync_camkii_6.csv};
+
+        \end{loglogaxis}
+\end{tikzpicture}	
+
+\end{document}

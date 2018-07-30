@@ -1,0 +1,58 @@
+%%=====================================================================================
+%%
+%%       Filename:  summary_interaction.tex
+%%
+%%    Description:  Summary of pp1 and camkii interaction
+%%
+%%        Version:  1.0
+%%        Created:  07/11/2016
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2016, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+\RequirePackage{luatex85}
+\documentclass[crop,tikz]{standalone}
+\usepackage[version-1-compatibility]{siunitx}
+
+\usetikzlibrary{shapes,positioning,arrows}
+
+\begin{document}
+
+\centering
+\begin{tikzpicture} [ 
+        molecule/.style = { rectangle, fill=blue!10 }
+        , every path/.style = { ->, thick }
+    ]
+
+    \node[ text width=5cm] (text) at (0, 0) {
+            \textsc{Post Synaptic Density} \\ 
+            \vspace{1em}
+            {Volume $\sim$ \SI{1e-20}{m^3} } \\
+            {\SI{1}{\micro\Molar} $\sim$ 6 Molecules }
+    };
+
+    \node[molecule,draw=none, fill=none, below=of text] (ca) {};
+    \node[molecule,right=of ca] (cam) {Ca/CaM};
+    \node[molecule,right=of cam] (camkiiActive) {CaMKII*};
+    \node[molecule,below=of camkiiActive, fill=red!20] (pp1) {PP1};
+    \node[star,draw,right=of pp1] (pka) {PKA};
+    \node[molecule,below=of cam] (can) {CaN};
+
+    \draw[->] (cam) -- (camkiiActive);
+    \draw[->] (cam) -- (can);
+    \draw[->] (camkiiActive) edge [in=90, out=0, loop] node[above right] {AUTO} ();
+    \draw[-|, ] (pp1) -- (camkiiActive);
+    \draw[-|, ] (pka) -- (pp1);
+    \draw[->, ] (can) -- (pp1);
+
+\end{tikzpicture}
+
+
+\end{document}
+

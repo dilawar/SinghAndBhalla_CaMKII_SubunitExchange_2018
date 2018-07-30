@@ -1,0 +1,50 @@
+\RequirePackage{luatex85}
+\documentclass[crop,tikz]{standalone}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{layered,force}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1
+    , every node/.style={}
+    %, layered layout
+    , spring layout
+    , remember picture
+    ]
+
+    \node[ label=center:CaMKII* ]  (camkii_active) {};
+    \node[ draw, inner sep=0] (camkii_bound) {};
+
+    \node[ label=center:$Ca^{++}$ ] (ca) {};
+    \node[ label=center:$CaM$ ] (cam) {};
+    \node[ inner sep=0pt , draw] (cacam) {};
+    \node[ label=center:Ca.CaM ] (cacamcplx) {};
+
+    \node[ label=center:PP1 ] (pp1) {};
+    \node[ inner sep=0pt , draw] (pp1_camkii_cplx) {};
+
+
+%% Using graph is not a great idea for drawing the reactions.
+%%    \graph[ use existing nodes
+%%        , layered layout
+%%        %, spring electrical layout
+%%        %, level distance = 1cm 
+%%        , downsize ratio=1
+%%        %, node distance = 1cm
+%%        %, sibling distance = 2cm
+%%        , vertical=3 to 4
+%%        %, grow right=2cm
+%%        , edges = {thick, rounded corners}  ] 
+%%    {
+%%        %{ "$ca^{++}$", CaM }  --  "Ca/CaM";
+%%        %{ "Ca/CaM", "CaMKII" } -- "CaMKII*";
+%%        {ca, cam} -- cacam ->[] cacamcplx;
+%%        {cacamcplx, camkii} -- camkii_bound -> camkii_active ;
+%%
+%%        {pp1, camkii_active } -- pp1_camkii_cplx -> camkii;
+%%    };
+    
+\end{tikzpicture}    
+
+\end{document}
+

@@ -1,0 +1,131 @@
+%%=====================================================================================
+%%
+%%       Filename:  camk2_fast_activation.tex
+%%
+%%    Description:  
+%%
+%%        Version:  1.0
+%%        Created:  07/21/2016
+%%       Revision:  none
+%%
+%%         Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%%   Organization:  NCBS Bangalore
+%%      Copyright:  Copyright (c) 2016, Dilawar Singh
+%%
+%%          Notes:  
+%%                
+%%=====================================================================================
+
+\RequirePackage{luatex85}
+\documentclass[crop,tikz]{standalone}
+\usepackage{xstring}
+\usepackage{tikz,chemfig}
+\usetikzlibrary{calc,shapes,fit}
+
+\input{macros}
+
+\begin{document}
+
+\newcommand{\TSTARA}[5]{% x, y, inner radius, outer radius, tips,
+    \pgfmathsetmacro{\starangle}{360/#5}
+    \draw[draw=none,fill=blue!40] [xshift=#1cm,yshift=#2cm](0:#3)
+    \foreach \x in {1,...,#5}
+    { -- (\starangle/2+\x*\starangle-\starangle/2:#4) -- (#4+\x*\starangle:#3)
+    }
+    -- cycle;
+}
+
+\newcommand{\TSTARTB}[3]{% (x, y), radius, tips,
+    \node[star,star points=#3,star point ratio=0.3,fill=blue!40,minimum
+    size=#2cm] (inner#3) 
+        at #1 {};
+}
+
+
+\newcommand{\CAMKIIARINGA}[6] { % name, x, y, indices_of_red_balls, size, tips 
+    % get the theta for given number of subunits.
+    \begin{scope}[ ]
+        \pgfmathsetmacro{\theta}{360/#6};
+        \pgfmathsetmacro{\r}{0.5*#5/sin(\theta/2)};
+        \def\fitlist{};
+        \foreach \i in {1,...,#6}
+        {
+            \IfSubStr {#4} {\i}
+            {
+                \node[draw=none,ball color=red,circle,minimum size=#5cm] (r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3)$) {};
+            }
+            {
+                \node[draw=none,ball color=blue,circle,minimum size=#5cm](r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3)$) {}; 
+            }
+            \xdef\fitlist{\fitlist(r\i)};
+        };
+
+        % inner subunit.
+        \TSTARA{#2}{#3}{\r/5}{\r}{#6};
+        \node[circle,fit=\fitlist,] (#1) {};
+        %\node[] at (#2,#3) {#1};
+    \end{scope}
+}
+
+\newcommand{\CAMKIIA}[5] { % name, (x, y,) indices_of_red_balls, size, tips 
+    % get the theta for given number of subunits.
+    \begin{scope}[ ]
+        \pgfmathsetmacro{\theta}{360/#5};
+        \pgfmathsetmacro{\r}{0.5*#4/sin(\theta/2)};
+        \def\fitlist{};
+        \foreach \i in {1,...,#5}
+        {
+            \IfSubStr {#3} {\i}
+            {
+                \node[draw=none,inner sep=0,ball color=red,circle,minimum size=#4cm] 
+                    (r\i) at ($(\i*\theta:\r cm)+#2$) {};
+            }
+            {
+                \node[draw=none,ball color=blue,inner sep=0,circle,minimum size=#4cm] 
+                    (r\i) at ($(\i*\theta:\r cm)+#2$) {}; 
+            }
+            \xdef\fitlist{\fitlist(r\i)};
+        };
+
+        % inner subunit.
+        \TSTARTB{#2}{0.5*\r}{#5};
+        \node[fit=\fitlist,circle,inner sep=0] (#1) {};
+        %\node[] at (#2,#3) {#1};
+
+    \end{scope}
+}
+
+\begin{tikzpicture}
+
+    \edef\r{0.5}
+
+    \CAMKIIA{camkii2}{(0,0)}{}{0.5}{6};
+    \CAMKIIA{camkii3}{([xshift=3cm]camkii2)}{}{\r}{6};
+    \CAMKIIA{camkii4}{([xshift=3cm]camkii3)}{}{\r}{6};
+    \CAMKIIA{camkii5}{([xshift=3cm]camkii4)}{6,5}{\r}{6};
+    \CAMKIIA{camkii6}{([xshift=3cm]camkii5)}{6,5}{\r}{6};
+
+    \edef\rd{0.7}
+    \edef\rr{0.3}
+    \CACAM{c1}{[shift=(-60:\rd)]camkii2}{\rr};
+
+    \CACAM{c2}{[shift=(-60:\rd)]camkii3}{\rr};
+    \CACAM{c21}{[shift=(60:\rd)]camkii3}{\rr};
+
+    \CACAM{c3}{[shift=(-60:\rd)]camkii4}{\rr};
+    \CACAM{c31}{[shift=(0:\rd)]camkii4}{\rr};
+
+    \CACAM{c4}{[shift=(0:\rd)]camkii5}{\rr};
+
+    % Add CaCAM on CaMKII.
+    \path (camkii2) -- node[] { \schemestart \arrow{<=>} \schemestop } (camkii3);
+    \path (camkii3) -- node[] { \schemestart \arrow{<=>} \schemestop } (camkii4);
+    \path (camkii4) -- node[] { \schemestart \arrow{->} \schemestop } (camkii5);
+    \path (camkii5) -- node[] { \schemestart \arrow{->} \schemestop } (camkii6);
+
+\end{tikzpicture}
+
+
+\end{document}
