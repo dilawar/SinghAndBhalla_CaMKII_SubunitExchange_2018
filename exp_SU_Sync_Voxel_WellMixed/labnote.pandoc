@@ -1,0 +1,33 @@
+---
+title: Effect of subunit-exchange on uniformly distributed CaMKII
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+date : \today 
+mainfont: Linux Libertine
+mathfont: Asana Math
+---
+
+We put N CaMKII in a cylinder of radius \SI{30}{\nano\meter}, length=NL nm where
+L is the length of each voxel. All CaMKII are uniformly distributed.  Diffusion
+coefficient of subunits are D~x~ and for PP1 its is D~PP1~. Usually D~x~=D~PP1~.
+
+# Summary 
+
+In all simulation, distance between all voxels are set to \SI{40}{\nano\meter},
+the average nearest neighbour distance (see
+[labnote](https://labnotes.ncbs.res.in/bhalla/distribution-camkii-psd-x-y-plane-images)
+for details or [this paper](http://www.jneurosci.org/content/23/35/11270)).
+
+
+## Parameters 
+
+N~CaMKII~ | N~Voxel~ | L(nm) | Ca (nM)| Notes 
+----------+----------+-------+--------+-------
+18        | 18       | 10    | 5.6    | 
+18        |  9       | 20    | 12     |      
+
+
+# Results
+
+![N=9, D~x~=D~PP1~ for all simulation](./26874c44691a5eb43bc51865aa026724.png)
