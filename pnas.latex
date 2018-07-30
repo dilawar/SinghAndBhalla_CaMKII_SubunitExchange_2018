@@ -1,0 +1,117 @@
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[$pnasoption$]{pnas-new}
+\templatetype{pnasresearcharticle} 
+\usepackage[T1]{fontenc}
+\usepackage[]{url}
+\hypersetup{draft}
+\usepackage{tabularx}
+\usepackage{supertabular,booktabs}
+\usepackage{amssymb,amsmath}
+\usepackage{chemfig}
+\usepackage{pgfplots}
+\usepackage{standalone}
+\usetikzlibrary{calc,positioning}
+\usepackage{import}
+\usepackage{todonotes}
+\usepackage[small,euler-digits]{eulervm}
+
+\usepackage{graphicx}
+% Redefine \includegraphics so that, unless explicit options are
+% given, the image width will not exceed the width of the page.
+% Images get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\ScaleIfNeeded{%
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+{%
+ \catcode`\@=11\relax%
+ \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}%
+}%
+
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+
+% Please include corresponding author, author contribution and author declaration information
+\authorcontributions{ } 
+\authordeclaration{The authors declare no conflict of interest.}
+\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: bhalla@ncbs.res.in}
+\dates{This manuscript was compiled on \today}
+\doi{\url{www.pnas.org/cgi/doi/10.1073/pnas.XXXXXXXXXX}}
+
+\title{$title$}
+$for(author)$
+\author[]{$author$}
+$endfor$
+
+$for(institute)$
+\affil[]{$institute$}
+$endfor$
+
+\date{$date$}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% alternative row
+\rowcolors{1}{gray!20}{white}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{abstract}
+$abstract$
+\end{abstract}
+
+% Please add here a significance statement to explain the relevance of your work
+\significancestatement{ $significantstatement$ }
+
+\begin{document}
+\maketitle
+
+\thispagestyle{firststyle}
+\ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$body$
+
+%%$if(natbib)$
+%%$if(biblio-files)$
+%%$if(biblio-title)$
+%%$if(book-class)$
+%%\renewcommand\bibname{$biblio-title$}
+%%$else$
+%%\renewcommand\refname{$biblio-title$}
+%%$endif$
+%%$endif$
+%%\bibliography{$biblio-files$}
+%%
+%%$endif$
+%%$endif$
+%%$if(biblatex)$
+%%\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+\printbibliography
+
+$endif$
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}
