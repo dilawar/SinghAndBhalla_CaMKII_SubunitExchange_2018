@@ -1,0 +1,283 @@
+\documentclass[]{article}
+\usepackage[]{libertine}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdftitle={Effect of Subunit Exchange on the Bistability of Small CaMKII/PP1 Switch},
+            pdfauthor={Dilawar Singh},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[right=5cm, marginparwidth=4cm]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{pgfplots,siunitx}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\scriptsize}
+\usepackage{subfig}
+\AtBeginDocument{%
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
+}
+\AtBeginDocument{%
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+}
+\usepackage{float}
+\floatstyle{ruled}
+\makeatletter
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\makeatother
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+
+\title{Effect of Subunit Exchange on the Bistability of Small CaMKII/PP1 Switch}
+\author{Dilawar Singh}
+\providecommand{\institute}[1]{}
+\institute{NCBS Bangalore}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Results}\label{results}
+
+\subsection{Subunit exchange does not change the residence time of
+active state}\label{sec:res1}
+
+We do not see any significant effect of subunit exchange on residence
+time. The blue and red curve representing switch with subunit-exchange
+and without subunit exchange respectively are more or less same.
+
+Also see secs.~\ref{sec:va}, \ref{sec:vb}, \ref{sec:vc}.
+
+---------------------------------------------\textbar{}------------------------------------
+\includegraphics[width=8.00000cm]{./figure_camkii12_voxel1.pdf}
+\textbar{}
+\includegraphics[width=8.00000cm]{./figure_camkii12_voxel2.pdf}
+CaMKII=12, Voxel=1 \textbar{} CaMKII=12, Voxels=2
+
+\subsection{As the number of voxels increases, the switching rate
+increases.}\label{as-the-number-of-voxels-increases-the-switching-rate-increases.}
+
+Though the residence does not change with subunit exchange, we see an
+increases in number of switching. See 2 subplot of figure in
+sec.~\ref{sec:res1}. The number of transitions increases from 14 to 40.
+\textbf{This is not a property of subunit exchange but of number of
+voxels.} In other words, this is an indication of fact that multiple
+bistables kept together are likely to switch faster.
+
+\begin{figure}
+\centering
+\includegraphics{./figure_transition_rate_vs_voxels.pdf}
+\caption{}
+\end{figure}
+
+\newpage 
+
+\hypertarget{sec:experiment}{\section{Experiment}\label{sec:experiment}}
+
+We compute following two parameters to measure the bistability of
+switch.
+
+\begin{itemize}
+\tightlist
+\item
+  Number of \texttt{OFF} to \texttt{ON} (or \texttt{ON} to \texttt{OFF})
+  transitions in time-series.
+\item
+  Time spent in \texttt{ON} state.
+\end{itemize}
+
+For various values of CaMKII rings and PP1 molecules in system, we run
+the simulations for two situations\textgreater{}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  When no subunit exchange is enabled.
+\item
+  When subunit exchange is enabled.
+\end{enumerate}
+
+\subsection{Simulation structure}\label{simulation-structure}
+
+Following bash script fragment shows the structure of this simulation.
+An equivalent of this is implemented in CMake.
+\marginpar{\scriptsize Some parameters are not shown}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\VariableTok{DIFF_CONST=}\NormalTok{1e-13}
+\KeywordTok{for} \ExtensionTok{ENABLE_DIFF}\NormalTok{ in ON OFF}\KeywordTok{;} \KeywordTok{do}
+    \KeywordTok{for} \ExtensionTok{CAMKII}\NormalTok{ in 8 12}\KeywordTok{;} \KeywordTok{do}
+        \KeywordTok{for} \ExtensionTok{pp1}\NormalTok{ in }\VariableTok{$(}\FunctionTok{seq}\NormalTok{ 30 2 50}\VariableTok{)}\KeywordTok{;} \KeywordTok{do}
+            \KeywordTok{for} \ExtensionTok{voxel}\NormalTok{ in 1 2 3}\KeywordTok{;} \KeywordTok{do}
+                \ExtensionTok{python}\NormalTok{ camkii_pp1_scheme.py --camkii }\VariableTok{$\{CAMKII\}}\NormalTok{ --pp1 }\VariableTok{$\{pp1\}}\NormalTok{ \textbackslash{}}
+\NormalTok{                    --nvoxels }\VariableTok{$\{voxel\}}\NormalTok{ \textbackslash{}}
+\NormalTok{                    --diff-dict }\StringTok{"\{ 'x' : }\VariableTok{$\{DIFF_CONST\}}\StringTok{, 'y' : }\VariableTok{$\{DIFF_CONST\}}\StringTok{ \}"}
+                    \ExtensionTok{--enabled-diffusion}\NormalTok{=}\VariableTok{$\{ENABLE_DIFF\}}
+            \KeywordTok{done}
+        \KeywordTok{done}
+    \KeywordTok{done}
+\KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Data Analysis}\label{data-analysis}
+
+Raw data from each simulation is analyzed to get parameters discussed in
+section \protect\hyperlink{sec:experiment}{Experiment}.
+
+\subsection{With 1 voxel}\label{sec:va}
+
+When only 1 voxel is used, diffusion has no effect, no matter what value
+of diffusion coefficient is used. This is because diffusion is
+implemented as cross-voxel reactions. The subunits are released and
+picked up but they do not diffusion between voxels.
+
+We see almost same behaviour in both cases \emph{though number of
+transitions seems to be increasing at larger value of PP1}. At large
+value of PP1, the switch is hardly spending any time in \texttt{ON}
+state.
+
+\marginpar{\scriptsize At PP1=40, number of transitions are higher when subunit
+exchange is enabled.}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\includegraphics[width=8.00000cm]{./figure_camkii8_voxel1.pdf} &
+\includegraphics[width=8.00000cm]{./figure_camkii12_voxel1.pdf}\tabularnewline
+CaMKII=8, Voxels=1 & CaMKII=12, Voxels=1\tabularnewline
+\bottomrule
+\end{longtable}
+
+In this case, two voxels were created and diffusion was setup up with
+diffusion coefficient of \SI{1e-13}{\meter ^2 \per \second}
+
+\subsection{With 2 voxels}\label{sec:vb}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\includegraphics[width=8.00000cm]{./figure_camkii8_voxel2.pdf} &
+\includegraphics[width=8.00000cm]{./figure_camkii12_voxel2.pdf}\tabularnewline
+CaMKII=8, Voxels=2 & CaMKII=12, Voxels=2\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{With 3 voxels}\label{sec:vc}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\includegraphics[width=8.00000cm]{./figure_camkii8_voxel3.pdf} &
+\includegraphics[width=8.00000cm]{./figure_camkii12_voxel3.pdf}\tabularnewline
+CaMKII=8, Voxels=3 & CaMKII=12, Voxels=3\tabularnewline
+\bottomrule
+\end{longtable}
+
+\newpage
+
+\section{Appendix}\label{appendix}
+
+\begin{figure}
+\centering
+\includegraphics{./figure_sample_trajectories.pdf}
+\caption{Sample trajectories. One from each case. When number of voxels
+are increased, switching activity increases.}\label{fig:sample_trajs}
+\end{figure}
+
+\end{document}

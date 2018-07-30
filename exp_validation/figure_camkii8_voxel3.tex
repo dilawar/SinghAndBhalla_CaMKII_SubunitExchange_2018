@@ -1,0 +1,38 @@
+\RequirePackage{luatex85}
+\documentclass[crop,tikz]{standalone}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\usepackage[default]{opensans}
+\begin{document}
+
+\pgfplotsset{every axis plot/.style={thick,mark=*}}
+% \pgfplotsset{every axis/.style={axis x line=bottom}}
+% \pgfplotsset{every axis legend/.style={at={(0.5,1.1)}} }
+
+\edef\suFILE{./_data_camkii8_voxel3_su.dat}
+\edef\wsuFILE{./_data_camkii8_voxel3_wsu.dat}
+
+\begin{tikzpicture}[scale=1
+        , every error bar/.style={thick}
+    ]
+    \begin{groupplot}[ group style={columns=1,rows=2,xlabels at=edge bottom}
+            , legend style={draw=none,fill=none,font=\tiny}
+            , width=10cm, height=5cm
+            , xlabel = Number of PP1 ]
+        \nextgroupplot[ ylabel = Time spent in {\tt ON} state ]
+        \addplot+ [ error bars/.cd, y dir=both,y explicit ] 
+            table[ x=tON_PP1, y=tON, y error = tONErr ] {\suFILE};
+        \addplot+ [ error bars/.cd, y dir=both,y explicit ] 
+            table [ x=tON_PP1, y=tON, y error = tONErr ] {\wsuFILE};
+        \legend{With SU, Without SU}
+
+        \nextgroupplot [ ylabel = Number of transitions ]
+        \addplot+ [ error bars/.cd, y dir=both,y explicit ] 
+            table[ x=trans_PP1, y=trans, y error = transErr ] {\suFILE};
+        \addplot+ [ error bars/.cd, y dir=both,y explicit ] 
+            table [ x=trans_PP1, y=trans, y error = transErr ] {\wsuFILE};
+        \legend{With SU, Without SU}
+    \end{groupplot}
+\end{tikzpicture}
+
+\end{document}

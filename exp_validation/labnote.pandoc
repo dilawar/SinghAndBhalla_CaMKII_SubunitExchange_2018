@@ -1,0 +1,131 @@
+---
+title: Effect of Subunit Exchange on the Bistability of Small CaMKII/PP1 Switch 
+author: Dilawar Singh
+institute: NCBS Bangalore
+email: dilawars@ncbs.res.in
+geometry: right=5cm, marginparwidth=4cm
+date : \today 
+fontfamily: libertine
+header-includes:
+    - \usepackage{pgfplots,siunitx}
+---
+
+\renewcommand\footnote{\marginpar}
+
+# Results
+
+## Subunit exchange does not change the residence time of active state {#sec:res1}
+
+We do not see any significant effect of subunit exchange on residence time.
+The blue and red curve representing switch with subunit-exchange and without subunit 
+exchange respectively are more or less same. 
+
+Also see [@sec:va; @sec:vb; @sec:vc].
+
+--------------------------------------------   ----------------------------------------------
+![](./figure_camkii12_voxel1.pdf){width=8cm}   ![](./figure_camkii12_voxel2.pdf){width=8cm}
+CaMKII=12, Voxel=1                             CaMKII=12, Voxels=2
+--------------------------------------------   ----------------------------------------------
+
+## As the number of voxels increases, the switching rate increases.
+
+Though the residence does not change with subunit exchange, we see an increases in number
+of switching. See 2 subplot of figure in @sec:res1. The number of transitions increases from 14 
+to 40. __This is not a property of subunit exchange but of number of voxels.__ In other words,
+this is an indication of fact that multiple bistables kept together are likely to switch
+faster.
+
+
+![As the number of voxels increases, number of transitions increases. Note that 
+    subunit-exchange does not have any effect on this. 
+](./figure_transition_rate_vs_voxels.pdf){width=\linewidth} 
+
+
+\newpage 
+
+# Experiment {#sec:experiment}
+
+We compute following two parameters to measure the bistability of switch.
+
+- Number of `OFF` to `ON` (or `ON` to `OFF`) transitions in time-series.
+- Time spent in `ON` state.
+
+
+For various values of CaMKII rings and PP1 molecules in system, we run the
+simulations for two situations>
+
+1. When no subunit exchange is enabled.
+2. When subunit exchange is enabled.
+
+## Simulation structure
+
+Following bash script fragment shows the structure of this simulation. An equivalent of this is 
+implemented in CMake. ^[\scriptsize Some parameters are not shown]
+
+~~~{ .bash }
+DIFF_CONST=1e-13
+for ENABLE_DIFF in ON OFF; do
+    for CAMKII in 8 12; do
+        for pp1 in $(seq 30 2 50); do
+            for voxel in 1 2 3; do
+                python camkii_pp1_scheme.py --camkii ${CAMKII} --pp1 ${pp1} \
+                    --nvoxels ${voxel} \
+                    --diff-dict "{ 'x' : ${DIFF_CONST}, 'y' : ${DIFF_CONST} }"
+                    --enabled-diffusion=${ENABLE_DIFF}
+            done
+        done
+    done
+done
+~~~
+
+## Data Analysis
+
+Raw data from each simulation is analyzed to get parameters discussed in
+section [Experiment](#sec:experiment).
+
+## With 1 voxel {#sec:va}
+
+When only 1 voxel is used, diffusion has no effect, no matter what value of
+diffusion coefficient is used. This is because diffusion is implemented as
+cross-voxel reactions.  The subunits are released and picked up but they do not
+diffusion between voxels.
+
+We see almost same behaviour in both cases _though number of transitions seems
+to be increasing at larger value of PP1_. At large value of PP1, the switch is
+hardly spending any time in `ON` state.
+
+^[\scriptsize At PP1=40, number of transitions are higher when subunit
+exchange is enabled.]
+
+--------------------------------------------------    ---------------------------------- 
+![](./figure_camkii8_voxel1.pdf){#fig:f81 width=8cm}  ![](./figure_camkii12_voxel1.pdf){#fig:f121 width=8cm}
+CaMKII=8, Voxels=1                                    CaMKII=12, Voxels=1
+---------------------------------------------------   ----------------------------------- 
+
+In this case, two voxels were created and diffusion was setup up with diffusion
+coefficient of \SI{1e-13}{\meter ^2 \per \second}
+
+## With 2 voxels {#sec:vb}
+
+--------------------------------------------   ----------------------------------- 
+![](./figure_camkii8_voxel2.pdf){width=8cm}    ![](./figure_camkii12_voxel2.pdf){width=8cm}
+CaMKII=8, Voxels=2                             CaMKII=12, Voxels=2
+--------------------------------------------   ----------------------------------- 
+
+
+## With 3 voxels {#sec:vc}
+
+
+------------------------------------------   ----------------------------------------
+![](./figure_camkii8_voxel3.pdf){width=8cm}  ![](./figure_camkii12_voxel3.pdf){width=8cm}
+CaMKII=8, Voxels=3                           CaMKII=12, Voxels=3
+------------------------------------------   -----------------------------------------
+
+
+\newpage
+
+# Appendix
+
+![Sample trajectories. One from each case. When number of voxels are increased,
+switching activity increases.](./figure_sample_trajectories.pdf){#fig:sample_trajs }
+
