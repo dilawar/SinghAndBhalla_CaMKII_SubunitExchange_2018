@@ -41,8 +41,8 @@ where in paper (sorry, they are not numbered in the same way as they appear in p
 Data used in paper is stored in variour folders. These folder has prefix `exp_`. See `README.md` file
 in each folder on how to run the model and generate the data. We only include the data when it is small.
 
-# Main repository 
+# Main repository
 
-The detailed repository with daily logs is available [https://bitbucket.org/dilawar/camkii-pp1-system](on bitbucket)
-which is huge. This repository is a slim version of this and organized in different way.
+This repository is a slimmed version of https://bitbucket.org/dilawar/camkii-pp1-system 
+which is huge. This repository contains history of work and somewhat unorgranized.
 
