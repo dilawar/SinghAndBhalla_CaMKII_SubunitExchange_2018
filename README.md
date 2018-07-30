@@ -1,3 +1,5 @@
+# Subunit exchange enhances information retention by CaMKII in dendritic spines
+
 This repository contains CaMKII model from the following paper
 
 **Subunit exchange enhances information retention by CaMKII in dendritic
