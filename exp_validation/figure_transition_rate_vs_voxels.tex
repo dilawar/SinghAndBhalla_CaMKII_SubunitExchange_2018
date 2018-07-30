@@ -1,0 +1,59 @@
+\RequirePackage{luatex85}
+\documentclass[preview,multi=false]{standalone}
+\usepackage{pgfplots}
+\usepackage[]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+
+% Compute the number of transitions vs voxels. 
+
+
+\edef\fileAA{./_data_camkii12_voxel1_su.dat}
+\edef\fileAB{./_data_camkii12_voxel2_su.dat}
+\edef\fileAC{./_data_camkii12_voxel3_su.dat}
+
+\edef\fileBA{./_data_camkii12_voxel1_wsu.dat}
+\edef\fileBB{./_data_camkii12_voxel2_wsu.dat}
+\edef\fileBC{./_data_camkii12_voxel3_wsu.dat}
+    
+\edef\height{6cm}
+\edef\width{8cm}
+
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel=Number of PP1, ylabel=\#Transitions in 200 days
+            , grid style={draw=gray!20} 
+            , title=With subunit exchange
+            , width = \width
+            , height = \height
+            , legend pos=outer north east
+            , legend style={draw=none}
+        ]
+        \addplot+ [ error bars/.cd, y dir = both, y explicit] 
+            table [x=trans_PP1, y=trans, y error=transErr] {"\fileAA"};
+        \addplot+ [ error bars/.cd, y dir = both, y explicit] 
+            table [x=trans_PP1, y=trans, y error=transErr] {"\fileAB"};
+        \addplot+ [ error bars/.cd, y dir = both, y explicit] 
+            table [x=trans_PP1, y=trans, y error=transErr] {"\fileAC"};
+        \legend{Voxel=1,Voxel=2,Voxel=3};
+    \end{axis}
+\end{tikzpicture} %
+\begin{tikzpicture}[scale=1]
+    \begin{axis}[ xlabel=Number of PP1, ylabel=\#Transitions in 200 days
+            , grid style={draw=gray!20} 
+            , title = Without Subunit Exchange
+            , height = \height
+            , width = \width
+            , legend pos=outer north east
+            , legend style={draw=none}
+        ]
+        \addplot+ [ error bars/.cd, y dir = both, y explicit] 
+            table [x=trans_PP1, y=trans, y error=transErr] {"\fileBA"};
+        \addplot+ [ error bars/.cd, y dir = both, y explicit] 
+            table [x=trans_PP1, y=trans, y error=transErr] {"\fileBB"};
+        \addplot+ [ error bars/.cd, y dir = both, y explicit] 
+            table [x=trans_PP1, y=trans, y error=transErr] {"\fileBC"};
+        \legend{Voxel=1,Voxel=2,Voxel=3};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}
