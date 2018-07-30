@@ -1,0 +1,5 @@
+pymoose
+numpy
+pandas
+scipy
+networkx
