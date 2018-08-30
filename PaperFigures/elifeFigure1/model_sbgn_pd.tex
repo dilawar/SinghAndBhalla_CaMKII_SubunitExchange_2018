@@ -1,0 +1,94 @@
+% This is summary of CaMKII-PP1 pathway in SBGN-PD language.  %
+\RequirePackage{luatex85}
+\documentclass[crop,class=../elife]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{layered}
+\usepackage{pgfplots}
+\usepackage{sbgn}
+
+\renewcommand\familydefault{\sfdefault}
+\usetikzlibrary{calc,positioning}
+
+\begin{document}
+\begin{tikzpicture}[ scale=1, node distance=1 cm]
+    \large
+    \def\xdist{1.5cm}
+    \def\ydist{1cm}
+
+    \coordinate (origin) at (0,0);
+
+    \SimpleMol{ca}{[below of=origin]}{Ca}
+    \MacroMol{cam}{[right=of ca]}{CaM}{}
+    \Process{caCaMBinding}{[below=of $(ca)!0.5!(cam)$]}{};
+
+    \MacroMol{actCAM}{[below=of caCaMBinding]}{CaM*}{}
+
+    % This area belongs to activation of CaMKII.
+    \def\nodeShift{15mm}
+    \MacroMol{camkiiPartial}{[below=of actCAM]}{CaMKII}{2P}
+    \MacroMol{camkiiInactive}{[xshift=-\nodeShift,left=of camkiiPartial]}{CaMKII}{}
+    \MacroMol{camkiiFull}{[xshift=\nodeShift,right=of camkiiPartial]}{CaMKII}{6P}
+
+    \ProcessArrowWithShift{slowact}{camkiiInactive.east}{camkiiPartial.west}{2mm}
+    \ProcessArrowWithShift{fastact}{camkiiPartial.east}{camkiiFull.west}{2mm}
+
+    \ProcessArrowWithShift{dephospho1}{camkiiPartial.west}{camkiiInactive.east}{-2mm}
+    \ProcessArrowWithShift{dephospho2}{camkiiFull.west}{camkiiPartial.east}{-2mm}
+
+
+    % Ca+CaM binding.
+    \draw (ca) -- (caCaMBinding);
+    \draw (cam) -- (caCaMBinding);
+    \draw[output] (caCaMBinding) -- (actCAM);
+
+    \draw[required stimulus] (actCAM) -- (slowact);
+    \draw[stimulus] (actCAM) -- (fastact);
+
+    \draw[catalyst] (camkiiPartial.north) to[bend right,in=90,out=75] (fastact);
+
+    % dephosphorylation.
+    \MacroMol{pp1}{[yshift=-2*\ydist,below=of fastact]}{PP1}{}
+
+    \Connect{pp1_camkii6}{required stimulus}{pp1}{dephospho2}
+    %\Connect{pp1_camkii1}{required stimulus}{pp1_camkii6}{dephospho1}
+    \draw[required stimulus] (pp1_camkii6) -| (dephospho1);
+
+    % I1 and I1P.
+    \Process{procI1PP1Cplx}{[yshift=-0.5*\ydist,below=of pp1]}{ }
+    \MacroMol{i1p}{[xshift=-\xdist,left=of procI1PP1Cplx]}{I1}{P};
+    \Process{procI1Phospho}{[xshift=-0.5*\xdist,left=of i1p]}{}
+    \MacroMol{i1}{[xshift=-0.5*\xdist,left=of procI1Phospho]}{I1}{};
+    \MacroMol{pka}{[yshift=1.5*\ydist,above of=i1]}{PKA}{}
+
+    \draw (i1) -- (procI1Phospho);
+    \Connect{i1phospo}{output}{procI1Phospho}{i1p}
+
+    \Connect{wirePkaI1Phospho}{catalyst}{pka}{procI1Phospho}
+
+    % Make complex of I1P and PP1.
+    \MacroMol{pp1a}{[yshift=-2*\ydist,below=of pp1]}{PP1}{}
+    \MacroMol{i1pa}{[right=of pp1a]}{I1}{P}
+    \ComplexTwo{cplxI1PP1}{pp1a}{i1pa}{}
+
+    \Connect{wireI1}{}{i1p}{procI1PP1Cplx}
+    \Connect{wirePP1}{}{pp1}{procI1PP1Cplx}
+    \Connect{wireCplx}{output}{procI1PP1Cplx}{cplxI1PP1}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% Exchange of I1
+    \node[rectangle,thick,draw
+        ,minimum width=2cm,minimum height=1.5cm,label=-90:Cytosol] 
+        (cytosol) [yshift=-\ydist,below=of i1] {};
+
+    \MacroMol{i1Cyt}{at (cytosol)}{I1}{}
+
+    \Process{procExchange}{[yshift=-0.5*\ydist,below=of i1]}{ }
+    \Connect{x1}{ }{i1Cyt}{procExchange}
+    \Connect{x2}{output}{procExchange}{i1}
+
+
+
+\end{tikzpicture}    
+
+\end{document}
