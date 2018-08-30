@@ -146,7 +146,6 @@ results from our model without diffusion and without subunit exchange with the
 \gls{mz} model (\FIG{validation}).
 
 \begin{figure}[t]%[hbt] 
-    \centering
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure1/figure_validation_178mm.pdf}
     \caption{Model description and validation. \textbf{(A)} CaMKII/PP1
         pathway described in \gls{sbgn} - Process Description (PD) Language \citep{novere_systems_2009}. 
@@ -167,9 +166,9 @@ results from our model without diffusion and without subunit exchange with the
         with number of \gls{camkii} holoenzymes (\SUB{N}{CaMKII}). Turnover
         rate \SUB{v}{t}=\SI{30}{\per \hour}. Panels \textbf{(C, D, E)} show key
         properties of our model that are very similar to those of the \gls{mz} 
-    model.}\label{fig:validation}
-    \figdata{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/raw/master/PaperFigures/elifeFigure1}
-    }
+    model.}\label{fig:validation} i
+    \figdata{Source and data is available at
+    \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure1}}
 \end{figure}
 
 Our model exhibited all the key properties of the \gls{mz} model: 1. CaMKII/PP1
@@ -212,6 +211,8 @@ to \gls{pp1} and to protein turnover}\label{subsec:result_tolerance}
         time becomes constant and independent of \SUB{N}{PP1} (blue vs red). 
         Shaded area represents standard deviation.
     }\label{fig:tolerance_pp1}
+    \figdata{Source and data is available at
+    \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure2}}
 \end{figure}
 % \end{wrapfigure}
 
@@ -274,6 +275,8 @@ in the regime of bistability in both cases.
         the bistable regime (solid lines), the number of switching events increases roughly
         linearly with turnover rate.
     }\label{fig:turnover}
+    \figdata{Source and data is available at
+    \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure3}}
 \end{figure}
 
 Thus, subunit exchange increases the range of \SUB{N}{PP1} and turnover rate 
@@ -407,6 +410,8 @@ scale but does not influence its long time activity.
         of cross-voxel jump reactions to approximate diffusion. 
 }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
 \label{figsupp:diffusion_reduces_pp1_potency}
+\figdata{Source and data is available at
+\url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure4}}
 \end{figure}
 
 
@@ -439,6 +444,8 @@ scale but does not influence its long time activity.
         \SI{100}{\nano\meter}. \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}
         for all simulations. 
     }\label{fig:sync_spread}
+\figdata{Source and data is available at
+\url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure5}}
 \end{figure}
 
 Next we probed the effect of subunit exchange between spatially separated
@@ -496,7 +503,6 @@ decreased by an order of magnitude when subunit exchange was enabled
 
 % This figure is one column.
 \begin{figure}%[t]%[tbh]
-    \centering
     \includegraphics[]{PaperFigures/elifeFigure6/figure_two_timecourses_87mm.pdf}
     \caption{CaMKII acts as an integrator of calcium activity in spine cytosol.
         Due to subunit exchange, \gls{camkii} decayed with much larger
@@ -519,6 +525,8 @@ decreased by an order of magnitude when subunit exchange was enabled
         fast and slow timescales are much higher, the ratio of fast and slow time-courses
         matches well with experimental data \citep{chang_camkii_2017}.
     }\label{fig:cytosol_integrator}
+\figdata{Source and data is available at
+\url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure6}}
 \end{figure}
 
 We expected subunit exchange to have a strong effect on the decay activity of 
@@ -622,7 +630,7 @@ respectively. We ignore all rotational permutations and kinetically unlikely
 cases where there are discontiguous phosphorylated subunits in the ring. We
 assumed that the phosphorylation of neighbouring subunit proceeds clockwise.
 
-\subsubsection{Phosphorylation and dephosphorylation of \gls{camkii} ring}\label{phosphorylation-and-dephosphorylation-of-ring} 
+\subsection{Phosphorylation and dephosphorylation of \gls{camkii} ring}\label{phosphorylation-and-dephosphorylation-of-ring} 
 
 The activation of \gls{camkii} follows the same dynamics as in \gls{mz} model
 (\EQ{phospho}).  The first step in \gls{camkii} activation requires
@@ -657,7 +665,7 @@ as coupled mass-action chemical reactions.
 et al. \citep{miller_stability_2005}, we assumed $k^-=0$. This gave us
 $k^+=\frac{k_2}{k_M}=\SI{1}{\per\micro M\per\second}$.
 
-\subsubsection{Subunit exchange}\label{subunit exchange}
+\subsection{Subunit exchange}\label{subunit exchange}
 Since \gls{camkii} ring consists of either 6 or 7 subunits exists in our model,
 any ring with 6 subunits cannot lose a subunit, and a ring with 7 subunits cannot
 gain a subunit. The reactions which result in either gain or lose of a
@@ -682,21 +690,21 @@ i.e., active holoenzymes may lose subunits faster. Therefore, we maintained the
 following ratio \(k_x^- = 10 k_x^+ N_{\text{CaMKII}}\) and \(k_y^- = 10 k_y^+
 N_{\text{CaMKII}}\) in all simulations.
 
-\subsubsection{\gls{pp1} deactivation}\label{subsubsec:pp1_deactivation} In the
-\gls{psd}, \gls{pp1} is the primary -- and perhaps only -- phosphatase known to
+\subsection{\gls{pp1} deactivation}\label{subsec:pp1_deactivation} 
+In the \gls{psd}, \gls{pp1} is the primary -- and perhaps only -- phosphatase known to
 dephosphorylate \gls{camkii}\citep{strack_translocation_1997}.  We followed
 \gls{mz} model for \EQ{i1pandpp1} where $I1$ is \gls{i1} which inactivates
 \gls{pp1} (See SI for more details). \Gls{i1p} renders \gls{pp1} inactive by
 forming \gls{i1ppp1}. 
 \begin{equation}\label{eq:i1pandpp1}
     \begin{gathered}
-        \text{PP1} + \text{I1P} \xrightleftharpoons[k_4]{k_3} \text{I1P.PP1},\;
+        \text{PP1} + \text{I1P} \xrightleftharpoons[k_4]{k_3} \text{I1P.PP1} \\
         \text{I1P} = \text{I1} \frac{v_{PKA}}{v_{CaN}} 
             \frac{1+\left(\frac{Ca}{k_{H2}}\right)^3}{\left(\frac{Ca}{k_{H2}}\right)^3}
     \end{gathered}
 \end{equation}
 
-\subsubsection{Turnover}\label{turnover}
+\subsection{Turnover}\label{turnover}
 The turnover of \gls{camkii} is a continuous process with rate
 $v_{t}$ \si{\per\second} \EQ{turnover}.
 \begin{equation} \label{eq:turnover}
@@ -706,7 +714,7 @@ $v_{t}$ \si{\per\second} \EQ{turnover}.
     \end{gathered}
 \end{equation}
 
-\subsubsection{Diffusion and simulation method}\label{subsec:simulator}
+\subsection{Diffusion and simulation method}\label{subsec:simulator}
 Diffusion is implemented as cross voxel ``jump'' reaction. Diffusion of a
 species X with diffusion-coefficient \SUB{D}{X} between voxel A and B separated
 by distance $h$ is modelled by reaction $X_A \xrightleftharpoons[k]{k} X_B$
@@ -858,8 +866,7 @@ This system is completely described by following reactions.
 
 \begin{center}
 \includegraphics[width=0.8\linewidth]{./PaperFigures/suppl/figure_diff.pdf}
-\captionof{figure}{To implement diffusion, we discretise the arena and replicate
-the chemical system.}
+\captionof{figure}{Summary of the stochastic reaction diffusion method employed.}
 \end{center}
 
 Where $k_D^A=\frac{D_A}{h^2}$ and $k_D^B=\frac{D_B}{h^2}$ and
