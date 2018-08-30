@@ -1,0 +1,197 @@
+% ===================================================================================
+%     Description:  Effect of subunit-exchange on effect of turnover rate.
+% 
+%          Author:  Dilawar Singh (), dilawars@ncbs.res.in
+%    Organization:  NCBS Bangalore
+%       Copyright:  Copyright (c) 2018, Dilawar Singh
+% 
+%           Notes:  
+% 
+% ===================================================================================
+
+\RequirePackage{luatex85,shellesc}
+\documentclass[10pt,multi=false,varwidth=114mm,class=../elife,crop=true]{standalone}
+\usepackage{pgfplots}
+\usepackage{grffile}
+\usepackage{ifthen}
+\pgfplotsset{compat=1.15}
+\usepackage{tabularx}
+\usepackage{array}
+\renewcommand\familydefault{\sfdefault}
+\usepgfplotslibrary{units}
+\usetikzlibrary{calc,positioning}
+\usepackage{siunitx}
+\pgfplotsset{
+    , xtick align=center
+    , ytick align=center
+    , unit markings=parenthesis
+    , legend style={fill=none, draw=none,font=\scriptsize}
+    , tick label style={font=\footnotesize}
+    , every axis label/.append style={font=\footnotesize}
+    , ylabel near ticks
+}
+
+
+% Shorten line in legend.
+% FROM: https://tex.stackexchange.com/a/210259/8087
+\pgfplotsset{
+   compat=1.15,
+   legend image code/.code={
+      \draw[mark repeat=2,mark phase=2]
+           plot coordinates {
+           (0cm,0cm)
+           (0.2cm,0cm)         %% default is (0.3cm,0cm)
+           (0.4cm,0cm)         %% default is (0.6cm,0cm)
+       };%
+    }
+}
+
+\begin{document}
+
+\pgfmathsetmacro{\figW}{11.4}
+\pgfmathsetmacro{\colW}{\figW/2}
+\pgfmathsetmacro{\plotW}{\colW}
+\pgfmathsetmacro{\plotH}{2.3}
+
+\pgfplotsset{ 
+    axis lines=left
+    , title style={font=\small}
+    , axis line style={-}
+}
+\pgfplotsset{every axis/.append style={width=\plotW cm, height=\plotH cm,}}
+% \tikzset{node distance=15mm,inner sep=1pt}
+
+% \colW cm.
+\newcommand\PlotTraj[5]{ % name, location, vt, su, extra
+    \ifthenelse{\equal{#4}{ON}}{\edef\COLOR{blue}}{\edef\COLOR{red}}
+
+    \begin{axis}[name=#1, at={(#2)}
+        , anchor = north
+        , height=\plotH cm, yshift=-5mm
+        , ymax = 1, ytick={0,1}
+        , enlarge y limits={abs=0.1}
+        , enlarge x limits={abs=3}
+        , xmin=10, xmax = 20
+        , x axis line style={draw=none}
+        , xtick = \empty
+        , legend style={at={(1,1)}, anchor=south east}
+        , title style={at={(0.5,1.2)}, anchor=south}
+        , #5
+        ]
+        \addplot [color=\COLOR] gnuplot [ raw gnuplot ] {
+            plot "./data_(turnover=#3,SU=#4).dat_processed.dat" 
+            using (column("time")/86400):(column("CaMKII*")/10) every 5;
+        };
+        \legend{${v_t}=1/#3 \si{\per \hour}$}
+    \end{axis}
+}
+
+\begin{tabularx}{\figW cm}{X X}
+    \begin{tikzpicture}[scale=1]
+        \PlotTraj{plota11}{(0,0)}{30}{OFF}{title={$-$SE}}
+        \PlotTraj{plota12}{plota11.south}{3}{OFF}{ }
+        \PlotTraj{plota13}{plota12.south}{0.5}{OFF}{
+            xlabel=Time, x unit=day, ylabel=CaMKII\textsuperscript{*}
+            , x axis line style={draw=black}
+            , xtick=
+        }
+        \node[above left=8mm of plota11.north west] {\bf A};
+    \end{tikzpicture} 
+    &
+    \begin{tikzpicture}
+        % second subplot 1st column, 2nd row.
+        \PlotTraj{plota11}{(0,0)}{30}{ON}{title={$+$SE}}
+        \PlotTraj{plota12}{plota11.south}{3}{ON}{ }
+        \PlotTraj{plota13}{plota12.south}{0.5}{ON}{
+            xlabel=Time, x unit=day, ylabel=CaMKII\textsuperscript{*}
+            , x axis line style={draw=black}
+            , xtick=
+        }
+        \node[above left=8mm of plota11.north west, xshift=0 mm] {\bf B};
+    \end{tikzpicture} 
+    \\
+    \begin{tikzpicture}[ ]
+        \edef\plotH{3.5}
+        % Another node just below of A. Effect of SE on turnover.
+        \begin{semilogxaxis}[name=plotb1
+                , xlabel=$v_t$, x unit=\si{\per \hour}
+                , ylabel={Time spent ({\tt ON})}
+                , ylabel style={align=center}
+                , width=0.95*\plotW cm, height=\plotH cm %, scale only axis
+                , legend style={font=\scriptsize, at={(0,1.05)}, anchor=south west}
+                , enlargelimits=true
+                , legend columns=2
+            ]
+            \addplot [blue, thick, mark=o, mark size=2pt] table 
+                [col sep=comma, x=x_ON, y=KramerON_ON] 
+                {./camkii6_data_effect_of_turnover.csv};
+            \addplot [blue, thick, mark=star, mark size=2pt] table 
+                [col sep=comma, x=x_ON, y=KramerON_ON] 
+                {./camkii12_data_effect_of_turnover.csv};
+            \addplot [red, thick, mark=o, mark size=2pt] table 
+                [col sep=comma, x=x_OFF, y=KramerON_OFF] 
+                {./camkii6_data_effect_of_turnover.csv};
+            \addplot [red, thick, mark=star, mark size=2pt] table 
+                [col sep=comma, x=x_OFF, y=KramerON_OFF] 
+                {./camkii12_data_effect_of_turnover.csv};
+            \legend{$N_{\text{CaMKII}}=6$ (+SE), $N_{\text{CaMKII}}=12$(+SE)
+                ,$N_{\text{CaMKII}}=6$ (-SE), $N_{\text{CaMKII}}=12$(-SE)}
+        \end{semilogxaxis}
+        \node[above left=8mm of plotb1.north west] {\bf C};
+        \begin{loglogaxis}[ name=plotb2
+                , at={(plotb1.south east)}, anchor=south west
+                , xshift=20mm
+                , xlabel=$v_t$, x unit=\si{\per \hour}
+                , ylabel={\# Transitions}
+                , ylabel style={align=center}
+                , width=0.95*\plotW cm, height=\plotH cm %, scale only axis
+                , legend style={font=\scriptsize, at={(1.1,1.05)}, anchor=south east}
+                , enlargelimits=true
+                , legend columns=1
+                , unbounded coords=jump
+            ]
+            % NOTE: Monday 09 July 2018 01:34:09 PM IST
+            % These curves also have non-bistable region in them. We need to
+            % prone them out to reduce the confusion. 
+            % Or only plot solid line in bistable regime. 
+
+            % This also have mono-stable regime.
+            \addplot [blue, thick, mark=o, mark size=2pt, ] 
+                table [ col sep=comma, x=x_ON, y=transitions_ON
+                , x expr={\thisrow{x_ON}<=2?\thisrow{x_ON}:nan}
+                ]{./camkii6_data_effect_of_turnover.csv};
+
+            \addplot [blue, mark=o, mark size=2pt, densely dotted] 
+                table [ col sep=comma, x=x_ON, y=transitions_ON
+                    , x expr={\thisrow{x_ON}>=2?\thisrow{x_ON}:nan}
+                ]{./camkii6_data_effect_of_turnover.csv};
+
+            \addplot [blue, thick, mark=star, mark size=2pt, ] table 
+                [col sep=comma, x=x_ON, y=transitions_ON] 
+                {./camkii12_data_effect_of_turnover.csv};
+
+            \addplot [red, thick, mark=o, mark size=2pt] table 
+                [col sep=comma, y=transitions_OFF
+                    , x expr={\thisrow{x_OFF}>0.2?nan:\thisrow{x_OFF}}
+                ]{./camkii6_data_effect_of_turnover.csv};
+            \addplot [red, thick, mark=star, mark size=2pt] table 
+                [col sep=comma, x=x_OFF, y=transitions_OFF
+                    , x expr={\thisrow{x_OFF}>0.2?nan:\thisrow{x_OFF}}
+                ] {./camkii12_data_effect_of_turnover.csv};
+
+            % Plot the rest of point with dotted thin line.
+            \addplot [red, mark=o, mark size=2pt, 
+                , densely dotted] table [col sep=comma, y=transitions_OFF
+                    , x expr={\thisrow{x_OFF}<0.2?nan:\thisrow{x_OFF}}
+                ]{./camkii6_data_effect_of_turnover.csv};
+            \addplot [red, mark=star, mark size=2pt, 
+                , densely dotted] table 
+                [col sep=comma, x=x_OFF, y=transitions_OFF
+                    , x expr={\thisrow{x_OFF}<0.2?nan:\thisrow{x_OFF}}
+                ]{./camkii12_data_effect_of_turnover.csv};
+        \end{loglogaxis}
+    \end{tikzpicture}
+\end{tabularx}
+
+\end{document}
+
