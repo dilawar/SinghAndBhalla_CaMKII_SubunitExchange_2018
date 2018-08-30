@@ -31,16 +31,13 @@ them are included in each folder for verification.
 
 ## Regenerating figures
 
-Install `cmake` and `gnuplot` along with `texlive-2017`. If you are lucky, following will regenerate
+Install `gnuplot` along with `texlive-2017`. If you are lucky, following will regenerate
 the figure:
 
     $ cd ./PaperFigures
-    $ cmake .
     $ make
     
-All figures generated in this folder are in `pdf` format. You have to search
-which figure is where in the paper (sorry, they are not numbered in the same way
-as they appear in paper).
+All figures will be generated in `pdf` format.
 
 # Generating raw data used in figures
 
