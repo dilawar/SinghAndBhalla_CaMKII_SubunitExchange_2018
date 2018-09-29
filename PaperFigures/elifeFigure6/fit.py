@@ -51,6 +51,12 @@ def split_and_normalize( tvec, vec, N = 7 ):
 def single_exp( t, tau, A ):
     return A * np.exp( - t / tau )
 
+def linear_fit( t, m, c):
+    return m * t + c
+
+def double_exp( t, tau1, tau2, a1, a2):
+    return a1*np.exp(-t/tau1) + a2*np.exp(-t/tau2)
+
 def find_midpoint( ys ):
     maxY = ys.max()
     for i, y in enumerate( ys ):
@@ -76,7 +82,7 @@ def main():
     seON = pd.read_csv('./CaM100_PP90000_voxels20_suON.dat_processed.dat', sep = ' ')
 
     gridSize = (3, 2)
-    plt.figure( figsize=(6,6) )
+    plt.figure( figsize=(8,8) )
     ax1 = plt.subplot2grid( gridSize, (0,0), colspan = 2 )
     ax2 = plt.subplot2grid( gridSize, (1,0), colspan = 1 )
     ax3 = plt.subplot2grid( gridSize, (1,1), colspan = 1 )
@@ -121,13 +127,21 @@ def main():
 
     ax2.set_title( 'Split at every 500 sec' )
 
-    # Fit curves.
+    # Average of two.
+    ax3.plot( t, np.average(avgY, axis=0, weights=[26, 74]) )
+    ax3.set_title( '76%% fast, 24%% slow' )
+
     ## With SE
     t, y, yerr, ax = ts[0], avgY[0], stdY[0], ax4
     tau0 = t[find_tau(y)]
     print( f"[INFO ] init t0={tau0}" )
     N = estimate_nonzero_part(y)
     assert N > 1, N
+
+    # draw the original one.
+    ax.plot(t, y, label = 'avg' )
+    ax.fill_between(t, y+yerr, y-yerr, alpha=0.3)
+
     popt, pcov = sco.curve_fit(
             lambda t, x: single_exp(t, x, y.max())
             , t[:N], y[:N]
@@ -136,11 +150,25 @@ def main():
             , absolute_sigma=True
             #  , method = 'trf'
             )
-    ax.plot( t, single_exp(t, *popt, y.max()), label = label)
-    ax.fill_between(t, y+yerr, y-yerr, alpha=0.3)
-    ax.plot(t, y, lw=2, label = r'$e^{-t/%.3f}$' % popt)
+    # exponential fit.
+    ax.plot(t, single_exp(t, *popt, y.max()), lw=2, label = r'$e^{-t/%.3f}$' % popt)
+
+    ## Without SE | liner fit.
+    #popt, pcor = sco.curve_fit( linear_fit, t[:N], y[:N] )
+    #ax.plot( t, linear_fit(t, *popt), label = r'%.3ft+%.4f' % tuple(popt))
+    #Linear fit is not good.
+
+    ### Double exp fit.
+    ##popt, pcov = sco.curve_fit(
+    ##        double_exp
+    ##        , t[:N], y[:N]
+    ##        , sigma=yerr[:N]+1e-20
+    ##        , absolute_sigma=True
+    ##        #  , method = 'trf'
+    ##        )
+    ##print( 'Double exp ', popt )
+    ##ax.plot(t, double_exp(t, *popt), lw=2, label='Double Exp')
     ax.legend()
-    print( popt )
 
     ## Without SE
     t, y, yerr, ax = ts[1], avgY[1], stdY[1], ax5
@@ -152,14 +180,10 @@ def main():
             lambda t, x: single_exp(t, x, y.max())
             , t[:N], y[:N]
             , p0 = [tau0]
-            #  , sigma=yerr[:N]
-            #  , absolute_sigma=True
-            #  , method = 'trf'
             )
     ax.plot( t, single_exp(t, *popt, y.max()), label = label)
-    #  ax.errorbar( t, y, yerr=yerr, alpha=0.5)
     ax.fill_between(t, y+yerr, y-yerr, alpha=0.3)
-    ax.plot(t, y, lw=2, label = r'$e^{-t/%.3f}$' % popt)
+    ax.plot(t, y, label = r'$e^{-t/%.3f}$' % popt)
     ax.legend()
 
     # Add fitted curves.
