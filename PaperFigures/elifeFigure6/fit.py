@@ -14,10 +14,18 @@ __status__           = "Development"
 
 import sys
 import os
-import matplotlib.pyplot as plt
 import numpy as np
 import scipy.optimize as sco
 import pandas as pd
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+mpl.style.use( 'bmh' )
+mpl.rcParams['axes.linewidth'] = 0.2
+mpl.rcParams['lines.linewidth'] = 1.0
+mpl.rcParams['text.latex.preamble'] = [ r'\usepackage{siunitx}' ]
+mpl.rcParams['text.usetex'] = True
+
 
 def split( tvec, vec, N = 7 ):
     # Split where tvec is multiple of 500
@@ -68,6 +76,7 @@ def main():
     seON = pd.read_csv('./CaM100_PP90000_voxels20_suON.dat_processed.dat', sep = ' ')
 
     gridSize = (3, 2)
+    plt.figure( figsize=(6,6) )
     ax1 = plt.subplot2grid( gridSize, (0,0), colspan = 2 )
     ax2 = plt.subplot2grid( gridSize, (1,0), colspan = 1 )
     ax3 = plt.subplot2grid( gridSize, (1,1), colspan = 1 )
@@ -127,9 +136,9 @@ def main():
             , absolute_sigma=True
             #  , method = 'trf'
             )
-    ax.set_title( r'$\tau$=%.2f,$A_{max}$=%.2f' % (*popt, y.max()) )
     ax.plot( t, single_exp(t, *popt, y.max()), label = label)
-    ax.errorbar( t, y, yerr=yerr, alpha=0.5)
+    ax.fill_between(t, y+yerr, y-yerr, alpha=0.3)
+    ax.plot(t, y, lw=2, label = r'$e^{-t/%.3f}$' % popt)
     ax.legend()
     print( popt )
 
@@ -147,9 +156,10 @@ def main():
             #  , absolute_sigma=True
             #  , method = 'trf'
             )
-    ax.set_title( r'$\tau$=%.2f,$A_{max}$=%.2f' % (*popt, y.max()))
     ax.plot( t, single_exp(t, *popt, y.max()), label = label)
-    ax.errorbar( t, y, yerr=yerr, alpha=0.5)
+    #  ax.errorbar( t, y, yerr=yerr, alpha=0.5)
+    ax.fill_between(t, y+yerr, y-yerr, alpha=0.3)
+    ax.plot(t, y, lw=2, label = r'$e^{-t/%.3f}$' % popt)
     ax.legend()
 
     # Add fitted curves.
