@@ -103,10 +103,10 @@
             \begin{axis}[ xlabel=Time, x unit=\si{\second}
                 % , ylabel=\SUP{CaMKII}{*}, y unit=frac
                 , width=0.4*\figW cm, height=\plotH cm %, scale only axis
-                , legend columns=1
+                , legend columns=2
                 , ytick={0,0.5,1.0}
                 , enlargelimits
-                , legend style={at={(0.4,0.4)}, anchor=south west}
+                , legend style={at={(0.4,0.6)}, anchor=south west}
                 ]
                 \addplot [red] table [col sep=comma, x=time, y=decay_suOFF_mean]
                     {./data_camkii_state_decay.csv};
@@ -172,7 +172,6 @@
                 , ytick={0,0.5,1.0}
                 , enlargelimits
                 , legend style={at={(0.4,0.4)}, anchor=south west}
-                , title = 76\% Fast + 24\% slow
                 ]
 
                 \addplot [blue, thick] gnuplot [raw gnuplot,name path=A] {
@@ -196,7 +195,18 @@
                         using "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")+
                         (0.76*column("decay_suOFF_std")+0.24*column("decay_suON_std"))^0.5);
                 };
+
                 \addplot [blue!30] fill between [of=A and B];
+
+                % fit by two time courses.
+                \addplot [red, dashed, very thick] gnuplot  [ raw gnuplot ] {
+                    set datafile separator ",";
+                    f(x)=0.76*exp(-x/tauA)+0.24*exp(-x/tauB);
+                    fit f(x) "./data_camkii_state_decay.csv" using
+                    "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean"))  via tauA, tauB;
+                    plot [x=0:800] f(x);
+                };
+                \legend{0.76*fast+0.24*slow,double exp fit}
             \end{axis}
         \end{tikzpicture}
     };
