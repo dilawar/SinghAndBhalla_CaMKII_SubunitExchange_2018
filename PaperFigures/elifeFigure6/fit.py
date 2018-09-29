@@ -88,8 +88,10 @@ def main():
 
     # Now split the trajectories at every 500 sec and take average.
     # Drop the first input.
-    seONCaMKIISlices = split_and_normalize( seONt, seONCaMKII )
-    seOFFCaMKIISlices = split_and_normalize( seOFFt, seOFFCaMKII )
+    #seONCaMKIISlices = split_and_normalize( seONt, seONCaMKII )
+    #seOFFCaMKIISlices = split_and_normalize( seOFFt, seOFFCaMKII )
+    seONCaMKIISlices = split( seONt, seONCaMKII )
+    seOFFCaMKIISlices = split( seOFFt, seOFFCaMKII )
     
     dt = 5
     avgY, stdY, ts = [], [], []
@@ -111,33 +113,46 @@ def main():
     ax2.set_title( 'Split at every 500 sec' )
 
     # Fit curves.
-    for t, y, yerr, label, ax in zip(ts, avgY, stdY, ['+SE', '-SE'], [ax4,ax5]):
-        # Guess tau
-        tau0 = t[find_tau(y)]
-        print( f"[INFO ] init t0={tau0}" )
-        N = estimate_nonzero_part(y)
-        assert N > 1, N
-        try:
-            popt, pcov = sco.curve_fit( single_exp
-                    , t[:N], y[:N]
-                    , p0 = [tau0, y.max()]
-                    , sigma=yerr[:N]+1e-20
-                    , absolute_sigma=True
-                    #  , method = 'trf'
-                    )
-        except Exception as e:
-            print( e )
-            print( t )
-            print( y )
-            raise e
-        ax.set_title( r'$\tau$=%.2f,$A_{max}$=%.2f' % tuple(popt) )
-        ax.plot( t, single_exp(t, *popt), label = label)
-        ax.errorbar( t, y, yerr=yerr, alpha=0.5)
-        ax.legend()
-        print( popt )
+    ## With SE
+    t, y, yerr, ax = ts[0], avgY[0], stdY[0], ax4
+    tau0 = t[find_tau(y)]
+    print( f"[INFO ] init t0={tau0}" )
+    N = estimate_nonzero_part(y)
+    assert N > 1, N
+    popt, pcov = sco.curve_fit(
+            lambda t, x: single_exp(t, x, y.max())
+            , t[:N], y[:N]
+            , p0 = [tau0]
+            , sigma=yerr[:N]+1e-20
+            , absolute_sigma=True
+            #  , method = 'trf'
+            )
+    ax.set_title( r'$\tau$=%.2f,$A_{max}$=%.2f' % (*popt, y.max()) )
+    ax.plot( t, single_exp(t, *popt, y.max()), label = label)
+    ax.errorbar( t, y, yerr=yerr, alpha=0.5)
+    ax.legend()
+    print( popt )
+
+    ## Without SE
+    t, y, yerr, ax = ts[1], avgY[1], stdY[1], ax5
+    tau0 = t[find_tau(y)]
+    print( f"[INFO ] init t0={tau0}" )
+    N = estimate_nonzero_part(y)
+    assert N > 1, N
+    popt, pcov = sco.curve_fit( 
+            lambda t, x: single_exp(t, x, y.max())
+            , t[:N], y[:N]
+            , p0 = [tau0]
+            #  , sigma=yerr[:N]
+            #  , absolute_sigma=True
+            #  , method = 'trf'
+            )
+    ax.set_title( r'$\tau$=%.2f,$A_{max}$=%.2f' % (*popt, y.max()))
+    ax.plot( t, single_exp(t, *popt, y.max()), label = label)
+    ax.errorbar( t, y, yerr=yerr, alpha=0.5)
+    ax.legend()
 
     # Add fitted curves.
-
     plt.suptitle( 'Figure 6- eLife' )
     plt.tight_layout( rect = (0,0,1,0.95) )
     plt.savefig( '%s.pdf' % __file__ )
