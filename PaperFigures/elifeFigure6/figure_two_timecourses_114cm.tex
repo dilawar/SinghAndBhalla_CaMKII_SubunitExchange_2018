@@ -21,11 +21,9 @@
 \usepackage{xstring}
 \usepackage{xcolor}
 \usepackage{siunitx}
-
 \pgfplotsset{compat=1.15}
-\usepackage[T1]{fontenc}
 \renewcommand\familydefault{\sfdefault}
-
+\usepackage{unicode-math}
 \usetikzlibrary{calc,positioning}
 \usetikzlibrary{shapes,arrows,arrows.meta,fit}
 
@@ -40,7 +38,7 @@
     , xtick align=center
     , ytick align=center
     , unit markings=parenthesis
-    , legend style={fill=none,draw=none,font=\scriptsize}
+    , legend style={fill=none,draw=none,font=\small}
     , tick label style={font=\small}
     , legend cell align={left}
     , axis lines*=left
@@ -97,7 +95,7 @@
     };
 
     \node[below=3mm of plota.south west, anchor=north west
-         , label={[xshift=5mm]north west:{\bf B}} 
+         , label={[xshift=5mm, yshift=-3mm]north west:{\bf B}} 
          ] (plotb) {
         \begin{tikzpicture}[scale=1]
             \begin{axis}[ xlabel=Time, x unit=\si{\second}
@@ -106,7 +104,7 @@
                 , legend columns=2
                 , ytick={0,0.5,1.0}
                 , enlargelimits
-                , legend style={at={(0.4,0.6)}, anchor=south west}
+                , legend style={at={(0,1)}, anchor=south west}
                 ]
                 \addplot [red] table [col sep=comma, x=time, y=decay_suOFF_mean]
                     {./data_camkii_state_decay.csv};
@@ -162,7 +160,7 @@
     };
 
     \node[right=3mm of plotb.north east, anchor=north west
-         , label={[xshift=5mm]north west:{\bf C}} 
+         , label={[xshift=5mm, yshift=-2mm]north west:{\bf C}} 
          ] (plotc) {
         \begin{tikzpicture}[scale=1]
             \begin{axis}[ xlabel=Time, x unit=\si{\second}
@@ -171,7 +169,7 @@
                 , legend columns=1
                 , ytick={0,0.5,1.0}
                 , enlargelimits
-                , legend style={at={(0.4,0.4)}, anchor=south west}
+                , legend style={at={(0,1)}, anchor=south west}
                 ]
 
                 \addplot [blue, thick] gnuplot [raw gnuplot,name path=A] {
@@ -203,10 +201,10 @@
                     set datafile separator ",";
                     f(x)=0.76*exp(-x/tauA)+0.24*exp(-x/tauB);
                     fit f(x) "./data_camkii_state_decay.csv" using
-                    "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean"))  via tauA, tauB;
+                    "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")) via tauA, tauB;
                     plot [x=0:800] f(x);
                 };
-                \legend{0.76*fast+0.24*slow,double exp fit}
+                \legend{0.76*fast+0.24*slow,$0.76e^{-t/4.99}+0.24e^{-t/118.18}$ (fit)}
             \end{axis}
         \end{tikzpicture}
     };
