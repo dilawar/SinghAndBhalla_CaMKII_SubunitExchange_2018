@@ -68,19 +68,35 @@
                 , ylabel=\SUP{CaMKII}{*}
                 , height=\plotH cm, width=0.75*\figW cm %, scale only axis
                 , legend style={at={(0.9,1)},anchor=south east }
-                , legend columns=2
+                , legend columns=-1
                 , ytick={0,0.5,1.0}
-                , xmin = 750, xmax=3500
-                , enlarge x limits={abs=200}
+                % , xmin = 750, xmax=3500
+                % , enlarge x limits={abs=200}
+                , enlargelimits
                 ]
-                \addplot [red,thick,mark=o,mark size=1.2pt] gnuplot [ raw gnuplot ] {
+
+                \addplot [red,thick,mark=o,mark size=0.5pt] gnuplot [ raw gnuplot ] {
                     plot "./CaM100_PP90000_voxels20_suOFF.dat_processed.dat" 
                     using "time":(column("CaMKII*")/100.0) every 2
                 };
-                \addplot [blue,thick,mark=x,mark size=1.2pt] gnuplot [ raw gnuplot ] {
+                \addplot [blue,thick,mark=x,mark size=0.5pt] gnuplot [ raw gnuplot ] {
                     plot "./CaM100_PP90000_voxels20_suON.dat_processed.dat" 
                     using "time":(column("CaMKII*")/100.0) every 2
                 };
+
+                % 24% of slow and 76% of fast.
+                \addplot [black, very thick, no marks] gnuplot [ raw gnuplot ] {
+                    plot "./CaM100_PP90000_voxels20_suONOFFCombined.dat" using
+                    "time":((0.24*$2+0.76*$9)/100) 
+                };
+
+                % 75% slow and 24% fast.
+                \addplot [blue,thick,mark=x,mark size=1.2pt] gnuplot [ raw gnuplot ] {
+                    plot "./CaM100_PP90000_voxels20_suON.dat_processed.dat" 
+                        using "time":(column("CaMKII*")/100.0) every 2
+                };
+
+                % Input ca.
                 \addplot [black, thick, samples=2000
                     , domain=1000:5000, only marks
                     , mark=text, text mark=$\downarrow$ 
@@ -89,7 +105,7 @@
                     g(x)=((x-500*int(x/500))==0)?x:0;
                     plot "./CaM100_PP90000_voxels20_suON.dat_processed.dat" using (x=$1,g(x)):(x=$1,f(x));
                 };
-                \legend{-SE,+SE}
+                \legend{-SE,+SE,0.76(-SE)+0.24*(+SE)}
             \end{axis}
         \end{tikzpicture}
     };
@@ -184,14 +200,14 @@
                     set datafile separator ",";
                     plot "./data_camkii_state_decay.csv" 
                         using "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")-
-                        (0.76*column("decay_suOFF_std")+0.24*column("decay_suON_std"))^0.5);
+                        (0.76*column("decay_suOFF_std")^2+0.24*column("decay_suON_std")^2)^0.5);
                 };
 
                 \addplot [blue!30] gnuplot [raw gnuplot, name path=B] {
                     set datafile separator ",";
                     plot "./data_camkii_state_decay.csv" 
                         using "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")+
-                        (0.76*column("decay_suOFF_std")+0.24*column("decay_suON_std"))^0.5);
+                        (0.76*column("decay_suOFF_std")^2+0.24*column("decay_suON_std")^2)^0.5);
                 };
 
                 \addplot [blue!30] fill between [of=A and B];
