@@ -503,27 +503,34 @@ decreased by an order of magnitude when subunit exchange was enabled
 
 % This figure is one column.
 \begin{figure}%[t]%[tbh]
-    \includegraphics[]{PaperFigures/elifeFigure6/figure_two_timecourses_87mm.pdf}
-    \caption{CaMKII acts as an integrator of calcium activity in spine cytosol.
-        Due to subunit exchange, \gls{camkii} decayed with much larger
-        time-constant and almost linearly. \textbf{(A)} Trajectories
-        of \gls{camkii} activity (fraction of total \gls{camkii})
-        are shown in red (without subunit exchange) and blue (with
-        subunit exchange). Every \SI{500}{\second}, a \SI{3}{\second}
-        long strong calcium pulse is applied to the system ($\downarrow$)
-        thereby activating \gls{camkii}.  After the pulse, calcium levels
-        were brought down to basal level. \textbf{(B)} Average decay
-        dynamics for \SI{500}{\second} after the onset of strong calcium
-        pulse ($\downarrow$). Solid red line shows decay dynamics when
-        there is no subunit exchange; \gls{camkii} decays at timescale of
-        approximately \SI{50}{\second}. Solid blue line shows the case when
-        subunit exchange is enabled, \gls{camkii} decay has larger
-        time-constant of $\sim\SI{300}{\second}$. Dotted blue line shows exponential
-        fit of slow time-course which does not fit well. On the other hand, the fast
-        trajectory is fit very well by an exponential (red, \texttt{-SE (exp-fit)}). 
-        Shaded areas are the standard deviation. Though the absolution values of 
-        fast and slow timescales are much higher, the ratio of fast and slow time-courses
-        matches well with experimental data \citep{chang_camkii_2017}.
+    \includegraphics[width=11.4cm]{PaperFigures/elifeFigure6/figure_two_timecourses_114cm.pdf}
+    \caption{ \gls{camkii} acts as a leaky integrator of \gls{ca} activity in
+        spine cytosol which decays with two time-courses. The slow decaying
+        integrator is formed due to clustering of \gls{camkii} in the cytosol.
+        At small distance subunit exchange remains effective in the \gls{pp1} rich cytosol.
+        \textbf{(A)} Trajectories of \gls{camkii} activity (fraction of total \gls{camkii})
+        are shown when a strong \gls{ca} pulse of the duration of \SI{3}{\second}
+        was applied to the system after every \SI{1000}{\second} ($\downarrow$).
+        The \gls{ca} pulse (\SI{1e-3}{mM}) is strong enough to activate roughly
+        all \gls{camkii}. After the pulse, \gls{ca} levels were brought down to basal level (Fig
+        1C). Three trajectories are plotted: without subunit exchange (red), with
+        subunit exchange (blue), and a weighed sum of red and blue (74\%
+        red + 24\% blue as estimated in \cite{chang_camkii_2017}). 
+        \textbf{(B)} Average decay dynamics for \SI{1000}{\second} after the
+        onset of strong \gls{ca} pulse ($\downarrow$).  When there is no subunit exchange, 
+        \gls{camkii} decays at timescale of approximately \SI{41.61}{\second}
+        (dashed yellow). When subunit exchange is enabled, \gls{camkii} decay has larger
+        time-constant of $\SI{200.84}{\second}$ (dashed blue). 
+        \textbf{(C)} Dynamics of mixed population (black, raw data shown in
+        black in \textbf{A}). Fit of mixed population by a double
+        exponential for known weights (74\% fast + 26\% slow) (dashed red).
+        Time constants are estimated to be \SI{8.39}{\second} for fast and
+        \SI{86.2}{\second} for slow population by the fit. Double exponential plotted
+        with parameters estimated in \cite{chang_camkii_2017} (magenta) i.e
+        $0.74e^{-t/6.4}+0.26e^{-t/92.6}$ (only mean is shown). Experimental data
+        matches well with double exponential fit (magenta v/s dashed red).
+        Shaded areas are the standard deviation. All fits were performed using
+        gnuplot (version 5.2.4).
     }\label{fig:cytosol_integrator}
 \figdata{Source and data is available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure6}}
@@ -546,7 +553,7 @@ cytosol \citep{chang_camkii_2017}.
 
 Here we have shown that subunit exchange strongly affects the properties of
 CaMKII/PP1 pathway, both in its role as a bistable switch in PSD and as an
-integrator of calcium activity in spine cytosol. In the PSD, where the model was
+integrator of \gls{ca} activity in spine cytosol. In the PSD, where the model was
 tuned to elicit bistable dynamics from clustered \gls{camkii}, subunit exchange
 improved the stability of \gls{camkii}/\gls{pp1} switch by synchronizing the
 kinase activity across PSD (\FIG{cytosol_integrator}). It also improved
