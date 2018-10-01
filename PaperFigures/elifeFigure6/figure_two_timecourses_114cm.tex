@@ -132,7 +132,7 @@
                 ]
                 \addplot [red] table [col sep=comma, x=time, y=decay_suOFF_mean]
                     {./data_camkii_state_decay.csv};
-                \addplot [green, very thick] gnuplot  [ raw gnuplot ] {
+                \addplot [dashed, yellow, very thick] gnuplot  [ raw gnuplot ] {
                     set datafile separator ",";
                     A=0.5; tau=50;
                     f(x,A,tau)=A*exp(-x/tau);
@@ -237,7 +237,7 @@
                 };
 
                 \legend{0.74(-SE)+0.26(+SE),,,,0.74$e^{-t/8.39}$+0.26$e^{-t/86.2}$
-                (fit),Chang et al. 2018}
+                (fit),Chang et al. 2017}
             \end{axis}
         \end{tikzpicture}
     };
