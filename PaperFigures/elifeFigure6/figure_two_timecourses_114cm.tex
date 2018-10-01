@@ -26,6 +26,7 @@
 \usepackage{unicode-math}
 \usetikzlibrary{calc,positioning}
 \usetikzlibrary{shapes,arrows,arrows.meta,fit}
+\usepackage{luacode}
 
 \newcommand\SUP[2]{#1\textsuperscript{#2}}
 
@@ -44,14 +45,15 @@
     , axis lines*=left
 }
 
+% reduce the size of legend line
 \pgfplotsset{
     compat=1.15,
     legend image code/.code={
         \draw[mark repeat=2,mark phase=2]
         plot coordinates {
             (0cm,0cm)
-            (0.15cm,0cm)        %% default is (0.3cm,0cm)
-            (0.3cm,0cm)         %% default is (0.6cm,0cm)
+            (0.2cm,0cm)        %% default is (0.3cm,0cm)
+            (0.4cm,0cm)         %% default is (0.6cm,0cm)
         };%
     }
 }
@@ -61,7 +63,7 @@
 % subunit-exchange. 
 
 \begin{tikzpicture}[scale=1, every node/.style={} , node distance = 5mm ]
-    \node[label={[xshift=5mm]north west:{\bf A}}] (plota) {
+    \node[label={[xshift=5mm, yshift=-3mm]north west:{\bf A}}] (plota) {
         \begin{tikzpicture}[scale=1,]
             \begin{axis}[ 
                 xlabel=Time, x unit=\si{\second}
@@ -72,14 +74,16 @@
                 , ytick={0,0.5,1.0}
                 , xmin=10500, xmax=17500
                 , enlarge x limits={abs=200}
+                % , try min ticks=4
+                , xtick={11000,13000,15000,17000}
                 ]
 
-                \addplot [red,thick,mark=o,mark size=0.2pt] gnuplot [ raw gnuplot ] {
+                \addplot [red, mark=none, mark size=0.2pt] gnuplot [ raw gnuplot ] {
                     plot "./CaM100_PP90000_voxels10_suOFF.dat_processed.dat" 
                     using "time":(column("CaMKII*")/100.0) 
                     every ::2000::3500
                 };
-                \addplot [blue,thick,mark=x,mark size=0.2pt] gnuplot [ raw gnuplot ] {
+                \addplot [blue, mark=none, mark size=0.2pt] gnuplot [ raw gnuplot ] {
                     plot "./CaM100_PP90000_voxels10_suON.dat_processed.dat" 
                     using "time":(column("CaMKII*")/100.0) 
                     every ::2000::3500
@@ -88,12 +92,12 @@
                 % 24% of slow and 76% of fast.
                 \addplot [black, very thick, no marks] gnuplot [ raw gnuplot ] {
                     plot "./CaM100_PP90000_voxels10_suONOFFCombined.dat" using
-                    "time":((0.24*$2+0.76*$9)/100) 
+                    "time":((0.26*$2+0.74*$9)/100) 
                     every ::2000::3500
                 };
 
                 % 75% slow and 24% fast.
-                \addplot [blue,thick,mark=x,mark size=1.2pt] gnuplot [ raw gnuplot ] {
+                \addplot [blue,thick,mark=none,mark size=1.2pt] gnuplot [ raw gnuplot ] {
                     plot "./CaM100_PP90000_voxels10_suON.dat_processed.dat" 
                         using "time":(column("CaMKII*")/100.0) 
                         every ::2000::3500
@@ -109,7 +113,7 @@
                     plot "./CaM100_PP90000_voxels10_suON.dat_processed.dat" using (x=$1,g(x)):(x=$1,f(x))
                         every ::2000::3500
                 };
-                \legend{-SE,+SE,0.76(-SE)+0.24*(+SE)}
+                \legend{-SE,+SE,0.74(-SE)+0.26*(+SE)}
             \end{axis}
         \end{tikzpicture}
     };
@@ -153,7 +157,7 @@
                 \addplot [blue] table [col sep=comma,x=time, y=decay_suON_mean] 
                      {./data_camkii_state_decay.csv};
 
-                \addplot [blue,dotted, very thick] gnuplot  [ raw gnuplot ] {
+                \addplot [blue, dashed, very thick] gnuplot  [ raw gnuplot ] {
                     set datafile separator ",";
                     f(x,tauA)=exp(-x/(tauA));
                     fit f(x,tauA) "./data_camkii_state_decay.csv" using
@@ -180,7 +184,7 @@
     };
 
     \node[right=3mm of plotb.north east, anchor=north west
-         , label={[xshift=5mm, yshift=-2mm]north west:{\bf C}} 
+         , label={[xshift=5mm, yshift=-5mm]north west:{\bf C}} 
          ] (plotc) {
         \begin{tikzpicture}[scale=1]
             \begin{axis}[ xlabel=Time, x unit=\si{\second}
@@ -192,39 +196,48 @@
                 , legend style={at={(0,1)}, anchor=south west}
                 ]
 
-                \addplot [blue, thick] gnuplot [raw gnuplot,name path=A] {
+                \addplot [black, thick] gnuplot [raw gnuplot,name path=A] {
                     set datafile separator ",";
                     plot "./data_camkii_state_decay.csv" 
-                        using "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean"))
+                        using "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean"))
                         ;
                 };
 
                 % shadowed area to represent std.
-                \addplot [blue!30] gnuplot [raw gnuplot,name path=A] {
+                \addplot [black!30] gnuplot [raw gnuplot,name path=A] {
                     set datafile separator ",";
                     plot "./data_camkii_state_decay.csv" 
-                        using "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")-
-                        (0.76*column("decay_suOFF_std")^2+0.24*column("decay_suON_std")^2)^0.5);
+                        using "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")-
+                        (0.74*column("decay_suOFF_std")^2+0.26*column("decay_suON_std")^2)^0.5);
                 };
 
-                \addplot [blue!30] gnuplot [raw gnuplot, name path=B] {
+                \addplot [black!30] gnuplot [raw gnuplot, name path=B] {
                     set datafile separator ",";
                     plot "./data_camkii_state_decay.csv" 
-                        using "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")+
-                        (0.76*column("decay_suOFF_std")^2+0.24*column("decay_suON_std")^2)^0.5);
+                        using "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")+
+                        (0.74*column("decay_suOFF_std")^2+0.26*column("decay_suON_std")^2)^0.5);
                 };
 
-                \addplot [blue!30] fill between [of=A and B];
+                \addplot [black!30] fill between [of=A and B];
 
-                % fit by two time courses.
+                % fit by two time courses and then read the data from fit.log
+                % file in legend.
                 \addplot [red, dashed, very thick] gnuplot  [ raw gnuplot ] {
                     set datafile separator ",";
-                    f(x)=0.76*exp(-x/tauA)+0.24*exp(-x/tauB);
+                    f(x)=0.74*exp(-x/tauA)+0.26*exp(-x/tauB);
                     fit f(x) "./data_camkii_state_decay.csv" using
-                    "time":(0.76*column("decay_suOFF_mean")+0.24*column("decay_suON_mean")) via tauA, tauB;
+                    "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")) via tauA, tauB;
                     plot [x=0:800] f(x);
                 };
-                \legend{0.76*fast+0.24*slow,$0.76e^{-t/4.99}+0.24e^{-t/118.18}$ (fit)}
+
+                % Plot function as estimated 
+                \addplot [magenta, opacity=0.5, mark size=1pt, no marks] gnuplot [raw gnuplot, name path=B] {
+                    f(x)=0.74*exp(-x/6.4)+0.26*exp(-x/92.6);
+                    plot [x=0:1000] f(x);
+                };
+
+                \legend{0.74(-SE)+0.26(+SE),,,,0.74$e^{-t/8.39}$+0.26$e^{-t/86.2}$
+                (fit),Chang et al. 2018}
             \end{axis}
         \end{tikzpicture}
     };
