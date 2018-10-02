@@ -32,6 +32,34 @@
 
 \begin{document}
 
+\begin{luacode}
+    function getFitExpr() 
+        local file = io.open( "tauataub.log", "r" );
+        local content = file:read("*all");
+        file:close();
+        a = string.match( content, "a%s+=%s+(%d+.%d+)" );
+        taua = string.match( content, "tauA%s+=%s+(%d+.%d+)" );
+        taub = string.match( content, "tauB%s+=%s+(%d+.%d+)" );
+        tex.print( string.format( "$%.2f e^{-t/%.2f}+%.2f e^{-t/%.2f}$", a, taua, 1-a, taub ));
+    end
+
+    function withSWTau() 
+        local file = io.open( "withse.log", "r" );
+        local content = file:read("*all");
+        file:close();
+        taua = string.match( content, "tauA%s+=%s+(%d+.%d+)" );
+        tex.print( string.format( "$e^{-t/%.2f}$", taua) );
+    end
+
+    function withoutSWTau() 
+        local file = io.open( "withoutse.log", "r" );
+        local content = file:read("*all");
+        file:close();
+        taua = string.match( content, "tau%s+=%s+(%d+.%d+)" );
+        tex.print( string.format( "$e^{-t/%.2f}$", taua) );
+    end
+\end{luacode}
+
 \pgfmathsetmacro{\figW}{11.4}
 \pgfmathsetmacro{\plotH}{3.5}
 
@@ -136,6 +164,8 @@
                     set datafile separator ",";
                     A=0.5; tau=50;
                     f(x,A,tau)=A*exp(-x/tau);
+                    system "rm -f withoutse.log";
+                    set fit logfile "withoutse.log" quiet;
                     fit f(x,A,tau) "./data_camkii_state_decay.csv" using
                         "time":"decay_suOFF_mean" via A, tau;
                     plot [x=0:1000] f(x,A,tau);
@@ -160,6 +190,8 @@
                 \addplot [blue, dashed, very thick] gnuplot  [ raw gnuplot ] {
                     set datafile separator ",";
                     f(x,tauA)=exp(-x/(tauA));
+                    system "rm -f withse.log";
+                    set fit logfile "withse.log" quiet;
                     fit f(x,tauA) "./data_camkii_state_decay.csv" using
                         "time":"decay_suON_mean":"decay_suON_std" yerrors via tauA;
                     plot [x=0:800] f(x,tauA);
@@ -177,8 +209,11 @@
                         using "time":(column("decay_suON_mean")+column("decay_suON_std"))
                 };
 
+                \newcommand\fitSlow{\directlua{withSWTau()}}
+                \newcommand\fitFast{\directlua{withoutSWTau()}}
                 \addplot [blue!30] fill between [of=A and B];
-                \legend{-SE,-SE (exp-fit),,,,+SE,+SE (exp-fit),,}
+                \legend{-SE,\fitSlow (fit),,,,+SE,\fitFast (fit),,}
+
             \end{axis}
         \end{tikzpicture}
     };
@@ -224,9 +259,12 @@
                 % file in legend.
                 \addplot [red, dashed, very thick] gnuplot  [ raw gnuplot ] {
                     set datafile separator ",";
-                    f(x)=0.74*exp(-x/tauA)+0.26*exp(-x/tauB);
+                    a=0.26;
+                    system "rm -f tauataub.log";
+                    set fit logfile "tauataub.log" quiet;
+                    f(x)=a*exp(-x/tauA)+(1-a)*exp(-x/tauB);
                     fit f(x) "./data_camkii_state_decay.csv" using
-                    "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")) via tauA, tauB;
+                    "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")) via a,tauA,tauB;
                     plot [x=0:800] f(x);
                 };
 
@@ -236,8 +274,8 @@
                     plot [x=0:1000] f(x);
                 };
 
-                \legend{0.74(-SE)+0.26(+SE),,,,0.74$e^{-t/8.39}$+0.26$e^{-t/86.2}$
-                (fit),Chang et al. 2017}
+                \newcommand\fitExpr{\directlua{getFitExpr()}}
+                \legend{0.74(-SE)+0.26(+SE),,,,\fitExpr (fit),Chang et al. 2017}
             \end{axis}
         \end{tikzpicture}
     };
