@@ -37,7 +37,8 @@
         local file = io.open( "tauataub.log", "r" );
         local content = file:read("*all");
         file:close();
-        a = string.match( content, "a%s+=%s+(%d+.%d+)" );
+        -- a = string.match( content, "a%s+=%s+(%d+.%d+)" );
+        a = 0.74;
         taua = string.match( content, "tauA%s+=%s+(%d+.%d+)" );
         taub = string.match( content, "tauB%s+=%s+(%d+.%d+)" );
         tex.print( string.format( "$%.2f e^{-t/%.2f}+%.2f e^{-t/%.2f}$", a, taua, 1-a, taub ));
@@ -264,7 +265,7 @@
                     set fit logfile "tauataub.log" quiet;
                     f(x)=a*exp(-x/tauA)+(1-a)*exp(-x/tauB);
                     fit f(x) "./data_camkii_state_decay.csv" using
-                    "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")) via a,tauA,tauB;
+                    "time":(0.74*column("decay_suOFF_mean")+0.26*column("decay_suON_mean")) via tauA,tauB;
                     plot [x=0:800] f(x);
                 };
 

@@ -123,7 +123,7 @@ exchange on the properties of the CaMKII-PP1 system in two adjacent neuronal
 micro-environments: \gls{psd} and spine cytosol. 
 
 In the \gls{psd}, \gls{pp1} is tightly regulated and \gls{camkii} is protected
-from other phosphatases. In the spine cytosol, \gls{camkii} is accessible to other
+from other phosphatases but in the spine cytosol, \gls{camkii} is accessible to other
 phosphatases along with \gls{pp1}. We examined how state switching lifetimes in
 the \gls{psd} are affected by subunit exchange in different contexts of
 \gls{pp1} levels, turnover, and clustering of \gls{camkii}. In the spine cytosol
@@ -168,7 +168,7 @@ results from our model without diffusion and without subunit exchange with the
         rate \SUB{v}{t}=\SI{30}{\per \hour}. Panels \textbf{(C, D, E)} show key
         properties of our model that are very similar to those of the \gls{mz} 
         model.}\label{fig:validation} 
-    \figdata{Source and data is available at
+    \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure1}}
 \end{figure}
 
@@ -212,7 +212,7 @@ to \gls{pp1} and to protein turnover}\label{subsec:result_tolerance}
         time becomes constant and independent of \SUB{N}{PP1} (blue vs red). 
         Shaded area represents standard deviation.
     }\label{fig:tolerance_pp1}
-    \figdata{Source and data is available at
+    \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure2}}
 \end{figure}
 % \end{wrapfigure}
@@ -276,7 +276,7 @@ in the regime of bistability in both cases.
         the bistable regime (solid lines), the number of switching events increases roughly
         linearly with turnover rate.
     }\label{fig:turnover}
-    \figdata{Source and data is available at
+    \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure3}}
 \end{figure}
 
@@ -315,21 +315,20 @@ concentration [\gls{ca}]=\SI{80}{\nano M} and without subunit exchange (i.e.,
 \SUB{D}{sub}=0). Here the system showed no significant \gls{camkii} activity.
 When we enabled subunit exchange by setting
 \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second},
-\FIG{subunit_facilitates_spread}B), \gls{camkii} activity rose to
-maximum within \SI{4}{\hour}. As expected, the effect of subunit exchange (rise
-time quantified as the time taken by \gls{camkii} to rise from 10\% to 90\%) was
-stronger when the basal \gls{ca} was higher
-(\FIG{subunit_facilitates_spread}C). Increasing \SUB{D}{sub} decreased
-the rise time of \gls{camkii} activity.
+\FIG{subunit_facilitates_spread}B), \gls{camkii} activity rose to maximum within
+\SI{4}{\hour}. As expected, the effect of subunit exchange (rise time quantified
+as the time taken by \gls{camkii} to rise from 10\% to 90\%) was stronger when
+the basal \gls{ca} was higher (\FIG{subunit_facilitates_spread}C). Increasing
+\SUB{D}{sub} decreased the rise time of \gls{camkii} activity.
 
 Subunit exchange did not have any impact on the average \gls{camkii} activity at
-longer time scales (\FIG{subunit_facilitates_spread}E) though we found
-that long-time average \gls{camkii} activity increased when subunit exchange was
+longer time scales (\FIG{subunit_facilitates_spread}E) though we found that
+long-time average \gls{camkii} activity increased when subunit exchange was
 enabled. This change was independent of \SUB{D}{sub} (not due to subunit
-exchange) but was strongly dependent on \SUB{D}{PP1}. This is because
-potency of \gls{pp1} reduced with increased \SUB{D}{PP1}
-(\FIGSUPP[subunit_facilitates_spread]{diffusion_reduces_pp1_potency}) which led to decreased \gls{pp1}
-activity and hence \gls{camkii} activity.
+exchange) but was strongly dependent on \SUB{D}{PP1}. This is because potency of
+\gls{pp1} reduced with increased \SUB{D}{PP1}
+(\FIGSUPP[subunit_facilitates_spread]{diffusion_reduces_pp1_potency}) which led
+to decreased \gls{pp1} activity and hence \gls{camkii} activity.
 
 Thus, subunit exchange facilitates the spread of kinase activity at short time
 scale but does not influence its long time activity.
@@ -373,7 +372,7 @@ scale but does not influence its long time activity.
     \label{fig:subunit_facilitates_spread}
     \figsupp[Sample trajectories of \gls{camkii} activation for basal
     \gls{ca} concentration of \SI{100}{\nano M}.]{In all simulations,
-        \SUB{D}{PP1} is fixed to \SI{e-13}{\micro\meter\squared\per\second} and \SUB{D}{sub} was
+        \SUB{D}{PP1} is fixed to \SI{0.1}{\micro\meter\squared\per\second} and \SUB{D}{sub} was
         varied. Each plot contains 40 trajectories. Dark black trajectory in
         each plot shows the average of all 40 trajectories. 
     }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_camkii_activations_trajs.pdf}}
@@ -411,7 +410,7 @@ scale but does not influence its long time activity.
         of cross-voxel jump reactions to approximate diffusion. 
 }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
 \label{figsupp:diffusion_reduces_pp1_potency}
-\figdata{Source and data is available at
+\figdata{Source and data are available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure4}}
 \end{figure}
 
@@ -419,7 +418,8 @@ scale but does not influence its long time activity.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Spread of activity and synchronization
 
-\subsection{Subunit exchange synchronizes switching activity of clustered \gls{camkii}}\label{subsec:se_sync_switches}
+\subsection{Subunit exchange synchronizes switching activity of clustered \gls{camkii}}
+\label{subsec:se_sync_switches}
 
 \begin{figure}%[t]%[bth] 
     \includegraphics[width=114mm]{./PaperFigures/elifeFigure5/figure_sync_114mm.pdf}
@@ -445,7 +445,7 @@ scale but does not influence its long time activity.
         \SI{100}{\nano\meter}. \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}
         for all simulations. 
     }\label{fig:sync_spread}
-\figdata{Source and data is available at
+\figdata{Source and data are available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure5}}
 \end{figure}
 
@@ -478,6 +478,7 @@ Thus, for most physiologically plausible values of diffusion coefficient
 \SUB{D}{sub}, subunit exchange causes synchronization of switching activity of
 clustered \gls{camkii}.
 
+%%%% Dual decay rate of CaMKII. %%%%%%%%%
 \subsection{Subunit exchange may account for the observed dual decay rate of
 \gls{camkii} phosphorylation}\label{subsec:camkii_decay_two_time_course}
 
@@ -486,54 +487,51 @@ of \gls{camkii} dynamics in spine as observed in recent experiments
 \citep{chang_camkii_2017}. We designed an experiment to replicate an experiment
 where \gls{camkii} was inhibited by a genetically encoded photoactivable
 inhibitory peptide after activating it by glutamate uncaging
-\citep{murakoshi_kinetics_2017}. In the spine, \gls{camkii} is more accessible to
-phosphatases than in the \gls{psd}, where our previous calculations had been
+\citep{murakoshi_kinetics_2017}. In the spine, \gls{camkii} is more accessible
+to phosphatases than in the \gls{psd}, where our previous calculations had been
 located. To model the increased availability of phosphatases, we increased the
-number of \gls{pp1} by an order of magnitude, and increased the volume of the
-compartment to match the volume of a typical spine head i.e.,
+concentration of \gls{pp1} by an order of magnitude, and increased the volume of
+the compartment to match the volume of a typical spine head i.e.,
 \SI{0.02}{\cubic\micro\meter} \citep{bartol_nanoconnectomic_2015}. We found that
 CaMKII acted as a integrator of calcium activity with typical exponential decay
 dynamics (\FIG{cytosol_integrator}A). We then enabled the diffusion of
-\gls{camkii} subunits and \gls{pp1} with same diffusion coefficient
-\SUB{D}{sub}=\SUB{D}{PP1}=\SI{1}{\micro\meter\squared\per\second}.  These
+\gls{camkii} subunits (\SUB{D}{sub}=\SI{1}{\micro\meter\squared\per\second}) and
+\gls{pp1} (\SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}). These
 conditions decreased the rate of dephosphorylation of \gls{camkii} holoenzymes
-significantly. The decay dynamics could not be fitted using a simple exponential
-(\FIG{cytosol_integrator}B). With our values of parameters, decay rate
-decreased by an order of magnitude when subunit exchange was enabled
+roughly by a factor of 5 (\SI{41.65}{\second} v/s \SI{200.82}{\second})
 (\FIG{cytosol_integrator}B).
 
-% This figure is one column.
 \begin{figure}%[t]%[tbh]
     \includegraphics[width=11.4cm]{PaperFigures/elifeFigure6/figure_two_timecourses_114cm.pdf}
-    \caption{ \gls{camkii} acts as a leaky integrator of \gls{ca} activity in
-        spine cytosol which decays with two time-courses. The slow decaying
-        integrator is formed due to clustering of \gls{camkii} in the cytosol.
-        At small distance subunit exchange remains effective in the \gls{pp1} rich cytosol.
+    \caption{ In \gls{pp1} rich spine cytosol, \gls{camkii} acts as a leaky integrator of \gls{ca} 
+        activity. As clustered \gls{camkii} population decays much slowly due
+        to subunit exchange, a mixed population of clustered and non-clustered \gls{camkii}
+        can explain observed two time-constants of \gls{camkii} decay \cite{chang_camkii_2017}.
         \textbf{(A)} Trajectories of \gls{camkii} activity (fraction of total \gls{camkii})
-        are shown when a strong \gls{ca} pulse of the duration of \SI{3}{\second}
-        was applied to the system after every \SI{1000}{\second} ($\downarrow$).
-        The \gls{ca} pulse (\SI{1e-3}{mM}) is strong enough to activate roughly
-        all \gls{camkii}. After the pulse, \gls{ca} levels were brought down to basal level (Fig
-        1C). Three trajectories are plotted: without subunit exchange (red), with
+        are shown when a strong periodic \gls{ca} pulse of \SI{3}{\second}
+        duration was applied to the system after every \SI{1000}{\second} ($\downarrow$).
+        After the pulse, \gls{ca} levels were brought down to basal level
+        \FIG{validation}C. Three trajectories are shown: without subunit exchange (red), with
         subunit exchange (blue), and a weighed sum of red and blue (74\%
         red + 24\% blue as estimated in \cite{chang_camkii_2017}). 
-        \textbf{(B)} Average decay dynamics for \SI{1000}{\second} after the
-        onset of strong \gls{ca} pulse ($\downarrow$).  When there is no subunit exchange, 
-        \gls{camkii} decays at timescale of approximately \SI{41.61}{\second}
-        (dashed yellow). When subunit exchange is enabled, \gls{camkii} decay has larger
-        time-constant of $\SI{200.84}{\second}$ (dashed blue). 
+        \textbf{(B)} Average decay dynamics after the onset of strong \gls{ca} pulse ($\downarrow$). 
+        When there is no subunit exchange, \gls{camkii} decays at timescale of
+        approximately \SI{41.65}{\second} (dashed yellow). When subunit exchange is enabled, 
+        \gls{camkii} decay has larger time-constant of $\SI{200.82}{\second}$ (dashed blue). 
         \textbf{(C)} Dynamics of mixed population (black, raw data shown in
         black in \textbf{A}). Fit of mixed population by a double
-        exponential for known weights (74\% fast + 26\% slow) (dashed red).
-        Time constants are estimated to be \SI{8.39}{\second} for fast and
-        \SI{86.2}{\second} for slow population by the fit. Double exponential plotted
-        with parameters estimated in \cite{chang_camkii_2017} (magenta) i.e
-        $0.74e^{-t/6.4}+0.26e^{-t/92.6}$ (only mean is shown). Experimental data
-        matches well with double exponential fit (magenta v/s dashed red).
-        Shaded areas are the standard deviation. All fits were performed using
-        gnuplot (version 5.2.4).
+        exponential i.e. $ae^{-t/\tau_{1}}+(1-a)e^{-t/\tau_{2}}$ for
+        $a=0.74$ (dashed red). Time constants $\tau_1$ and $\tau_2$ are estimated to be \SI{8.4}{\second} and
+        \SI{86.2}{\second} respectively. 
+        Function $0.74e^{-t/6.4}+0.26e^{-t/92.6}$ is the best fit of
+        experimental activity estimated in \citep{chang_camkii_2017} (magenta). 
+        For a given $a=0.74$ (estimated in \cite{chang_camkii_2017}), our time-constants
+        (\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
+        estimated time-constants (\SI{6.4}{\second}$\pm$0.7, \SI{92.6}{\second}$\pm$50.7). 
+        Shaded areas are the standard deviation. All fits were performed using 
+        \href{https://gnuplot.info}{Gnuplot} (version 5.2.4).
     }\label{fig:cytosol_integrator}
-\figdata{Source and data is available at
+\figdata{Source and data are available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure6}}
 \end{figure}
 
@@ -542,12 +540,26 @@ clustered \gls{camkii} in spine cytosol (e.g., \gls{camkii} bound to actin)
 because of the proximity of holoenzymes, leading to rapid exchange. 
 Our simulations supported this prediction. If there are populations of 
 clustered as well as non-clustered \gls{camkii} in the spine, we expect that
-they will exhibit long and short time-courses of activity decay.
+they will exhibit long and short time-courses of activity decay and therefore a
+mixed population of clustered and non-clustered \gls{camkii} will decay with two
+time-constants.
+
+The decay kinetics of \gls{camkii} obtained by curve fitting of experimental
+data is given by a double-exponential function:
+$F(t)=P_{fast}e^{-t/τ_{fast}}+P_{slow}e^{−t/\tau_{slow}}$ where $P_{fast}=0.74,
+P_{slow}=0.26,  \tau_{fast}= 6.4\pm0.7 \si{\second}, \tau_{slow}=92.6 \pm
+50.7\si{\second}$ \cite{chang_camkii_2017} (\FIG{cytosol_integrator}C, magenta).
+We used this estimate of $P_{fast}$ and $P_{slow}$ to construct a mixed
+population of slow and fast decaying \gls{camkii} (\FIG{cytosol_integrator}A,
+black) and estimated the double-exponential function which fits it well
+(\FIG{cytosol_integrator}C, dashed red). The time-constants obtained
+(\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
+estimated time-constants (\SI{6.4}{\second}$\pm$0.7,
+\SI{92.6}{\second}$\pm$50.7). 
 
 Thus, we suggest that subunit exchange may be a mechanism that leads to
 \gls{camkii}$\alpha$ activity decaying with two time-courses in spine 
-cytosol \citep{chang_camkii_2017}.
-
+cytosol.
 
 % DISCUSSION
 \section{Discussion}\label{discussion}
