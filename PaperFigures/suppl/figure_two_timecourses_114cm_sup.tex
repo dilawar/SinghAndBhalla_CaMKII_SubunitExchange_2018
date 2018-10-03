@@ -91,7 +91,7 @@
 % profile is recorded. {\bf On right} Average decay profile with and without
 % subunit-exchange. 
 
-\begin{tikzpicture}[baseline, scale=1, every node/.style={} , node distance = 5mm ]
+\begin{tikzpicture}[scale=1, every node/.style={} , node distance = 5mm ]
     \node[label={[xshift=5mm, yshift=-3mm]north west:{\bf A}}] (plota) {
         \begin{tikzpicture}[scale=1,]
             \begin{axis}[ 
@@ -108,26 +108,26 @@
                 ]
 
                 \addplot [red, mark=none, mark size=0.2pt] gnuplot [ raw gnuplot ] {
-                    plot "./CaM100_PP90000_voxels10_suOFF.dat_processed.dat" 
+                    plot "./CaM100_PP90000_voxels20_suOFF.dat_processed.dat" 
                     using "time":(column("CaMKII*")/100.0) 
                     every ::2000::3500
                 };
                 \addplot [blue, mark=none, mark size=0.2pt] gnuplot [ raw gnuplot ] {
-                    plot "./CaM100_PP90000_voxels10_suON.dat_processed.dat" 
+                    plot "./CaM100_PP90000_voxels20_suON.dat_processed.dat" 
                     using "time":(column("CaMKII*")/100.0) 
                     every ::2000::3500
                 };
 
                 % 24% of slow and 76% of fast.
                 \addplot [black, very thick, no marks] gnuplot [ raw gnuplot ] {
-                    plot "./CaM100_PP90000_voxels10_suONOFFCombined.dat" using
+                    plot "./CaM100_PP90000_voxels20_suONOFFCombined.dat" using
                     "time":((0.26*$2+0.74*$9)/100) 
                     every ::2000::3500
                 };
 
                 % 75% slow and 24% fast.
                 \addplot [blue,thick,mark=none,mark size=1.2pt] gnuplot [ raw gnuplot ] {
-                    plot "./CaM100_PP90000_voxels10_suON.dat_processed.dat" 
+                    plot "./CaM100_PP90000_voxels20_suON.dat_processed.dat" 
                         using "time":(column("CaMKII*")/100.0) 
                         every ::2000::3500
                 };
@@ -139,10 +139,10 @@
                 ] gnuplot [raw gnuplot] {
                     f(x)=((x-1000*int(x/1000))==0)?1.15:0;
                     g(x)=((x-1000*int(x/1000))==0)?x:0;
-                    plot "./CaM100_PP90000_voxels10_suON.dat_processed.dat" using (x=$1,g(x)):(x=$1,f(x))
+                    plot "./CaM100_PP90000_voxels20_suON.dat_processed.dat" using (x=$1,g(x)):(x=$1,f(x))
                         every ::2000::3500
                 };
-                \legend{-SE,+SE,0.74(-SE)+0.26(+SE)}
+                \legend{-SE,+SE,0.74(-SE)+0.26*(+SE)}
             \end{axis}
         \end{tikzpicture}
     };
@@ -219,7 +219,7 @@
         \end{tikzpicture}
     };
 
-    \node[right=3mm of plotb.south east, anchor=south west
+    \node[right=3mm of plotb.north east, anchor=north west
          , label={[xshift=5mm, yshift=-5mm]north west:{\bf C}} 
          ] (plotc) {
         \begin{tikzpicture}[scale=1]
