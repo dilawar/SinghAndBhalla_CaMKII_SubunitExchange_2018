@@ -3,19 +3,16 @@
 \documentclass[10pt,varwidth=178mm,multi=false,crop,class=../elife]{standalone}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.15}
-\usepackage[T1]{fontenc}
-\renewcommand\familydefault{\sfdefault}
-
 \usepackage{siunitx}
 \usetikzlibrary{positioning,calc}
 \usepgfplotslibrary{units}
+\renewcommand\familydefault{\sfdefault}
 
 \begin{document}
 
 \edef\figW{17.8}
 \edef\plotH{2.5}
 \pgfmathsetmacro{\VGapBetweenAxis}{-15mm}
-\renewcommand\familydefault{\sfdefault}
 
 \newcommand\LABELAXIS[2]{\node[above=of #1.north west,xshift=-15mm] (#1.label) {\bf #2};}
 
@@ -83,7 +80,7 @@
         , width=\colBW cm, height=\plotH cm
         , xtick={0,0.5,1.0,1.5,2.0}
         , enlarge y limits
-        , ylabel={Active Fraction}
+        , ylabel={CaMKII\textsuperscript{*}}
         , title={N\textsubscript{CaMKII}=15}
         , xlabel=Time, x unit=day
         ]
@@ -99,7 +96,7 @@
             % , xmin = 0, xmax = 120
             , xtick={20,40,60,80,100,120}
             , enlarge y limits
-            , ylabel={Active Fraction}
+            , ylabel={CaMKII\textsubscript{*}}
             , title={N\textsubscript{CaMKII}=35}
             % , title style={at={(0.15,1)}}
         ]

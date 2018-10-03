@@ -1,5 +1,5 @@
-\documentclass[9pt,lineno,doublespacing]{elife}
-% \documentclass[9pt,lineno,]{elife}
+% \documentclass[9pt,lineno,doublespacing]{elife}
+\documentclass[9pt,lineno,]{elife}
 \usepackage{nameref}
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,arrows.meta}
@@ -87,7 +87,7 @@ a kinase and its phosphatase could form a bistable molecular switch able to
 maintain its state for a very long time despite turnover
 \citep{lisman_mechanism_1985}. It has been shown by various mathematical models
 that \gls{camkii} and its phosphatase \gls{pp1} may form a bistable switch
-\citep{sandstorm_models_2004,zhabotinsky_bistability_2000} which can retain its
+\citep{zhabotinsky_bistability_2000} which can retain its
 state for years despite stochastic chemical noise and protein turnover
 \citep{miller_stability_2005}. Although there is experimental evidence that
 CaMKII/PP1 is bistable in \emph{in vitro} settings
@@ -283,8 +283,8 @@ in the regime of bistability in both cases.
 Thus, subunit exchange increases the range of \SUB{N}{PP1} and turnover rate 
 over which the switch remains bistable. 
 
-\subsection{Subunit exchange facilitates the spread of \gls{camkii}
-activity}\label{res:spread_activity}
+\subsection{Subunit exchange facilitates the spread of \gls{camkii} activity}
+\label{res:spread_activity}
 
 As suggested in \citep{stratton_activation-triggered_2014}, we found that
 subunit exchange facilitates spread of \gls{camkii} activation
@@ -497,9 +497,8 @@ CaMKII acted as a integrator of calcium activity with typical exponential decay
 dynamics (\FIG{cytosol_integrator}A). We then enabled the diffusion of
 \gls{camkii} subunits (\SUB{D}{sub}=\SI{1}{\micro\meter\squared\per\second}) and
 \gls{pp1} (\SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}). These
-conditions decreased the rate of dephosphorylation of \gls{camkii} holoenzymes
-roughly by a factor of 5 (\SI{41.65}{\second} v/s \SI{200.82}{\second})
-(\FIG{cytosol_integrator}B).
+conditions decreased the rate of dephosphorylation roughly by a factor of 5 
+(\SI{41.65}{\second} v/s \SI{200.82}{\second}) (\FIG{cytosol_integrator}B). 
 
 \begin{figure}%[t]%[tbh]
     \includegraphics[width=11.4cm]{PaperFigures/elifeFigure6/figure_two_timecourses_114cm.pdf}
@@ -510,8 +509,8 @@ roughly by a factor of 5 (\SI{41.65}{\second} v/s \SI{200.82}{\second})
         \textbf{(A)} Trajectories of \gls{camkii} activity (fraction of total \gls{camkii})
         are shown when a strong periodic \gls{ca} pulse of \SI{3}{\second}
         duration was applied to the system after every \SI{1000}{\second} ($\downarrow$).
-        After the pulse, \gls{ca} levels were brought down to basal level
-        \FIG{validation}C. Three trajectories are shown: without subunit exchange (red), with
+        After the pulse, \gls{ca} levels were brought down to \SI{80}{\nano M}. 
+        Three trajectories are shown: without subunit exchange (red), with
         subunit exchange (blue), and a weighed sum of red and blue (74\%
         red + 24\% blue as estimated in \cite{chang_camkii_2017}). 
         \textbf{(B)} Average decay dynamics after the onset of strong \gls{ca} pulse ($\downarrow$). 
@@ -528,30 +527,41 @@ roughly by a factor of 5 (\SI{41.65}{\second} v/s \SI{200.82}{\second})
         For a given $a=0.74$ (estimated in \cite{chang_camkii_2017}), our time-constants
         (\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
         estimated time-constants (\SI{6.4}{\second}$\pm$0.7, \SI{92.6}{\second}$\pm$50.7). 
-        Shaded areas are the standard deviation. All fits were performed using 
+        Shaded areas are the standard deviation. $N_{v}=10$,
+        \SUB{D}{sub}=\SI{1}{\micro\meter\squared\per\second},
+        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}.
+        All fits were performed using 
         \href{https://gnuplot.info}{Gnuplot} (version 5.2.4).
     }\label{fig:cytosol_integrator}
+    %% Change Dsub and then plot it.
+    %%\figsupp[\gls{camkii} activity decays slower with decreasing voxel size.]{ 
+    %%    \gls{camkii} activity decays slower with
+    %%    decreasing inter \gls{camkii} distance.  Simulation arena (i.e. cylinder) 
+    %%    is divided into 20 voxels as compared to 10 in \FIG{cytosol_integrator} (5 \gls{camkii}
+    %%    in each voxels v/s 10 \gls{camkii} in each voxel). See
+    %%    \FIG{cytosol_integrator} for panel description.
+    %%}{\includegraphics[]{./PaperFigures/suppl/figure_two_timecourses_114cm_sup.pdf}}\label{figsupp:slower_decay_tighter_clustering}
 \figdata{Source and data are available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure6}}
 \end{figure}
 
-We expected subunit exchange to have a strong effect on the decay activity of 
+We expected subunit exchange to have a strong effect on the decay activity of
 clustered \gls{camkii} in spine cytosol (e.g., \gls{camkii} bound to actin)
-because of the proximity of holoenzymes, leading to rapid exchange. 
-Our simulations supported this prediction. If there are populations of 
-clustered as well as non-clustered \gls{camkii} in the spine, we expect that
-they will exhibit long and short time-courses of activity decay and therefore a
-mixed population of clustered and non-clustered \gls{camkii} will decay with two
-time-constants.
+because of the proximity of holoenzymes, leading to rapid exchange.  Our
+simulations supported this prediction. If there are populations of clustered as
+well as non-clustered \gls{camkii} in the spine, we expect that they will
+exhibit long and short time-courses of activity decay and therefore a mixed
+population of clustered and non-clustered \gls{camkii} will decay with two
+time-constants. 
 
-The decay kinetics of \gls{camkii} obtained by curve fitting of experimental
-data is given by a double-exponential function:
-$F(t)=P_{fast}e^{-t/τ_{fast}}+P_{slow}e^{−t/\tau_{slow}}$ where $P_{fast}=0.74,
-P_{slow}=0.26,  \tau_{fast}= 6.4\pm0.7 \si{\second}, \tau_{slow}=92.6 \pm
-50.7\si{\second}$ \cite{chang_camkii_2017} (\FIG{cytosol_integrator}C, magenta).
-We used this estimate of $P_{fast}$ and $P_{slow}$ to construct a mixed
-population of slow and fast decaying \gls{camkii} (\FIG{cytosol_integrator}A,
-black) and estimated the double-exponential function which fits it well
+In \cite{chang_camkii_2017}, the decay kinetics of \gls{camkii} was obtained by
+curve fitting of experimental data and is given by a double-exponential
+function: $F(t)=P_{fast}e^{-t/\tau_{fast}}+P_{slow}e^{-t/\tau_{slow}}$ where
+$P_{fast}=0.74, P_{slow}=0.26,  \tau_{fast}= 6.4\pm0.7 \si{\second},
+\tau_{slow}=92.6 \pm 50.7\si{\second}$ (\FIG{cytosol_integrator}C, magenta).  We
+used their estimate of $P_{fast}$ and $P_{slow}$ to construct a mixed population
+of slow and fast decaying \gls{camkii} (\FIG{cytosol_integrator}A, black) and
+estimated a double-exponential function which fits it
 (\FIG{cytosol_integrator}C, dashed red). The time-constants obtained
 (\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
 estimated time-constants (\SI{6.4}{\second}$\pm$0.7,
@@ -863,6 +873,7 @@ $k_D^A$. This process is described by following chemical reactions (\EQ{stoch_di
 \end{equation}
 
 
+%% METHOD: Stochastic diffusion.
 \subsection*{Stochastic diffusion with bimolecular reaction}\label{subsec:rdme}
 
 Consider a cylindrical arena with a bimolecular reaction $A+B \rightarrow \phi$.
