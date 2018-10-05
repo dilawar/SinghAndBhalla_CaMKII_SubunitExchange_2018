@@ -94,11 +94,11 @@
     \end{axis}
 }
 
-% Controls the stretch in which free subunits are drawn.
-\pgfmathsetmacro{\fW}{0.95*\plotW}
 % Controls the size of subunits.
-\edef\SUSIZE{0.08}
+\edef\SUSIZE{0.1}
 \edef\CylWidth{15mm}
+% Controls the stretch in which free subunits are drawn.
+\pgfmathsetmacro{\fW}{14}
 
 \begin{tabularx}{\figW cm}{X X}
     \begin{tikzpicture}[baseline]
@@ -113,7 +113,7 @@
             {
                 \edef\activeSE{random(1,7),random(1,7),random(1,7),random(1,7),random(1,7),random(1,7),random(1,7)}
                 % Each switch has some camkii here.
-                \coordinate (camkii0) at (\i+0.4*rand,0.3*\CylWidth*rand);
+                \coordinate (camkii0) at (\i+0.3*rand,0.3*\CylWidth*rand);
                 \begin{scope}[rotate=30*rand]
                     \pgfmathsetmacro{\NumberOfSuInRing}{random(6,7)}
                     \CAMKIIWithoutHub{c0}{camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
@@ -131,20 +131,20 @@
             \p{y0}=([yshift=-2mm]psd.south)
             in  (\x{r1},\y{y0}) -- (\x{r2},\y{y0}) node[below,midway] {d};
 
-        \foreach \j in {1,2,...,12}
+        \foreach \j in {1,2,...,9}
         {
-            \node[shade,ball color=red, fill=red, circle
-            , minimum size=\SUSIZE cm ,inner sep=1pt] (su\j) 
-            at (\fW/2*rand,0.4*\CylWidth*rand) {};
+            \node[ 
+                shade,ball color=red, fill=red, circle, minimum size=\SUSIZE cm ,inner sep=1pt
+            ] (su\j) at (\fW/3*rand,0.4*\CylWidth*rand) {};
             \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
             \draw[-latex,color=red,very thin] (su\j) -- ++(\Ang:2mm);
         }
 
-        \foreach \j in {1,2,...,9}
+        \foreach \j in {1,2,...,20}
         {
-            \node[shade,ball color=blue,fill=blue,circle
-            ,minimum size=\SUSIZE cm, inner sep=1pt] 
-            (su\j) at (\fW/2*rand,0.4*\CylWidth*rand) { };
+            \node[
+                shade,ball color=blue,fill=blue,circle ,minimum size=\SUSIZE cm, inner sep=1pt
+                ] (su\j) at (\fW/3*rand,0.4*\CylWidth*rand) { };
             \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
             \draw[-latex,color=blue,very thin] (su\j) -- ++(\Ang:2mm);
         }
