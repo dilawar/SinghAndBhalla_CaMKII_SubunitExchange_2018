@@ -225,8 +225,9 @@ one extra \gls{pp1} molecule changed the spontaneous state switching time
 \citep{miller_stability_2005}), we did not find lifetime of \texttt{ON} and
 \texttt{OFF} states to be this sensitive to \gls{pp1}. In our model, it required
 on average 0.5$\times$\SUB{N}{CaMKII} extra \gls{pp1} molecules to cause a 90\%
-change in the residence time, roughly equal to number of \gls{camkii} subunits
-in our model.
+change in the residence time. This number is roughly equal to the maximum number
+of \gls{camkii} subunits (released from \gls{camkii} holoenzymes during subunit
+exchange \EQ{losegainx}) that can exists at any time in our model.
 
 We found that the system consisting of \SUB{N}{CaMKII} holoenzymes remained
 bistable for \SUB{N}{PP1}=8$\times$ to 15$\times$\SUB{N}{CaMKII} without subunit
@@ -341,12 +342,13 @@ scale but does not influence its long time average activity.
         long-time average. \textbf{(A)} 18 \gls{camkii} holoenzymes were put in
         a cylinder of volume \SI{0.0275}{\cubic\micro\meter} discretized into 18
         voxels, each separated by \SI{30}{\nano\meter}. Red and blue balls
-        represent phosphorylated and un-phosphorylated subunits respectively.
-        For all simulations \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}. 
-        \textbf{(B)} Activation profile of \gls{camkii} at mean basal calcium level of \SI{80}{\nano M}
-        (\FIG{validation}C) and \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII} for
-        various values of \SUB{D}{sub}. When subunits diffused with zero or
-        negligible coefficient (\SUB{D}{sub}=0 and
+        represent active and inactive subunits respectively.  For all
+        simulations \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}.
+        \textbf{(B)} Activation profile of \gls{camkii} at mean basal calcium
+        level of \SI{80}{\nano M} (\FIG{validation}C) and
+        \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII} for various values of
+        \SUB{D}{sub}. When subunits diffused with zero or negligible coefficient
+        (\SUB{D}{sub}=0 and
         \SUB{D}{sub}=\SI{e-8}{\micro\meter\squared\per\second}), mean activity
         of \gls{camkii} is negligible. For \SUB{D}{sub}=\SI{0.001} and
         \SI{0.1}{\micro\meter\squared\per\second}, the mean \gls{camkii}
@@ -366,8 +368,8 @@ scale but does not influence its long time average activity.
         but remained independent of \SUB{D}{sub}. Error bar represents standard
         deviation.  \textbf{(F)} Long-time average \gls{camkii} activity
         (\SUB{N}{CaMKII}=6) is independent of \SUB{D}{sub}, and only depends on
-        \SUB{D}{PP1}. Black dots represent bistable configurations with at least 4
-        transitions observed in 10 days long simulation.
+        \SUB{D}{PP1}. Black dots represent bistable configurations with at least
+        4 transitions observed in 10 days long simulation.
     }
 \label{fig:subunit_facilitates_spread} \figsupp[Sample trajectories of
 \gls{camkii} activation for basal \gls{ca} concentration of \SI{100}{\nano
