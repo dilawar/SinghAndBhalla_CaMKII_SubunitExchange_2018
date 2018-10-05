@@ -31,7 +31,6 @@
     , ylabel near ticks
 }
 
-
 % Shorten line in legend.
 % FROM: https://tex.stackexchange.com/a/210259/8087
 \pgfplotsset{
@@ -118,7 +117,7 @@
                 , ylabel={Time spent ({\tt ON})}
                 , ylabel style={align=center}
                 , width=0.95*\plotW cm, height=\plotH cm %, scale only axis
-                , legend style={font=\scriptsize, at={(0,1.05)}, anchor=south west}
+                , legend style={font=\scriptsize, at={(0.5,1.05)}, anchor=south west}
                 , enlargelimits=true
                 , legend columns=2
             ]
@@ -145,9 +144,7 @@
                 , ylabel={\# Transitions}
                 , ylabel style={align=center}
                 , width=0.95*\plotW cm, height=\plotH cm %, scale only axis
-                , legend style={font=\scriptsize, at={(1.1,1.05)}, anchor=south east}
                 , enlargelimits=true
-                , legend columns=1
                 , unbounded coords=jump
             ]
             % NOTE: Monday 09 July 2018 01:34:09 PM IST
