@@ -138,8 +138,8 @@ The basic computational units in our model are individual \gls{camkii} subunits
 and \gls{camkii} ring consisting of 6 or 7 \gls{camkii} subunits. We treat the
 \gls{camkii} ring as a proxy for the \gls{camkii} holoenzyme, which consists of
 two such rings stacked over each other
-\citep{woodgett_calmodulin-dependent,hoelz_crystal_2003}. In our model,
-\gls{camkii} exists in 15 possible states compared to 2 in
+\citep{woodgett_calmodulin-dependent,hoelz_crystal_2003,chao_mechanism_2011}. In
+our model, \gls{camkii} exists in 15 possible states compared to 2 in
 \citep{miller_stability_2005} (see \nameref{sec:materials_and_methods}). This
 leads to many more reactions than the \gls{mz} model. Since analytical
 comparison of the two models was not possible, we first compared numerical
@@ -188,7 +188,7 @@ properties, which we examine now.
 and to protein turnover}\label{subsec:result_tolerance}
 
 \begin{figure}[ht]
-    \includegraphics[width=112mm]{PaperFigures/elifeFigure2/figure_effect_of_tolerace_114mm.pdf}
+    \includegraphics[width=114mm]{PaperFigures/elifeFigure2/figure_effect_of_tolerace_114mm.pdf}
     \caption{Subunit exchange improves switch tolerance of \gls{pp1}.
         \textbf{(A)} Two representative trajectories (\SUB{N}{CaMKII}=10) are
         shown with subunit exchange (+SE, blue) and without
@@ -270,8 +270,8 @@ in the regime of bistability in both cases.
         stability decreases exponentially with turnover rate (red), however when
         subunit exchange is enabled, switch stability is not affected by
         turnover rates as high as \SI{1}{\per \hour} (blue). \textbf{(C,right)} In
-        the bistable regime (solid lines), the number of switching events increases roughly
-        linearly with turnover rate.
+        the bistable regime (solid lines), the number of switching events
+        increases monotonically with turnover rate.
     }\label{fig:turnover}
     \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure3}}
@@ -366,9 +366,10 @@ scale but does not influence its long time average activity.
         \gls{camkii} to rise from zero to 10\% of its maximum value. Average
         onset of activity time decreased with increasing basal \gls{ca} level
         but remained independent of \SUB{D}{sub}. Error bar represents standard
-        deviation.  \textbf{(F)} Long-time average \gls{camkii} activity
-        (\SUB{N}{CaMKII}=6) is independent of \SUB{D}{sub}, and only depends on
-        \SUB{D}{PP1}. Black dots represent bistable configurations with at least
+        deviation.  \textbf{(F)} In contrast with previous result, long-time average 
+        \gls{camkii} activity (\SUB{N}{CaMKII}=6, simulation time=10 days) is 
+        independent of \SUB{D}{sub}, and only depends on \SUB{D}{PP1}. 
+        Black dots represent bistable configurations with at least
         4 transitions observed in 10 days long simulation.
     }
 \label{fig:subunit_facilitates_spread} \figsupp[Sample trajectories of
@@ -592,17 +593,6 @@ is tightly controlled) suggests an interesting sub-compartmentalization of
 functions in these microdomains. Furthermore, we observed that the clustering of
 \gls{camkii} had important implications for its sustained activity.
 
-\Gls{camkii} is non uniformly distributed in \gls{psd} where it is mostly
-concentrated in a small region of \SI{16}{\nano \meter} to \SI{36}{\nano \meter}
-below synaptic cleft \citep{petersen_distribution_2003}. In \gls{psd},
-\gls{camkii} may exist in large clusters given that \gls{psd} is rich in
-\gls{camkii} binding partners.  Our study predicts that subunit exchange may
-lead to synchronization when \gls{camkii} is clustered, or more rapid activation
-by \gls{ca} when it is uniformly distributed. Given that \gls{camkii} can form
-clusters with \gls{nmda} receptors, it would be interesting to study the mixed
-case where some \gls{camkii} is clustered and rest is uniformly distributed.
-This would require detailed 3D simulation and is beyond the scope of this study.
-
 Subunit exchange is unlikely to have any impact on neighbouring spines. The mean
 escape time of a single \gls{camkii} subunit from a typical spine is between
 \SI{8}{\second} to \SI{33}{\second} \citep{holcman_diffusion_2011}. In a real
@@ -615,11 +605,23 @@ rich region of the bulk spine head or dendrite. We therefore consider it
 unlikely that \gls{camkii} subunit exchange plays any role in intra-spine
 information exchange such as synaptic tagging.
 
+\Gls{camkii} is non uniformly distributed in \gls{psd} where it is mostly
+concentrated in a small region of \SI{16}{\nano \meter} to \SI{36}{\nano \meter}
+below synaptic cleft \citep{petersen_distribution_2003}. In \gls{psd},
+\gls{camkii} may exist in large clusters given that \gls{psd} is rich in
+\gls{camkii} binding partners.  Our study predicts that subunit exchange may
+lead to synchronization when \gls{camkii} is clustered, or more rapid activation
+by \gls{ca} when it is uniformly distributed. Given that \gls{camkii} can form
+clusters with \gls{nmda} receptors, it would be interesting to study the mixed
+case where some \gls{camkii} is clustered and rest is uniformly distributed.
+This would require detailed 3D simulation and is beyond the scope of this study.
+
 Finally, we suggest that existence of diverse time-scales of \gls{camkii}
-activity in the PSD and spine head has important theoretical implications. A
-very plastic synapse is good at registering activity dependent changes
-(learning) but bad at retaining old memories. On the other hand, a rigid synapse
-is good at retaining old memories but is not efficient at learning. A
+activity -- bistable and highly stable synchronized bistable in PSD, slow and
+fast decaying leaky integrator in spine head -- has important theoretical
+implications. A very plastic synapse is good at registering activity dependent
+changes (learning) but bad at retaining old memories. On the other hand, a rigid
+synapse is good at retaining old memories but is not efficient at learning. A
 theoretical meta-model which sought to strike a balance between these two
 competing demands requires that diversity of timescales should exist at the
 synapse \citep{benna_computational_2016}. In this model, complex synapses with
