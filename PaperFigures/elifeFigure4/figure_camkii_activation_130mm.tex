@@ -150,56 +150,56 @@
                 , y=mean_camkii_\D, y error=std_camkii_\D]
             {#1};
 
-           \edef\temp{\noexpand\addlegendentry{
-                D\noexpand\textsubscript{sub}=\SI{\Label}{\micro\meter\squared\per\second}}}\temp
+           \edef\temp{\noexpand\addlegendentry{D\noexpand\textsubscript{sub}=\SI{\Label}{\micro\meter\squared\per\second}}}\temp
+           % \edef\temp{\noexpand\addlegendentry{D\noexpand\textsubscript{sub}=\SI{\Label}{}}}\temp
     }
-    % \addlegendentry{\si{m^2/s}}
     \end{axis}
-    \node[yshift=1mm] at  (current bounding box.north west) {\bf \normalsize #3};
+    \node[yshift=1mm, inner sep=0pt] at  (current bounding box.north west) {\bf \normalsize #3};
 }
 
 \newcommand\AddSummaryPlot[2]{%filename, colkey
     \addplot+ [ mark options={mark size=1pt}
-            , thick
+            , very thick
             , error bars/.cd, y dir=both, y explicit
         ] table [col sep=comma
             , x expr=\thisrow{Dxy_#2NM}*1e12
             , y=mean_rise_time_#2NM
             , y error=std_rise_time_#2NM
         ]{#1};
-        \edef\temp{\noexpand\addlegendentry{[Ca\noexpand\textsuperscript{2+}]=\SI{#2}{\nano M}}}\temp
+        \edef\temp{\noexpand\addlegendentry{[Ca\noexpand\textsuperscript{2+}]=\SI{#2}{
+            \nano M}+$\epsilon$}
+        }\temp
 }
 
 \newcommand\AddSummaryPlotST[2]{%filename, colkey
     \addplot+ [ mark options={mark size=1pt}
-            , thick
+            , very thick
             , error bars/.cd, y dir=both, y explicit
         ] table [col sep=comma
             , x expr=\thisrow{Dxy_#2NM}*1e12
             , y=mean_start_time_#2NM
             , y error=std_start_time_#2NM
         ]{#1};
-        \edef\temp{\noexpand\addlegendentry{[Ca\noexpand\textsuperscript{2+}]=\SI{#2}{\nano M}}}\temp
+        \edef\temp{\noexpand\addlegendentry{[Ca\noexpand\textsuperscript{2+}]=\SI{#2}{\nano
+        M}+$\epsilon$}}\temp
 }
 
 \begin{tikzpicture}[scale=1]
     \CaMKIIInCylinder{cyl1}{18}{70}
-    \node[left=of cyl1.west, yshift=10mm, xshift=10mm] {\bf \normalsize  A};
+    \node[left=of cyl1.west, yshift=10mm, xshift=5mm] {\bf \normalsize  A};
 \end{tikzpicture} 
 
 \vspace{5mm}
 
 % table starts here.
-\begin{tabularx}{\figW cm}{X X}
-\begin{tikzpicture}[scale=1]
-    \PlotTrace{./Data_ActivationSpread_ca80nm/mean_std_rise_time_reduced.csv}{80}{B}
-\end{tikzpicture} &
-\begin{tikzpicture}[scale=1]
-    \PlotTrace{./Data_ActivationSpread_ca120nm/mean_std_rise_time_reduced.csv}{120}{C}
-\end{tikzpicture} 
-\end{tabularx}
-
-\begin{tabularx}{\figW cm}{X X}
+\begin{tabularx}{\figW cm}{@{}X @{}X}
+    \begin{tikzpicture}[scale=1]
+        \PlotTrace{./Data_ActivationSpread_ca80nm/mean_std_rise_time_reduced.csv}{80}{B}
+    \end{tikzpicture} &
+    \begin{tikzpicture}[scale=1]
+        \PlotTrace{./Data_ActivationSpread_ca120nm/mean_std_rise_time_reduced.csv}{120}{C}
+    \end{tikzpicture} 
+    \\
     \begin{tikzpicture}
         \begin{loglogaxis}[
             , xlabel=\SUB{D}{sub}
@@ -255,44 +255,6 @@
         \end{semilogxaxis}
         \node[ ] at (current bounding box.north west) {\bf \normalsize E};
     \end{tikzpicture}
-    %%\pgfplotsset{axis lines*=box}
-    %%\begin{tikzpicture}[]
-    %%    \begin{loglogaxis}[ name=c2
-    %%        % , at={(c1.south east)}, anchor=south west, xshift=12mm
-    %%        , view={0}{90}
-    %%        , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
-    %%        , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
-    %%        , label style={font=\scriptsize}
-    %%        , title={Avg CaMKII\textsuperscript{*}, \SUB{N}{CaMKII}=6}
-    %%        , title style={at={(0.5,1.5)}, align=center, font=\footnotesize}
-    %%        % , width=\plotW cm
-    %%        , height = \plotH cm
-    %%        , colorbar horizontal,
-    %%        , colorbar style={height=1.5mm, samples=3, at={(0,1.3)}, xticklabel pos=top }
-    %%        , enlargelimits=true
-    %%        , unbounded coords=jump
-    %%        % , xtick={1e-2,1e-1}
-    %%        , ytick={0.01,1}
-    %%        , yticklabel style={rotate=90}
-    %%        , ticklabel style={font=\tiny}
-    %%        ]
-    %%        \addplot3 [surf, mesh/cols=6] table 
-    %%            [col sep=comma
-    %%            , x expr=10^(\thisrow{Dpp1}+12)
-    %%            , y expr=10^(\thisrow{Dxy}+12)
-    %%            , z expr={\thisrow{Mean CaMKII}}
-    %%            ]{./data_fig_sync_camkii_6.csv};
-
-    %%        \addplot3 [ only marks, mark=*
-    %%            ] table [ col sep=comma
-    %%            , x expr={10^(\thisrow{Dpp1}+12)}
-    %%            , y expr={10^(\thisrow{Dxy}+12)}
-    %%            , z expr={\thisrow{is_bistable}==0?nan:1}
-    %%            ]{./data_fig_sync_camkii_6.csv};
-
-    %%    \end{loglogaxis}
-    %%    \node[ ] at (current bounding box.north west) {\bf \normalsize F};
-    %%\end{tikzpicture}
 \end{tabularx}
 \end{document}
 
