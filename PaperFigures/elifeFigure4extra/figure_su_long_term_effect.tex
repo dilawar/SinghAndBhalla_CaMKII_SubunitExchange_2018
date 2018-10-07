@@ -56,9 +56,10 @@
             ]
             \foreach \D in {#2}
             {
-                \addplot+ [no marks] gnuplot [raw gnuplot] {
-                        plot "./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++\D--'y'++\D--'PP1'++#1}+N-6.dat_processed.dat" 
-                        using (column("time")/3600):"CaMKII*" every 10 smooth unique;
+
+            \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++\D--'y'++\D--'PP1'++#1}+N-6.dat_processed.dat"}
+            \addplot+ [no marks, prefix=trajs, id=\D] shell {
+                    python ./preprocess_data.py \FILENAME 
                 };
             \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
             \edef\temp{\noexpand\addlegendentry{\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
@@ -78,8 +79,12 @@
             ]
             \foreach \D in {#2}
             {
+                \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++#1--'y'++#1--'PP1'++\D}+N-6.dat_processed.dat"}
+
+                \addplot+ [no marks, prefix=trajs, id=\D] shell {
+                        python ./preprocess_data.py \FILENAME 
+                    };
                 \addplot+ [no marks] gnuplot [raw gnuplot] {
-                        plot "./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++#1--'y'++#1--'PP1'++\D}+N-6.dat_processed.dat" 
                         using (column("time")/3600):"CaMKII*" every 10 smooth unique;
                 };
             \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
