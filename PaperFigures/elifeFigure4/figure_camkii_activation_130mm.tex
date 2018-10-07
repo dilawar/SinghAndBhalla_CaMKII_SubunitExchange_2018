@@ -136,9 +136,10 @@
         , legend style={font=\scriptsize, at={(0,1)}, anchor=south west}
         , legend columns = 2
         , ytick={0,6,12,18}
-        , title = {Basal \SUP{Ca}{2+}=\SI{#2}{\nano M}}
+        , title = {Basal \SUP{Ca}{2+}=\SI{#2}{\nano M}+$\epsilon$}
         , title style={at={(0.5,1.4)}, anchor=south}
         , xmin=0, xmax=4
+        % , ymax=18
     ]
     \foreach \D/\Label in {0.0/0,1e-20/e-8,1e-15/e-3,1e-13/e-1}
     {
@@ -209,7 +210,7 @@
             , y unit=\si{\hour}
             , width = \plotW cm
             , height = \plotH cm
-            , legend style={at={(0,1.1)}, anchor=south west, font=\scriptsize}
+            , legend style={at={(-0.2,1.1)}, anchor=south west, font=\scriptsize}
             , legend columns=2
             , unbounded coords=jump
             , error bars/error bar style={opacity=0.9,}
@@ -237,7 +238,7 @@
             , y unit = \si{\hour}
             , width = \plotW cm
             , height = \plotH cm
-            , legend style={at={(0,1.1)}, anchor=south west, font=\scriptsize}
+            , legend style={at={(-0.2,1.1)}, anchor=south west, font=\scriptsize}
             , legend columns=2
             , unbounded coords=jump
             , error bars/error bar style={opacity=0.9,}
