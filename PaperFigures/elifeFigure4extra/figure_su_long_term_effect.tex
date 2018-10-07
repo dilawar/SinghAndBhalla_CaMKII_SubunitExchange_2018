@@ -4,7 +4,6 @@
 \RequirePackage{luatex85,shellesc}
 \documentclass[10pt,varwidth=130mm,class=../elife]{standalone}
 \usepackage{tikz}
-\usepackage{tabularx}
 \usetikzlibrary{arrows,arrows.meta}
 \usepackage{siunitx}
 \usepackage{pgfplots}
@@ -15,25 +14,8 @@
 % dimensions
 \pgfmathsetmacro{\figW}{13} 
 \pgfmathsetmacro{\colW}{\figW/2}
-\pgfmathsetmacro{\plotW}{\figW/2.5}
-\def\plotH{3.75}
-
-% shorten the length of legend line.
-\pgfplotsset{
-    legend image code/.code={
-        \draw[mark repeat=2,mark phase=2]
-        plot coordinates {
-            (0cm,0cm)
-            (0.15cm,0cm)        %% default is (0.3cm,0cm)
-            (0.3cm,0cm)         %% default is (0.6cm,0cm)
-        };%
-    }
-}
-
-\newcommand\ReplaceStr[1]{%
-  \IfSubStr{#1}{1e}{%
-    \StrSubstitute{#1}{1e}{e}}{#1}
-}
+\pgfmathsetmacro{\plotW}{\figW/2.2}
+\def\plotH{3}
 
 \newcommand\SUB[2]{#1\textsubscript{#2}}
 \newcommand\SUP[2]{#1\textsuperscript{#2}}
@@ -46,8 +28,7 @@
     , ytick align=center
     , unit markings=parenthesis
     , legend style={fill=none,draw=none,font=\scriptsize,align=left}
-    , label style={font=\footnotesize}
-    , tick label style={font=\footnotesize}
+    , tick label style={font=\scriptsize}
     , axis lines=left
     , enlargelimits=true
     , unbounded coords=discard   % silently ignore points
@@ -56,108 +37,98 @@
     , axis line style={-}
     , legend cell align=left
     , ylabel near ticks
+    , label style={font=\footnotesize}
 }
-
-\tikzset{ every node/.style={inner sep=1pt} }
-
-% This is from https://tex.stackexchange.com/a/99328/8087
-\newcounter{marknumber}
-\pgfplotsset{
-    error bars/every nth mark/.style={
-        /pgfplots/error bars/draw error bar/.prefix code={
-            \pgfmathtruncatemacro\marknumbercheck{mod(floor(\themarknumber/2),#1)}
-            \ifnum\marknumbercheck=0
-            \else
-                \begin{scope}[opacity=0]
-            \fi
-        },
-        /pgfplots/error bars/draw error bar/.append code={
-            \ifnum\marknumbercheck=0
-            \else
-                \end{scope}
-            \fi
-            \stepcounter{marknumber}    
-        }
-    }
-}
-
 
 % Controls the stretch in which free subunits are drawn.
 % Controls the size of subunits.
 \edef\SUSIZE{0.12}
 \edef\CylWidth{15}
 
-\newcommand\PlotTrace[3]{%filename, base label ca, label
-    \begin{axis}[
-        xlabel=Time, x unit=\si{\hour}
-        , ylabel=Active CaMKII
-        , width=\plotW cm, height=\plotH cm
-        , legend style={font=\scriptsize, at={(0,1)}, anchor=south west}
-        , legend columns = 2
-        , ytick={0,6,12,18}
-        , title = {Basal \SUP{Ca}{2+}=\SI{#2}{\nano M}}
-        , title style={at={(0.5,1.4)}, anchor=south}
-        % , xmin=0, xmax=4
-    ]
-    \foreach \D/\Label in {0.0/0,1e-20/e-8,1e-15/e-3,1e-13/e-1}
-    {
-        \addplot+ [no marks
-            , thick
-            , error bars/.cd, y dir=both, y explicit, every nth mark=7
-            ] table[ col sep=comma,
-                , x expr={\thisrow{time}/3600}
-                , y=mean_camkii_\D, y error=std_camkii_\D]
-            {#1};
-
-           \edef\temp{\noexpand\addlegendentry{
-                D\noexpand\textsubscript{sub}=\SI{\Label}{\micro\meter\squared\per\second}}}\temp
-    }
-    % \addlegendentry{\si{m^2/s}}
-    \end{axis}
-    \node[yshift=1mm] at  (current bounding box.north west) {\bf \normalsize #3};
+\newcommand\PlotTraceFixedDPP[3]{%DPP1, Dsubs, label
+    \begin{tikzpicture}[baseline]
+        \begin{axis}[
+            % xlabel=Time, x unit=\si{\hour}
+            , ylabel=Active CaMKII
+            , width=\plotW cm, height=\plotH cm
+            , legend style={font=\scriptsize, at={(0,1)}, anchor=south west}
+            , legend columns = 2
+            ]
+            \foreach \D in {#2}
+            {
+                \addplot+ [no marks] gnuplot [raw gnuplot] {
+                        plot "./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++\D--'y'++\D--'PP1'++#1}+N-6.dat_processed.dat" 
+                        using (column("time")/3600):"CaMKII*" every 10 smooth unique;
+                };
+            \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
+            \edef\temp{\noexpand\addlegendentry{\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+            }
+        \end{axis}
+        \node[yshift=3mm, xshift=-3mm] at  (current bounding box.north west) {\bf \normalsize #3};
+    \end{tikzpicture}
+}
+\newcommand\PlotTraceFixedDSub[3]{%Dsub, DPP1, label
+    \begin{tikzpicture}[baseline]
+        \begin{axis}[
+            xlabel=Time, x unit=\si{\hour}
+            , ylabel=Active CaMKII
+            , width=\plotW cm, height=\plotH cm
+            , legend style={font=\scriptsize, at={(0,1)}, anchor=south west}
+            , legend columns = 2
+            ]
+            \foreach \D in {#2}
+            {
+                \addplot+ [no marks] gnuplot [raw gnuplot] {
+                        plot "./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++#1--'y'++#1--'PP1'++\D}+N-6.dat_processed.dat" 
+                        using (column("time")/3600):"CaMKII*" every 10 smooth unique;
+                };
+            \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
+            \edef\temp{\noexpand\addlegendentry{\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+            }
+        \end{axis}
+    \end{tikzpicture}
 }
 
-\begin{tabularx}{\figW cm}{X X}
-    % plot trajectories here.
-    \begin{tikzpicture}
-        % \PlotTrace{./Data_ActivationSpread_ca80nm/mean_std_rise_time.csv}{80}{A}
-    \end{tikzpicture}
-    &
-    \pgfplotsset{axis lines*=box}
-    \begin{tikzpicture}[]
-        \begin{loglogaxis}[ name=c2
-            % , at={(c1.south east)}, anchor=south west, xshift=12mm
-            , view={0}{90}
-            , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
-            , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
-            , label style={font=\scriptsize}
-            , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
-            , title style={at={(0.5,1.5)}, align=center, font=\footnotesize}
-            , width=\plotW cm
-            , colorbar horizontal,
-            , colorbar style={height=1.5mm, samples=3, at={(0,1.3)}, xticklabel pos=top }
-            , enlargelimits=true
-            , unbounded coords=jump
-            , ytick={0.01,1}
-            , yticklabel style={rotate=90}
-            ]
-            \addplot3 [surf, mesh/cols=6] table 
-                [col sep=comma
-                , x expr=10^(\thisrow{Dpp1}+12)
-                , y expr=10^(\thisrow{Dxy}+12)
-                , z expr={\thisrow{Mean CaMKII}}
-                ]{./data_fig_sync_camkii_6.csv};
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+    \node (a) { \PlotTraceFixedDPP{5e-13}{5e-15,5e-14,5e-13}{A} };
+    \node[below=-1mm of a.south east, anchor=north east] (b) {\PlotTraceFixedDSub{5e-13}{5e-15,5e-14,5e-13}{}};
+    \node[right=0mm of a.north east, anchor=north west] (c) {
+            \begin{tikzpicture}[]
+                \pgfplotsset{axis lines*=box}
+                \begin{loglogaxis}[ name=c2
+                    % , at={(c1.south east)}, anchor=south west, xshift=12mm
+                    , view={0}{90}
+                    , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
+                    , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
+                    , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
+                    , width=\plotW cm
+                    , colorbar
+                    , colorbar style={samples=3,width=1.8mm}
+                    , enlargelimits=true
+                    , unbounded coords=jump
+                    , ytick={0.01,1}
+                    , yticklabel style={rotate=90}
+                    , label style={font=\footnotesize}
+                    ]
+                    \addplot3 [surf, mesh/cols=6] table 
+                        [col sep=comma
+                        , x expr=10^(\thisrow{Dpp1}+12)
+                        , y expr=10^(\thisrow{Dxy}+12)
+                        , z expr={\thisrow{Mean CaMKII}}
+                        ]{./data_fig_sync_camkii_6.csv};
 
-            \addplot3 [ only marks, mark=*
-                ] table [ col sep=comma
-                , x expr={10^(\thisrow{Dpp1}+12)}
-                , y expr={10^(\thisrow{Dxy}+12)}
-                , z expr={\thisrow{is_bistable}==0?nan:1}
-                ]{./data_fig_sync_camkii_6.csv};
+                    \addplot3 [ only marks, mark=*
+                        ] table [ col sep=comma
+                        , x expr={10^(\thisrow{Dpp1}+12)}
+                        , y expr={10^(\thisrow{Dxy}+12)}
+                        , z expr={\thisrow{is_bistable}==0?nan:1}
+                        ]{./data_fig_sync_camkii_6.csv};
 
-        \end{loglogaxis}
-        \node[ ] at (current bounding box.north west) {\bf \normalsize F};
-    \end{tikzpicture}
-\end{tabularx}
+                \end{loglogaxis}
+                \node[xshift=-3mm, yshift=5mm] at (current bounding box.north west) {\bf \normalsize B};
+            \end{tikzpicture}
+        };
+\end{tikzpicture}	
+
 \end{document}
 
