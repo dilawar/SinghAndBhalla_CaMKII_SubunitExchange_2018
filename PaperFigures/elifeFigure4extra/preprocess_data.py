@@ -3,7 +3,7 @@ import sys
 import pandas as pd 
 import numpy as np
 
-N_ = 30
+N_ = 100
 everyN_ = 10
 
 def smooth( vec ):
@@ -16,9 +16,12 @@ def main():
     data['time'] /= 3600.0 
     if len(sys.argv) > 2:
         N_ = int( sys.argv[2] )
-    data['mean'] = smooth( data['CaMKII*'] )
+    data['expanding_mean'] = data['CaMKII*'].expanding().mean()
+    data['smooth']  = smooth(data['CaMKII*'])
     data = data[N_:-N_:everyN_]
-    print( data.to_csv( index = False, header=False, sep = ' ', columns=['time', 'mean']) )
+    print( data.to_csv( index = False, header=False, sep = ' '
+            , columns=['time', 'smooth']) 
+            )
 
 if __name__ == '__main__':
     main()
