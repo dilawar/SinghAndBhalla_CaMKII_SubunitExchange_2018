@@ -3,7 +3,7 @@ import sys
 import pandas as pd 
 import numpy as np
 
-N_ = 30
+N_ = 100
 everyN_ = 10
 
 def smooth( vec ):

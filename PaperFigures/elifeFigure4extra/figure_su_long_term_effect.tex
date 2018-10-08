@@ -27,7 +27,7 @@
     , xtick align=center
     , ytick align=center
     , unit markings=parenthesis
-    , legend style={fill=none,draw=none, align=left}
+    , legend style={fill=none,draw=none,font=\scriptsize,align=left}
     , tick label style={font=\scriptsize}
     , axis lines=left
     , enlargelimits=true
@@ -40,20 +40,10 @@
     , label style={font=\footnotesize}
 }
 
-% This is from here https://tex.stackexchange.com/a/210259/8087
-\pgfplotsset{
-    legend image code/.code={
-    \draw[mark repeat=2,mark phase=2]
-        plot coordinates {(0cm,0cm) (0.15cm,0cm) (0.3cm,0cm)};
-    }
-}
-
 % Controls the stretch in which free subunits are drawn.
 % Controls the size of subunits.
 \edef\SUSIZE{0.12}
 \edef\CylWidth{15}
-
-% reduce the size of legend line.
 
 \newcommand\PlotTraceFixedDPP[3]{%DPP1, Dsubs, label
     \begin{tikzpicture}[baseline]
@@ -61,7 +51,7 @@
             % xlabel=Time, x unit=\si{\hour}
             , ylabel=Active CaMKII
             , width=\plotW cm, height=\plotH cm
-            , legend style={font=\tiny, at={(0,1)}, anchor=south west}
+            , legend style={font=\scriptsize, at={(0,1)}, anchor=south west}
             , legend columns = 2
             ]
             \foreach \D in {#2}
@@ -72,7 +62,7 @@
                     python ./preprocess_data.py \FILENAME 
                 };
             \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
-            \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{sub}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+            \edef\temp{\noexpand\addlegendentry{\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
             }
         \end{axis}
         \node[yshift=3mm, xshift=-3mm] at  (current bounding box.north west) {\bf \normalsize #3};
@@ -84,7 +74,7 @@
             xlabel=Time, x unit=\si{\hour}
             , ylabel=Active CaMKII
             , width=\plotW cm, height=\plotH cm
-            , legend style={font=\tiny, at={(0,1)}, anchor=south west}
+            , legend style={font=\scriptsize, at={(0,1)}, anchor=south west}
             , legend columns = 2
             ]
             \foreach \D in {#2}
@@ -94,8 +84,11 @@
                 \addplot+ [no marks, prefix=trajs, id=\D] shell {
                         python ./preprocess_data.py \FILENAME 
                     };
+                \addplot+ [no marks] gnuplot [raw gnuplot] {
+                        using (column("time")/3600):"CaMKII*" every 10 smooth unique;
+                };
             \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
-            \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+            \edef\temp{\noexpand\addlegendentry{\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
             }
         \end{axis}
     \end{tikzpicture}
@@ -114,13 +107,13 @@
                     , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
                     , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
                     , width=\plotW cm
+                    , colorbar
+                    , colorbar style={samples=3,width=1.8mm}
                     , enlargelimits=true
                     , unbounded coords=jump
                     , ytick={0.01,1}
                     , yticklabel style={rotate=90}
                     , label style={font=\footnotesize}
-                    , colorbar horizontal
-                    , colorbar style={samples=3,height=1.8mm}
                     ]
                     \addplot3 [surf, mesh/cols=6] table 
                         [col sep=comma
