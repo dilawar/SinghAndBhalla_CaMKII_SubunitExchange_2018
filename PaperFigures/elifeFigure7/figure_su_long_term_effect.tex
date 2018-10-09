@@ -73,13 +73,13 @@
             \pgfplotsforeachungrouped \D/\clr in {#2}
             {
                 \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++\D--'y'++\D--'PP1'++#1}+N-6.dat_processed.dat"}
-                % \addplot+ [no marks, color=\clr, opacity=0.4, forget plot] gnuplot[raw gnuplot] {
-                        % plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
-                % };
+                \addplot+ [no marks] gnuplot[raw gnuplot] {
+                        plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
+                };
 
-                \addplot+ [no marks, prefix=trajs, id=\D, color=\clr] shell {
-                        python ./preprocess_data.py \FILENAME 
-                    };
+                %\addplot+ [no marks, prefix=trajs, id=\D, color=\clr] shell {
+                %        python ./preprocess_data.py \FILENAME 
+                %    };
 
                 \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
                 \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{sub}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
@@ -109,11 +109,16 @@
                         % plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
                 % };
 
-                \addplot+ [no marks, prefix=trajs, id=\D, very thick] shell {
-                        python ./preprocess_data.py \FILENAME 
-                    };
+                \addplot+ [no marks] gnuplot[raw gnuplot] {
+                        plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
+                };
+
+                % \addplot+ [no marks, prefix=trajs, id=\D, very thick] shell {
+                        % python ./preprocess_data.py \FILENAME
+                    % };
                 \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
-                \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+                \edef\temp{\noexpand\addlegendentry{ 
+                    \noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
             }
         \end{axis}
         \node[yshift=0mm, xshift=-3mm] at  (current bounding box.north west) {\bf \normalsize #3};

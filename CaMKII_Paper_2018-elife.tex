@@ -285,9 +285,9 @@ over which the switch remains bistable.
 
 As suggested in \citep{stratton_activation-triggered_2014}, we found that
 subunit exchange facilitates spread of \gls{camkii} activation
-(\FIG{subunit_facilitates_spread}). When subunits were allowed to
-diffuse, they could be picked by neighbouring inactive \gls{camkii} holoenzymes.
-This effectively overcame the first slow step of \gls{camkii} phosphorylation
+(\FIG{subunit_facilitates_spread}). When subunits were allowed to diffuse, they
+could be picked by neighbouring inactive \gls{camkii} holoenzymes.  This
+effectively overcame the first slow step of \gls{camkii} phosphorylation
 (\EQ{phospho}) thereby facilitating the spread of activation.
 
 We put \SUB{N}{CaMKII}=18 inactive holoenzymes in a cylinder with the volume of
@@ -308,7 +308,7 @@ basal calcium levels. We used
 \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} which is the observed
 value of the diffusion coefficient of Ras, which is a similar sized protein
 \citep{harvey_spread_2008}. We ran simulations for 4 hours at basal calcium
-concentration [\gls{ca}]=\SI{80}{\nano M} and without subunit exchange (i.e.,
+concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ and without subunit exchange (i.e.,
 \SUB{D}{sub}=0). We set \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII} to make sure the
 system show no significant \gls{camkii} activity (\FIG{tolerance_pp1}B, red
 curve) to better quantify the effect of subunit exchange. When we enabled
@@ -322,24 +322,13 @@ exchange (rise time quantified as the time taken by \gls{camkii} to rise from
 \SUB{D}{sub} increased the effect of subunit exchange (decreased rise time of
 \gls{camkii} activity, \FIG{subunit_facilitates_spread}D,E).
 
-Subunit exchange did not have any impact on the average \gls{camkii} activity at
-longer time scales (\FIG{subunit_facilitates_spread}E) though we found that
-long-time average \gls{camkii} activity increased when subunit exchange was
-enabled. This change was independent of \SUB{D}{sub} (i.e., not due to subunit
-exchange) but was strongly dependent on \SUB{D}{PP1}. This is because long-time
-average potency of \gls{pp1} reduced with increased \SUB{D}{PP1}
-(\FIGSUPP[subunit_facilitates_spread]{diffusion_reduces_pp1_potency}) which led
-to decreased average \gls{pp1} activity and hence increased average \gls{camkii}
-activity.
-
 Thus, subunit exchange facilitates the spread of kinase activity at short time
-scale but does not influence its long time average activity.
+scale.
 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure4/figure_camkii_activation_130mm.pdf}
     \caption{Subunit exchange facilitates the spread of kinase activity
-        \citep{stratton_activation-triggered_2014} but does not change its
-        long-time average. \textbf{(A)} 18 \gls{camkii} holoenzymes were put in
+        \citep{stratton_activation-triggered_2014}. \textbf{(A)} 18 \gls{camkii} holoenzymes were put in
         a cylinder of volume \SI{0.0275}{\cubic\micro\meter} discretized into 18
         voxels, each separated by \SI{30}{\nano\meter}. Red and blue balls
         represent active and inactive subunits respectively.  For all
@@ -364,60 +353,23 @@ scale but does not influence its long time average activity.
         \textbf{(E)} The onset of activity time (in hours) v/s \SUB{D}{sub},
         where onset of activity time is measured as the time taken by inactive
         \gls{camkii} to rise from zero to 10\% of its maximum value. Average
-        onset of activity time decreased with increasing basal \gls{ca} level
+        time for onset of activity decreased with increasing basal \gls{ca} level
         but remained independent of \SUB{D}{sub}. Error bar represents standard
         deviation.  
-        %\textbf{(F)} In contrast with previous result, long-time average 
-        %\gls{camkii} activity (\SUB{N}{CaMKII}=6, simulation time=10 days) is 
-        %independent of \SUB{D}{sub}, and only depends on \SUB{D}{PP1}. 
-        %Black dots represent bistable configurations with at least
-        %4 transitions observed in 10 days long simulation.
-    }
-\label{fig:subunit_facilitates_spread} \figsupp[Sample trajectories of
+    }\label{fig:subunit_facilitates_spread} 
+% first suppl
+\figsupp[Sample trajectories of
 \gls{camkii} activation for basal \gls{ca} concentration of \SI{100}{\nano
     M}.]{In all simulations, \SUB{D}{PP1} is fixed to
 \SI{0.1}{\micro\meter\squared\per\second} and \SUB{D}{sub} was varied. Each plot
 contains 40 trajectories. Dark black trajectory in each plot shows the average
 of all 40 trajectories.
 }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_camkii_activations_trajs.pdf}}
-\label{figsupp:camkii_activation_se_trajs} \figsupp[\gls{pp1} potency reduces as
-\SUB{D}{PP1} increases.]{CaMKII/PP1 system was put into a cylinder discretized
-    into 6 voxels of equal volume separated by distance
-    \(h\)=\SI{30}{\nano\meter}.  \textbf{(A)} \textbf{(above)} For each voxel,
-    trajectory of active \gls{pp1} v/s time is plotted in blue. \textbf{(below)}
-    Cross-correlation matrix (Pearson product-moment correlation coefficient,
-    using \texttt{numpy.corrcoef} function). \textbf{(B,C)} Same as \textbf{A}
-    but with different value of \SUB{D}{PP1},
-    \SI{0.001}{\micro\meter\squared\per\second} and
-    \SI{0.1}{\micro\meter\squared\per\second} respectively. \gls{pp1} activity
-    reduces in all voxels with increased \SUB{D}{PP1}. The correlation of
-    \gls{pp1} activity among voxels does not improve with increased \SUB{D}{PP1}
-    therefore non-linear distribution of \gls{pp1} in voxels is unlikely to be a
-    significant contributor to the observed loss of \gls{pp1} potency.
-    \textbf{(D)} \gls{pp1} activity decreased with increased \SUB{D}{PP1} but
-    remained independent of diffusion coefficient of subunit (\SUB{D}{sub}). On
-    y-axis, \gls{pp1} activity is measured as ratio of sum of number of all
-    active \gls{pp1} in all voxels during the simulation divided by the
-    simulation time in hours. On top, dotted blue line (labeled
-    \textcolor{blue}{\SUB{D}{PP1}=0}) represents the case where \gls{pp1} was
-    not allowed to diffuse. At bottom, dotted blue line (labeled
-    \textcolor{blue}{1-voxel}) shows the case where the cylinder consists only
-    of 1 voxel and diffusion is instantaneous i.e., it is a well-mixed system.
-    As expected, as \SUB{D}{PP1} increased, the 6 voxels system converged to a
-    well-mixed system of 1 voxel of 6x volume.  Note that a similar effect is
-    seen for a range of \SUB{D}{sub}, including
-    \SUB{D}{sub}=\SI{5}{\micro\meter\squared\per\second}, for which
-    $h_{crit}=\SI{0.33}{\nano\meter}$, satisfying the condition \(h\gg
-    h_{crit}\)
-    \citep{isaacson_reaction-diffusion_2009}\citep{erban_stochastic_2009}.
-    (Also see Fig. \FIG{suppl_reac_rdme} and \nameref{sec:diff_as_gillespie})
-Thus we do not expect that this is a numerical artifact due to our use of
-cross-voxel jump reactions to approximate diffusion.
-}{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
-\label{figsupp:diffusion_reduces_pp1_potency} \figdata{Source and data are
-available at
+\label{figsupp:camkii_activation_se_trajs} 
+\figdata{Source and data are available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure4}}
 \end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Spread of activity and synchronization
@@ -467,15 +419,15 @@ had 3 relatively stable bistable systems (long residence time,
 this system had a binomial distribution (\FIG{sync_spread}B, red plot). 
 
 Then we allowed \gls{pp1} and \gls{camkii} subunits to undergo linear diffusion.
-We fixed \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} as before and varied
-$\SUB{D}{sub}$ to quantify effect of subunit exchange.  Subunit exchange led to
-synchronization of switching activity. The population of clustered \gls{camkii}
-acted as a single bistable switch (\FIG{sync_spread}B, blue plot).
+We fixed \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} as before and
+varied \SUB{D}{sub} to quantify effect of subunit exchange.  Subunit exchange
+led to synchronization of switching activity. The population of clustered
+\gls{camkii} acted as a single bistable switch (\FIG{sync_spread}B, blue plot).
 This effect was strong and robust to variation in \SUB{D}{sub}. Even for a very
-small value of \SUB{D}{sub}=\SI{0.01}{\micro\meter\squared\per\second}, we observed
-strong synchronization (\FIG{sync_spread}D). The synchronization
-disappeared completely for diffusion coefficient less than
-\SUB{D}{sub}=\SI{e-4}{\micro\meter\squared\per\second} for distance
+small value of \SUB{D}{sub}=\SI{0.01}{\micro\meter\squared\per\second}, we
+observed strong synchronization (\FIG{sync_spread}D). The synchronization
+disappeared completely for \SUB{D}{sub} less than
+\SI{e-4}{\micro\meter\squared\per\second}, and  for $d$ less than
 \SI{30}{\nano\meter} (\FIG{sync_spread}D).
 
 Thus, for most physiologically plausible values of diffusion coefficient
@@ -506,7 +458,7 @@ decreased the rate of dephosphorylation roughly by a factor of 5
 (\SI{41.65}{\second} v/s \SI{200.82}{\second}) (\FIG{cytosol_integrator}B). 
 
 \begin{figure}%[t]%[tbh]
-    \includegraphics[width=11.4cm]{PaperFigures/elifeFigure6/figure_two_timecourses_114cm.pdf}
+    \includegraphics[width=11.4cm]{PaperFigures/elifeFigure6/figure_two_timecourses_114mm.pdf}
     \caption{ In \gls{pp1} rich spine cytosol, \gls{camkii} acts as a leaky integrator of \gls{ca} 
         activity. As clustered \gls{camkii} population decays much slowly due
         to subunit exchange, a mixed population of clustered and non-clustered \gls{camkii}
@@ -769,6 +721,86 @@ available in MOOSE simulator (\url{https://moose.ncbs.res.in}, version 3.1.4)
 \citep{ray_pymoose:_2008}. This model is available
 at \url{https://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018}.
 Table of parameters can be found in SI (\TABLE{si:parameters}).
+
+\subsection{Method Validation}
+
+To validate our implementation of diffusion, we compared trajectories of two
+systems: one in a single `well-mixed' cylinder with with parameters tuned to
+elicit bistable behaviour (henceforth, we call it reference bistable), and other
+in a discretized cylinder as described above. We expect the later to converge to
+reference bistable system. 
+
+We put 6 \gls{camkii} holoenzymes in a cylinder of length \SI{180}{\nano\meter}
+discretized into 6 voxels, separated by a distance of \SI{30}{\nano\meter}. The
+long-term behaviour of discretized system was most sensitive to \SUB{D}{PP1}
+(\FIG{method_validation}B) and almost independent of \SUB{D}{sub}
+(\FIG{method_validation}A). The discretized system converges to reference
+bistable (\FIG{method_validation}C, black dots). The sensitivity of \SUB{D}{PP1}
+is due to the fact that long-time average potency of \gls{pp1} reduced with
+increased \SUB{D}{PP1}
+(\FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}) which led to
+decreased average \gls{pp1} activity and hence increased average \gls{camkii}
+activity (\FIG{method_validation}C, red region). This effect is not entirely due
+to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}. 
+
+\begin{figure}[ht!]
+    \includegraphics[width=12cm]{./PaperFigures/elifeFigure7/figure_su_long_term_effect.pdf}
+    \caption{Method validation. \SUB{N}{CaMKII}=6 holoenzymes as described in
+        \FIG{subunit_facilitates_spread} was put in cylinderical arena divided
+        into 6 voxels separated by \SI{30}{\nano\meter}. Basal \gls{ca} label
+        fixed to \SI{100}{\nano M}+$\epsilon$. Another system with same parameter set was put in a single
+        `well-mixed' cylinder of same length and volume known to elicit bistable
+        behaviour (henceforth reference bistable system, data not shown). 
+        \textbf{(A)} For fixed \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, varying
+        \SUB{D}{sub} does not affect \gls{camkii} activity. \textbf{(B)} On the
+        other hand, for fixed
+        \SUB{D}{sub}=\SI{0.5}{\micro\meter\squared\per\second} , increasing
+        \SUB{D}{PP1}, increases \gls{camkii} activity. We see a bistable
+        trajectory (red) which is similar to the behaviour or reference bistable
+        system (data not shown). \textbf{(C)} Phase plot shows the discretized
+        system converges to reference bistable system (black dots). \Gls{camkii}
+        activity (simulation time=10 days) is independent of \SUB{D}{sub}, and
+        only depends on \SUB{D}{PP1}.  Black dots represent bistable
+        configurations with at least 4 transitions observed in 10 days long
+        simulation. Thus discretized system converges to reference bistable system.
+    }\label{fig:method_validation} 
+
+    % suppl
+    \figsupp[\gls{pp1} potency reduces as \SUB{D}{PP1} increases.  ]{CaMKII/PP1
+        system was put into a cylinder discretized into 6 voxels of equal volume
+        separated by distance \(h\)=\SI{30}{\nano\meter}.  \textbf{(A)}
+        \textbf{(above)} For each voxel, trajectory of active \gls{pp1} v/s time
+        is plotted in blue. \textbf{(below)} Cross-correlation matrix (Pearson
+        product-moment correlation coefficient, using \texttt{numpy.corrcoef}
+        function). \textbf{(B,C)} Same as \textbf{A} but with different value of
+        \SUB{D}{PP1}, \SI{0.001}{\micro\meter\squared\per\second} and
+        \SI{0.1}{\micro\meter\squared\per\second} respectively. \gls{pp1}
+        activity reduces in all voxels with increased \SUB{D}{PP1}. The
+        correlation of \gls{pp1} activity among voxels does not improve with
+        increased \SUB{D}{PP1} therefore non-linear distribution of \gls{pp1} in
+        voxels is unlikely to be a significant contributor to the observed loss
+        of \gls{pp1} potency.  \textbf{(D)} \gls{pp1} activity decreased with
+        increased \SUB{D}{PP1} but remained independent of diffusion coefficient
+        of subunit (\SUB{D}{sub}). On y-axis, \gls{pp1} activity is measured as
+        ratio of sum of number of all active \gls{pp1} in all voxels during the
+        simulation divided by the simulation time in hours. On top, dotted blue
+        line (labeled \textcolor{blue}{\SUB{D}{PP1}=0}) represents the case
+        where \gls{pp1} was not allowed to diffuse. At bottom, dotted blue line
+        (labeled \textcolor{blue}{1-voxel}) shows the case where the cylinder
+        consists only of 1 voxel and diffusion is instantaneous i.e., it is a
+        well-mixed system.  As expected, as \SUB{D}{PP1} increased, the 6 voxels
+        system converged to a well-mixed system of 1 voxel of 6x volume.  Note
+        that a similar effect is seen for a range of \SUB{D}{sub}, including
+        \SUB{D}{sub}=\SI{5}{\micro\meter\squared\per\second}, for which
+        $h_{crit}=\SI{0.33}{\nano\meter}$, satisfying the condition \(h\gg
+        h_{crit}\)
+        \citep{isaacson_reaction-diffusion_2009}\citep{erban_stochastic_2009}.
+        (Also see Fig. \FIG{suppl_reac_rdme} and
+        \nameref{sec:diff_as_gillespie}) Thus we do not expect that this is a
+        numerical artifact due to our use of cross-voxel jump reactions to
+approximate diffusion.
+}{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
+\label{figsupp:diffusion_reduces_pp1_potency} \end{figure}
 
 \subsection{Table of parameters} 
 \TABLE{si:parameters} summarizes parameters of our model.
