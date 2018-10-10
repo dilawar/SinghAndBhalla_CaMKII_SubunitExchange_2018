@@ -4,6 +4,7 @@
 \usepackage{chemfig}
 \usepackage{xstring}
 \usetikzlibrary{calc,fit,positioning}
+\usetikzlibrary{decorations.pathmorphing}
 \input{macros}
 
 \begin{document}
@@ -16,7 +17,7 @@
 
     \CAMKIIRING{camkii71}{5.5}{0}{6,2,3}{\ballR}{6}
     \CAMKIIRING{camkii61}{8.5}{0}{}{\ballR}{6}
-    \SUBUNIT{x1}{(7,-0.3)}{\ballR}{red}
+    \SUBUNIT{x1}{(6.5,-0.3)}{\ballR}{red}
 
     \CAMKIIRING{camkii72}{12}{0}{6,2,3}{\ballR}{6}
     \CAMKIIRING{camkii62}{14}{0}{5}{\ballR}{7}
@@ -25,6 +26,9 @@
     \draw[latex-latex, very thick] (camkii60) -- (camkii71);
     \draw[latex-latex, very thick] (camkii61) -- (camkii72);
 
+    % wiggly arrow.
+    \draw[-latex,decorate, decoration={snake, segment length=5,post length=5}]
+        (x1.south east) -- ([xshift=0mm, yshift=3mm]camkii61.south west);
 
 \end{tikzpicture}    
 
