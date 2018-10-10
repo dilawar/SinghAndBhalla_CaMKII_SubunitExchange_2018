@@ -1,0 +1,32 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[trim=true,class=../elife]{standalone}
+\renewcommand\familydefault{\sfdefault}
+\usepackage{chemfig}
+\usepackage{xstring}
+\usetikzlibrary{calc,fit,positioning}
+\input{macros}
+
+\begin{document}
+
+\begin{tikzpicture}[every node/.style={node distance=5mm,inner sep=1pt}]
+    \edef\ballR{0.5}
+
+    \CAMKIIRING{camkii70}{0}{0}{6,7,2,3}{\ballR}{7}
+    \CAMKIIRING{camkii60}{2}{0}{}{\ballR}{6}
+
+    \CAMKIIRING{camkii71}{5.5}{0}{6,2,3}{\ballR}{6}
+    \CAMKIIRING{camkii61}{8.5}{0}{}{\ballR}{6}
+    \SUBUNIT{x1}{(7,-0.3)}{\ballR}{red}
+
+    \CAMKIIRING{camkii72}{12}{0}{6,2,3}{\ballR}{6}
+    \CAMKIIRING{camkii62}{14}{0}{5}{\ballR}{7}
+
+    % draw arrows.
+    \draw[latex-latex, very thick] (camkii60) -- (camkii71);
+    \draw[latex-latex, very thick] (camkii61) -- (camkii72);
+
+
+\end{tikzpicture}    
+
+
+\end{document}

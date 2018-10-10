@@ -43,6 +43,10 @@
     \end{scope}
 }
 
+\newcommand\SUBUNIT[4]{ % name, pos, radius, color
+    \node[draw=none,ball color=#4,inner sep=0,circle,minimum size=#3 cm] (#1) at #2 {}; 
+}
+
 \newcommand{\CAMKII}[5] { % name, position, indices_of_red_balls, size, tips 
     % get the theta for given number of subunits.
     \node (#1) at (#2) {};
@@ -204,4 +208,45 @@
     \node[circle,fill=yellow,inner sep=0pt] (#1) at (#2) {\tiny P};
 }
 
+
+\newcommand{\CAMKIIHOLOENZYME}[6] { % name, x, y, indices_of_red_balls, size, tips 
+    % get the theta for given number of subunits.
+    \begin{scope}[ ]
+        \pgfmathsetmacro{\theta}{360/#6};
+        \pgfmathsetmacro{\r}{0.5*#5/sin(\theta/2)};
+        \def\fitlist{};
+        \foreach \i in {1,...,#6}
+        {
+            \IfSubStr {#4} {\i}
+            {
+                \node[ball color=red,circle,shading=ball,minimum size=#5cm] (r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3,0)$) {};
+            }
+            {
+                \node[draw=none,ball color=blue,circle,minimum size=#5cm](r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3,0)$) {}; 
+            }
+            \xdef\fitlist{\fitlist(r\i)};
+        };
+
+        % inner hub.
+        % \tstar{#2}{#3}{\r/5}{\r}{#6};
+
+        \foreach \i in {1,...,#6}
+        {
+            \IfSubStr {#4} {\i}
+            {
+                \node[ball color=red,circle,shading=ball,minimum size=#5cm] (r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3,\r)$) {};
+            }
+            {
+                \node[draw=none,ball color=blue,circle,minimum size=#5cm](r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3,\r)$) {}; 
+            }
+            \xdef\fitlist{\fitlist(r\i)};
+        };
+        \node[circle,fit=\fitlist,] (#1) {};
+        %\node[] at (#2,#3) {#1};
+    \end{scope}
+}
 

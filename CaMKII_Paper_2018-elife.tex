@@ -1,16 +1,12 @@
 \documentclass[9pt,lineno,doublespacing]{elife}
 % \documentclass[9pt,lineno,]{elife}
 \usepackage{nameref}
-\usepackage{tikz}
-\usetikzlibrary{arrows,shapes,arrows.meta}
 \usepackage{setspace}
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{mathtools}
 \usepackage{siunitx}
 \usepackage{tabularx}
-\usepackage{sidecap}
-\usepackage{wrapfig}
 
 % glossaries. Disable the link in main document.
 \usepackage[acronym]{glossaries}
@@ -147,6 +143,7 @@ results from our model without diffusion and without subunit exchange with the
 \gls{mz} model (\FIG{validation}).
 
 \begin{figure}[t]%[hbt] 
+    % \begin{fullwidth}
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure1/figure_validation_178mm.pdf}
     \caption{Model description and validation. \textbf{(A)} CaMKII/PP1
         pathway described in \gls{sbgn} - Process Description (PD) Language \citep{novere_systems_2009}. 
@@ -169,6 +166,7 @@ results from our model without diffusion and without subunit exchange with the
         model.}\label{fig:validation} 
     \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure1}}
+% \end{fullwidth}
 \end{figure}
 
 Our model exhibited all the key properties of the \gls{mz} model: 1. CaMKII/PP1
@@ -223,8 +221,11 @@ enzymatic turnover of \gls{pp1} must be smaller than the rate of activation of
 one extra \gls{pp1} molecule changed the spontaneous state switching time
 (residence time) of \texttt{ON} state by roughly 90\% (Figure~2C in
 \citep{miller_stability_2005}), we did not find lifetime of \texttt{ON} and
-\texttt{OFF} states to be this sensitive to \gls{pp1}. In our model, it required
-on average 0.5$\times$\SUB{N}{CaMKII} extra \gls{pp1} molecules to cause a 90\%
+\texttt{OFF} states to be this sensitive to \gls{pp1}. We conjecture that this
+could be due to the increased number of reactions in which \gls{pp1}
+participates, as well as replacement of Michaelis-Menten approximation by
+mass-action kinetics used in our mode (\EQ{dephosphorylation}). It required on
+average 0.5$\times$\SUB{N}{CaMKII} extra \gls{pp1} molecules to cause a 90\%
 change in the residence time. This number is roughly equal to the maximum number
 of \gls{camkii} subunits (released from \gls{camkii} holoenzymes during subunit
 exchange \EQ{losegainx}) that can exists at any time in our model.
@@ -239,21 +240,20 @@ same (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
 exchange was enabled, the relaxation time was reduced (red v/s blue dotted line
-in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}.
-Moreover, the standard deviation of the relaxation time was greatly reduced in
-the presence of subunit exchange (red and blue curve,
-\FIG{tolerance_pp1}C).
+in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}.  Moreover,
+the standard deviation of the relaxation time was greatly reduced in the
+presence of subunit exchange (red and blue curve, \FIG{tolerance_pp1}C).
 
 Parallel results were obtained for the effect of subunit exchange on
 \gls{camkii} switch robustness in the context of protein turnover. Without
-subunit exchange, switch stability as measured by residence time of the \texttt{ON}
-state decreased exponentially with increasing turnover rate. With
+subunit exchange, switch stability as measured by residence time of the
+\texttt{ON} state decreased exponentially with increasing turnover rate. With
 subunit exchange, however, residence time of \texttt{ON} state remained roughly
-constant upto a $\sim$10 fold increase in turnover (\FIG{turnover}B),
-after which subunit exchange could not phosphorylate all inactive holoenzymes
-produced by turnover, and the switch started to show exponential decay of 
-stability. As expected, turnover increased the number of switching events 
-in the regime of bistability in both cases.
+constant upto a $\sim$10 fold increase in turnover (\FIG{turnover}B), after
+which subunit exchange could not phosphorylate all inactive holoenzymes produced
+by turnover, and the switch started to show exponential decay of stability. As
+expected, turnover increased the number of switching events in the regime of
+bistability in both cases.
 
 \begin{figure}[th!]
     \includegraphics[width=114mm]{./PaperFigures/elifeFigure3/figure_turnover_tolerance_114.pdf}
