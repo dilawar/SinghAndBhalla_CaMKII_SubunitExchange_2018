@@ -602,11 +602,19 @@ here to even slower variables, such as sustained receptor insertion
 \section{Methods and Materials}{\label{sec:materials_and_methods} 
 
 We extended Miller and Zhabotinksy (MZ model) \citep{miller_stability_2005} to
-incorporate \emph{subunit exchange} and diffusion. We treat the \gls{camkii}
-ring as proxy for the holoenzyme because vertical dimers are inserted or
-released together \citep{bhattacharyya_molecular_2016}. To reduce the complexity
-of the model, we also assume that both subunits of a vertical dimer
-phosphorylate and de-phosphorylate together. 
+incorporate \emph{subunit exchange} and diffusion. We assume that vertical
+dimers are inserted and released together \citep{bhattacharyya_molecular_2016}.
+We also assume that both subunits of a vertical dimer phosphorylate and
+de-phosphorylate together. Under this assumption, we can treat the \gls{camkii}
+ring as the proxy for the \gls{camkii} holoenzyme and the subunit as the proxy
+for the \gls{camkii} dimer. Without this assumption, the simulation cost of the
+increased complexity would be very significant. The qualitative aspect of model
+behaviour will be the same with or without this assumption. If we further assume
+that phosphorylation of either of the subunits or both the subunits are equally
+effective for the release of a dimer from a holoenzyme, and dimer's
+effectiveness to phosphorylate neighbouring subunits in both rings remains same
+after it is picked up by another holoenzyme then this assumption is unlikely to
+cause large quantitative difference. 
 
 In our model, a \gls{camkii} ring with $n$ subunits ($n$=6 or 7) can exist
 in 15 different states enumerated as $x_{a}y_{n-a}$ for $0 \le a \le n$ where
