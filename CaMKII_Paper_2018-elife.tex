@@ -7,6 +7,7 @@
 \usepackage{mathtools}
 \usepackage{siunitx}
 \usepackage{tabularx}
+\usepackage{todonotes}
 
 % glossaries. Disable the link in main document.
 \usepackage[acronym]{glossaries}
@@ -119,15 +120,17 @@ exchange on the properties of the CaMKII-PP1 system in two adjacent neuronal
 micro-environments: \gls{psd} and spine cytosol. 
 
 In the \gls{psd}, \gls{pp1} is tightly regulated and \gls{camkii} is protected
-from other phosphatases but in the spine cytosol, \gls{camkii} is accessible to other
-phosphatases along with \gls{pp1}. We examined how state switching lifetimes in
-the \gls{psd} are affected by subunit exchange in different contexts of
-\gls{pp1} levels, turnover, and clustering of \gls{camkii}. In the spine cytosol
-we show how the integration of calcium stimuli generates two time-courses of
-\gls{camkii} activity as a result of subunit exchange \citep{chang_camkii_2017}.
+from other phosphatases. But in the spine cytosol, \gls{camkii} is accessible to
+other phosphatases along with \gls{pp1}. We examined how state switching
+lifetimes in the \gls{psd} are affected by subunit exchange in different
+contexts of \gls{pp1} levels, turnover, and clustering of \gls{camkii}. In the
+spine cytosol we show how the integration of calcium stimuli generates two
+time-courses of \gls{camkii} activity as a result of subunit exchange
+\citep{chang_camkii_2017}.
 
 % RESULTS
 \section{Results}\label{sec:results} 
+
 \subsection{Model validation}\label{subsec:model-validation}
 
 The basic computational units in our model are individual \gls{camkii} subunits
@@ -153,8 +156,8 @@ results from our model without diffusion and without subunit exchange with the
         respectively.  \textbf{(C)} Basal \gls{ca} profile in spine and
         \gls{psd} in all simulations. Basal \gls{ca} level is \SI{80}{\nano M} with fluctuations
         every \SI{2}{\second}, lasting for \SI{2}{\second}. These fluctuations are sampled from a uniform
-        distribution with mean $\mu$ =\SI{120}{\nano M} and
-        standard deviation of $\sigma$=\SI{23}{\nano M}.
+        distribution with median of \SI{120}{\nano M} and range  of
+        \SI{40}{\nano M} (see \nameref{sec:materials_and_methods}).
         \textbf{(D)} Without diffusion and subunit exchange, CaMKII in our model is bistable.
         Two trajectories of \gls{camkii} activity (fraction of total \gls{camkii}
         holoenzymes with at least 2 subunits phosphorylated) are shown for different system
@@ -169,9 +172,9 @@ results from our model without diffusion and without subunit exchange with the
 % \end{fullwidth}
 \end{figure}
 
-Our model exhibited all the key properties of the \gls{mz} model: 1. CaMKII/PP1
-under basal calcium stimulus conditions formed a bistable switch in the
-\gls{psd} (\FIG{validation}C, D), 2. The stability of the switch
+Our model exhibited all the key properties of the \gls{mz} model: 1. In
+\gls{psd}, under basal \gls{ca}  stimulus conditions, CaMKII/PP1 formed a
+bistable switch (\FIG{validation}C, D), 2. The stability of the switch
 increased exponentially with system size (\FIG{validation}E), 3)
 Increased number of \gls{pp1} molecules (\SUB{N}{PP1}) shut off the switch
 (\FIG{tolerance_pp1}), and 4. bistability was robust to slow turnover
@@ -612,18 +615,42 @@ respectively. We ignore all rotational permutations and kinetically unlikely
 cases where there are discontiguous phosphorylated subunits in the ring. We
 assumed that the phosphorylation of neighbouring subunit proceeds clockwise.
 
+\subsection{\SUP{Ca}{2+} background activity}\label{subsec:calcium_background}
+
+We assumed the resting \gls{ca} level in spine to be \SI{80}{\nano M}
+\citep{berridge_neuronal_1998}. In \gls{mz} model, Miller et. al. assumed that
+\gls{ca} entry through \gls{nmda} receptors can be approximated by a Poisson
+train with an average rate of \SI{0.5}{Hz}.  Since $\sim$0.5 \gls{nmda}
+receptors are open on average \citep{nimchinsky_number_2004}, we reduced the
+frequency of NMDA opening events to \SI{0.25}{Hz}. We used a periodic pulse with
+time-period of \SI{4}{\second} and duty cycle of 50\% instead of a Poisson train
+since sampling from either of them will produce similar statistics for long
+simulation time used here. 
+
+To model NMDA activity in \SI{2}{\second} long \texttt{ON} period of our
+\SI{4}{\second} long periodic pulse, we sampled from a uniform distribution with
+median of \SI{120}{\nano M} (50\% change, on average) and range of \SI{40}{\nano
+M} (\FIG{validation}C). This distribution is informed by figure 2B,C from
+\citep{nimchinsky_number_2004}.
+
+We did not consider decay dynamics of \gls{ca} influx through \gls{nmda} channel
+since including the timescale of decay (roughly \SI{100}{\milli\second}) would
+have made simulations very slow. We are confident the neglecting decay dynamics
+of \gls{ca} dynamics entering via \gls{nmda} is harmless since the time-steps of
+Gillespie methods are much longer than the timescale of decay. We did not
+consider contributions to background \gls{ca} fluctuations by other channels.
+
 \subsection{Phosphorylation and dephosphorylation of CaMKII ring}
 \label{phosphorylation-and-dephosphorylation-of-ring} 
 
 The activation of \gls{camkii} follows the same dynamics as in \gls{mz} model
-(\EQ{phospho}).  The first step in \gls{camkii} activation requires
-simultaneous binding of two \gls{cacam} to the two adjacent subunits of
-\gls{camkii}. Once a subunit is phosphorylated (Thr 286), it catalyzes phosphorylation of
-it's neighbour (\emph{auto-phosphorylation}) which requires binding of only one
+(\EQ{phospho}).  The first step in \gls{camkii} activation requires simultaneous
+binding of two \gls{cacam} to the two adjacent subunits of \gls{camkii}. Once a
+subunit is phosphorylated (\SUP{Thr}{286}), it catalyzes phosphorylation of it's
+neighbour (\emph{auto-phosphorylation}) which requires binding of only one
 \gls{cacam}. Therefore, further phosphorylation proceeds at much faster rate.
-Once fully phosphorylated, \gls{camkii} moves to \gls{psd} where it binds to
-\gls{nmda} receptor. Upon binding, it is no longer accessible other phosphatases
-save \gls{pp1}.
+The phosphorylation of \gls{camkii} (\SUP{Thr}{286}) is given by \EQ{phospho}
+\citep{bradshaw_ultrasensitive_2003,miller_stability_2005}.
 
 \begin{equation}\label{eq:phospho}
     \newcommand\CaHILL{\ensuremath{\frac{Ca^{2+}}{K_{H1}}}}
@@ -633,50 +660,59 @@ save \gls{pp1}.
     x_ay_{n-a} \xrightarrow{v_1} x_{a-1}y_{n-a+1} \xrightarrow{v_2} x_{a-2}y_{n-a+2} \\
     v_1 = \VONE,\, v_2 =\VTWO,\,\text{where}\; H=\CaHILL
 \end{gathered}
-\end{equation} where $n=6\;\text{or}\;7$, and $1\le a \le n$.
+\end{equation} where $n=6\;\text{or}\;7$, and $1\le a \le n$. 
+
+Once fully phosphorylated, \gls{camkii} moves to \gls{psd} where it binds to
+\gls{nmda} receptor. Upon binding, it is no longer accessible other phosphatases
+save \gls{pp1}.
 
 The dephosphorylation of the \gls{camkii} ring, and the subunit follow a
 Michaelis-Menten like scheme \EQ{dephosphorylation}. We implemented this 
 as coupled mass-action chemical reactions.
-\begin{equation}\label{eq:dephosphorylation}
-    \begin{gathered}
-        PP1 + x_ay_{n-a} \xrightleftharpoons[k^-]{k^+} PP1.x_ay_{n-a} 
-            \xrightarrow{k_2} PP1 + x_{a+1}y_{n-a-1} \\
-        PP1 + x \xrightleftharpoons[k^-]{k^+} PP1.x \xrightarrow{k_2} PP1 + y
-    \end{gathered}
-\end{equation} where $n=6\;\text{or}\;7$, and $1\le a \le n$. Following Miller
-et al. \citep{miller_stability_2005}, we assumed $k^-=0$. This gave us
-$k^+=\frac{k_2}{k_M}=\SI{1}{\per\micro M\per\second}$.
 
-\subsection{Subunit exchange}\label{subunit exchange}
-Since \gls{camkii} ring consists of either 6 or 7 subunits exists in our model,
-any ring with 6 subunits cannot lose a subunit, and a ring with 7 subunits cannot
-gain a subunit. The reactions which result in either gain or lose of a
-subunit are given by \EQ{losegainx} where $0\le a \le 6\text{ or }7$.
+\begin{equation}\label{eq:dephosphorylation} 
+    \begin{gathered} 
+        PP1 + x_ay_{n-a} \xrightleftharpoons[k^-]{k^+} PP1.x_ay_{n-a} 
+            \xrightarrow{k_2} PP1 + x_{a+1}y_{n-a-1} \\ 
+        PP1 + x \xrightleftharpoons[k^-]{k^+} PP1.x \xrightarrow{k_2} PP1 + y 
+    \end{gathered}
+\end{equation}
+
+\noindent where $n=6\;\text{or}\;7$, and $1\le a \le n$. Following Miller et al.
+\citep{miller_stability_2005}, we also assumed $k^-=0$. This gave us
+$k^+=\frac{k_2}{k_M}=\SI{1}{\per\micro M\per\second}$. We could not find any
+experimental estimate of the value of $k_M$, therefore we used the same value of $k_M$ 
+used in the \gls{mz} model \citep{miller_stability_2005}.
+
+\subsection{Subunit exchange}\label{subunit exchange} Since \gls{camkii} ring
+consists of either 6 or 7 subunits exists in our model, any ring with 6 subunits
+cannot lose a subunit, and a ring with 7 subunits cannot gain a subunit. The
+reactions which result in either gain or lose of a subunit are given by
+\EQ{losegainx} where $0\le a \le 6\text{ or }7$.
 
 \begin{equation}\label{eq:losegainx}
     \begin{gathered}
-    x_ay_{7-a} + x \xrightleftharpoons[k^-_x]{k^+_x} x_{a+1}y_{6-a},\,
+    x_ay_{7-a} + x \xrightleftharpoons[k^-_x]{k^+_x} x_{a+1}y_{6-a} \\
     x_ay_{6-a} + y \xrightleftharpoons[k^-_y]{k^+_y} x_{a}y_{7-a}
     \end{gathered}
 \end{equation}
 
-The values of $k_x^+$, $k_x^-$, $k_y^+$, and $k_y^-$ are not available in the
-literature that we are aware of. Bhattacharya \textit{et al}. 
-\citep{bhattacharyya_molecular_2016} speculate that upon activation, the hub
-of holoenzyme becomes less stable and more likely to open up and lose a subunit
-i.e., active holoenzymes may lose subunits faster. Therefore, we maintained the
-following ratio \(k_x^- = 10 k_x^+ N_{\text{CaMKII}}\) and \(k_y^- = 10 k_y^+
-N_{\text{CaMKII}}\) in all simulations where \SUB{N}{CaMKII} is the number of
-holoenzymes in the system.
+The values of $k_x^+$, $k_x^-$, $k_y^+$, and $k_y^-$ are not available
+in the literature that we are aware of. Bhattacharya \textit{et al}.
+\citep{bhattacharyya_molecular_2016} speculate that upon activation, the hub of
+holoenzyme becomes less stable and more likely to open up and lose a subunit
+i.e., active holoenzymes may lose subunits faster. Therefore, we maintained
+the following ratio \(k_x^- = 10 k_x^+ N_{\text{CaMKII}}\) and \(k_y^-
+= 10 k_y^+ N_{\text{CaMKII}}\) in all simulations where \SUB{N}{CaMKII}
+is the number of holoenzymes in the system.  \todo{estimate subunit-exchange rate using
+experiment data from \citep{stratton_activation-triggered_2014}.}
 
 \subsection{PP1 deactivation}\label{subsec:pp1_deactivation} 
 
 In the \gls{psd}, \gls{pp1} is the primary -- and perhaps only -- phosphatase
 known to dephosphorylate \gls{camkii} \citep{strack_translocation_1997}.  We
-followed \gls{mz} model for \EQ{i1pandpp1} where \gls{i1} inactivates \gls{pp1}
-(See SI for more details). \Gls{i1p} renders \gls{pp1} inactive by forming
-\gls{i1ppp1}. 
+followed \gls{mz} model for \EQ{i1pandpp1} where \gls{i1} inactivates \gls{pp1}. 
+\Gls{i1p} renders \gls{pp1} inactive by forming \gls{i1ppp1}. 
 
 \begin{equation}\label{eq:i1pandpp1}
     \begin{gathered}
@@ -686,20 +722,21 @@ followed \gls{mz} model for \EQ{i1pandpp1} where \gls{i1} inactivates \gls{pp1}
     \end{gathered}
 \end{equation}
 
+\noindent where $k_3=\SI{100}{\per\micro M\per\second}$,
+$k_4=\SI{0.1}{\per\second}$ \citep{endo_multiple_1996}, and $v_{PKA}/v_{CaN}=1$
+\citep{miller_stability_2005}.
+
 \subsection{Turnover}\label{turnover}
 
-The turnover of \gls{camkii} is a continuous process with rate $v_{t}$
-\si{\per\second} \EQ{turnover}.
+The turnover of \gls{camkii} is a continuous process given by \EQ{turnover} with rate
+$v_{t}=\SI{30}{\per\hour}$ \citep{ehlers_activity_2003}.
 
 \begin{equation} \label{eq:turnover}
     \begin{gathered}
-        x_ay_{6-a} \xrightarrow{v_t} x_6y_0,\;
+        x_ay_{6-a} \xrightarrow{v_t} x_6y_0 \\
         x_ay_{7-a} \xrightarrow{v_t} x_7y_0,\; \text{for } a \ge 1
     \end{gathered}
 \end{equation}
-
-\subsection{\SUP{Ca}{2+} influx}
-Need to explain \FIG{validation}C.
 
 \subsection{Diffusion and simulation method}\label{subsec:simulator}
 
@@ -860,7 +897,7 @@ approximate diffusion.
         \SI{0.5}{\micro\meter\squared\per\second} & This paper and
         \citep{harvey_spread_2008}\\
         D\textsubscript{sub} & Diffusion coefficient of \gls{camkii} subunits & 
-        \SI{e-5} to \SI{10}{\micro\meter\squared\per\second} & This paper \\
+        \SI{e-5}-\SI{10}{\micro\meter\squared\per\second} & This paper \\
         \bottomrule
     \end{tabularx}
 \end{table}
