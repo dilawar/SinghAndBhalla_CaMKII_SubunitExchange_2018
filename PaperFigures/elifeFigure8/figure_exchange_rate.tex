@@ -142,17 +142,17 @@
             ]
             \addplot+[no marks, thick] gnuplot[raw gnuplot] {
                 set datafile separator ",";
-                plot "../UsingChemReacs/CM1e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
+                plot "./CM1e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
                     using "time":"colocalization_perc" every 20;
             };
             \addplot+[no marks, thick] gnuplot[raw gnuplot] {
                 set datafile separator ",";
-                plot "../UsingChemReacs/CM8e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
+                plot "./CM8e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
                     using "time":"colocalization_perc" every 20;
             };
             \addplot+[no marks, thick] gnuplot[raw gnuplot] {
                 set datafile separator ",";
-                plot "../UsingChemReacs/CM100e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
+                plot "./CM100e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
                     using "time":"colocalization_perc" every 20;
             };
             \legend{{CaMKII=\SI{1}{\micro M}}
@@ -182,7 +182,7 @@
 
             % Now draw best fit lines.
             \def\OptRg{0.5541}
-            \def\OptRl{0.4832}
+            \def\OptRl{0.1438}
             \addplot+ [thick, no marks, blue] gnuplot[raw gnuplot] {
                 set datafile separator ",";
                 plot "< cat ./CM8e-3_rg\OptRg*_rl\OptRl*.csv" using 

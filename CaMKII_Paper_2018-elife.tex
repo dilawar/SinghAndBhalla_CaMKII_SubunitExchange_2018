@@ -2,6 +2,7 @@
 % \documentclass[9pt,lineno,]{elife}
 \usepackage{nameref}
 \usepackage{setspace}
+\usepackage{chemfig}
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{mathtools}
@@ -692,11 +693,12 @@ $k^+=\frac{k_2}{k_M}=\SI{1}{\per\micro M\per\second}$. We could not find any
 experimental estimate of the value of $k_M$, therefore we used the same value of $k_M$ 
 used in the \gls{mz} model \citep{miller_stability_2005}.
 
-\subsection{Subunit exchange}\label{subunit exchange} Since \gls{camkii} ring
-consists of either 6 or 7 subunits exists in our model, any ring with 6 subunits
-cannot lose a subunit, and a ring with 7 subunits cannot gain a subunit. The
-reactions which result in either gain or lose of a subunit are given by
-\EQ{losegainx} where $0\le a \le 6\text{ or }7$.
+\subsection{Subunit exchange}\label{subunit exchange} 
+
+Since \gls{camkii} ring consists of either 6 or 7 subunits exists in our model,
+any ring with 6 subunits cannot lose a subunit, and a ring with 7 subunits
+cannot gain a subunit. The reactions which result in either gain or lose of a
+subunit are given by \EQ{losegainx} where $0\le a \le 6\text{ or }7$.
 
 \begin{equation}\label{eq:losegainx}
     \begin{gathered}
@@ -705,15 +707,61 @@ reactions which result in either gain or lose of a subunit are given by
     \end{gathered}
 \end{equation}
 
-The values of $k_x^+$, $k_x^-$, $k_y^+$, and $k_y^-$ are not available
-in the literature that we are aware of. Bhattacharya \textit{et al}.
-\citep{bhattacharyya_molecular_2016} speculate that upon activation, the hub of
-holoenzyme becomes less stable and more likely to open up and lose a subunit
-i.e., active holoenzymes may lose subunits faster. Therefore, we maintained
-the following ratio \(k_x^- = 10 k_x^+ N_{\text{CaMKII}}\) and \(k_y^-
-= 10 k_y^+ N_{\text{CaMKII}}\) in all simulations where \SUB{N}{CaMKII}
-is the number of holoenzymes in the system.  \todo{estimate subunit-exchange rate using
-experiment data from \citep{stratton_activation-triggered_2014}.}
+The values of $k_x^+$, $k_x^-$, $k_y^+$, and $k_y^-$ are not available in the
+literature that we are aware of. We used data available in
+\citep{stratton_activation-triggered_2014} to estimate the timescale of subunit
+exchange rate (see \ref{sec:estimate_exchange_rate}). Bhattacharya \textit{et
+al}.  \citep{bhattacharyya_molecular_2016} speculate that upon activation, the
+hub of holoenzyme becomes less stable and more likely to open up and lose a
+subunit i.e., active holoenzymes may lose subunits faster. Therefore, we
+maintained the following ratio \(k_x^- =\sim 10 k_x^+ N_{\text{CaMKII}}\) and
+\(k_y^- =\sim 10 k_y^+ N_{\text{CaMKII}}\) in all simulations where \SUB{N}{CaMKII}
+is the number of holoenzymes in the system.  
+
+% Estimation of subunit exchange rate.
+\subsubsection{Estimation of subunit exchange rate}\label{sec:estimate_exchange_rate}
+
+To estimate reaction rates of \EQ{losegainx}, we modeled the "single molecule
+assay" from \cite{stratton_activation-triggered_2014} (Figure 2). In this assay,
+two distinct populations of \gls{camkii} labelled by green and red fluorophores
+were mixed together. Once a holoenzyme consisting of same color subunits picks
+up a different color subunit, it emits both color lights and can be quantified
+as such. The readout from this assay is ``cololocalization'' which is the
+fraction of holoenzymes which have both colors subunits.
+
+In our model of this assay, a \gls{camkii} holoenzyme is represented by
+$R_aG_{n-a}$ where $n=6\;\text{or}\; 7$. The green population consists of
+holoenzymes with only green subunits ($R_0G_6$ and $R_0G_7$) and the red
+population has holoenzymes with all red subunits (all $R_6G_0$ or $R_7G_0$).  We
+assume that each color population has equal number of dodecameric (n=6) and
+tetradecameric (n=7) holoenzymes. Upon mixing red and green populations,
+following reactions (\EQ{mixing_assay}) take place.
+
+\begin{equation}\label{eq:mixing_assay}
+    \begin{gathered}
+        \schemestart $R_aG_b$ \arrow{<=>[$r_l$][$r_g$]} $R_{a-1}G_b$ + $R$ \schemestop
+        \quad \text{for all}\; a>0,b\ge 0\; \text{s.t.}\; a+b=7 \\
+        \schemestart $R_aG_b$ \arrow{<=>[$r_l$][$r_g$]} $R_{a}G_{b-1}$ + $G$ \schemestop
+        \quad \text{for all}\; a\ge 0,b> 0\; \text{s.t.}\; a+b=7
+    \end{gathered}
+\end{equation}
+
+To compute the value of colocalization, we compute the percentage of holoenzymes
+with at least one red and one green subunit i.e. $\frac{\sum_{a\ge 1, b \ge 1}
+[R_aG_b]}{ \sum_{a\ge0,b \ge 0}[R_aG_b]}$. We simulate this reaction network to
+estimate values of rate constants $r_g$ and $r_l$ which best describe the data
+presented in \cite{stratton_activation-triggered_2014} at various \gls{camkii}
+concentration (\FIG{estimate_of_exchange_rate}). Our model captures the dynamics
+of colocalization (\FIG{estimate_of_exchange_rate}C) and concentration dependent
+reduction in colocalization very well (\FIG{estimate_of_exchange_rate}D). The
+values of 
+
+\begin{figure}
+\includegraphics[]{PaperFigures/suppl/ExperimentalDataStrattonELife2016/figure_exchange_rate.pdf}
+\captionof{figure}{Estimate of subunit exchange rate. 
+}\label{fig:estimate_of_exchange_rate}
+\end{figure}
+
 
 \subsection{PP1 deactivation}\label{subsec:pp1_deactivation} 
 
@@ -1017,6 +1065,8 @@ a good value to keep the errors less than 1\% in distributions.
         ($t_0$) vs $D$ and $n$. 
     }\label{fig:suppl_reac_rdme}
 \end{center}
+
+
 
 \end{appendixbox}
 

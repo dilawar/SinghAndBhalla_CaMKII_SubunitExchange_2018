@@ -6,4 +6,5 @@ all :
 	cd ./elifeFigure5/ && make 
 	cd ./elifeFigure6/ && make 
 	cd ./elifeFigure7/ && make 
+	cd ./elifeFigure8/ && make 
 	cd ./suppl && make
