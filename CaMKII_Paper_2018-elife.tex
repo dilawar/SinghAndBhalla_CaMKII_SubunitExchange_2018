@@ -1,8 +1,6 @@
-\documentclass[9pt,lineno,doublespacing]{elife}
-% \documentclass[9pt,lineno,]{elife}
+\documentclass[9pt,lineno]{elife}
 \usepackage{nameref}
 \usepackage{setspace}
-\usepackage{chemfig}
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{mathtools}
@@ -708,29 +706,28 @@ subunit are given by \EQ{losegainx} where $0\le a \le 6\text{ or }7$.
 \end{equation}
 
 The values of $k_x^+$, $k_x^-$, $k_y^+$, and $k_y^-$ are not available in the
-literature that we are aware of. We used data available in
-\citep{stratton_activation-triggered_2014} to estimate the timescale of subunit
-exchange rate (see \ref{sec:estimate_exchange_rate}). Bhattacharya \textit{et
-al}.  \citep{bhattacharyya_molecular_2016} speculate that upon activation, the
-hub of holoenzyme becomes less stable and more likely to open up and lose a
-subunit i.e., active holoenzymes may lose subunits faster. Therefore, we
-maintained the following ratio \(k_x^- =\sim 10 k_x^+ N_{\text{CaMKII}}\) and
-\(k_y^- =\sim 10 k_y^+ N_{\text{CaMKII}}\) in all simulations where \SUB{N}{CaMKII}
-is the number of holoenzymes in the system.  
+literature that we are aware of. We used the data in
+\citep{stratton_activation-triggered_2014} to estimate the possible timescale of
+subunit exchange rate. Bhattacharya \textit{et al}.
+\citep{bhattacharyya_molecular_2016} speculate that upon activation, the hub of
+holoenzyme becomes less stable and more likely to open up and lose a subunit
+i.e., active holoenzyme loses a subunit faster. Therefore, we maintained the
+following ratio \(k_x^- \approx 10 k_x^+ N_{\text{CaMKII}}\) and \(k_y^- \approx
+10 k_y^+ N_{\text{CaMKII}}\) in all simulations where \SUB{N}{CaMKII} is the
+number of holoenzymes in the system.  
 
 % Estimation of subunit exchange rate.
-\subsubsection{Estimation of subunit exchange rate}\label{sec:estimate_exchange_rate}
+\subsubsection{Estimation of subunit exchange rate}\label{subsec:estimate_exchange_rate}
 
 To estimate reaction rates of \EQ{losegainx}, we modeled the "single molecule
 assay" from \cite{stratton_activation-triggered_2014} (Figure 2). In this assay,
 two distinct populations of \gls{camkii} labelled by green and red fluorophores
-were mixed together. Once a holoenzyme consisting of same color subunits picks
-up a different color subunit, it emits both color lights and can be quantified
-as such. The readout from this assay is ``cololocalization'' which is the
-fraction of holoenzymes which have both colors subunits.
+were mixed together. Upon subunit exchange, a holoenzyme may have both color
+subunits. The readout from this assay is ``cololocalization'' which is the
+fraction of total holoenzymes containing subunits of both colors.
 
-In our model of this assay, a \gls{camkii} holoenzyme is represented by
-$R_aG_{n-a}$ where $n=6\;\text{or}\; 7$. The green population consists of
+In our simulation of this assay, a \gls{camkii} holoenzyme is represented by
+$R_aG_{n-a}$ where $n=6\;\text{or}\;7$. The green population consists of
 holoenzymes with only green subunits ($R_0G_6$ and $R_0G_7$) and the red
 population has holoenzymes with all red subunits (all $R_6G_0$ or $R_7G_0$).  We
 assume that each color population has equal number of dodecameric (n=6) and
@@ -739,28 +736,51 @@ following reactions (\EQ{mixing_assay}) take place.
 
 \begin{equation}\label{eq:mixing_assay}
     \begin{gathered}
-        \schemestart $R_aG_b$ \arrow{<=>[$r_l$][$r_g$]} $R_{a-1}G_b$ + $R$ \schemestop
+        R_aG_b \xrightleftharpoons[r_l]{r_g} R_{a-1}G_b + R 
         \quad \text{for all}\; a>0,b\ge 0\; \text{s.t.}\; a+b=7 \\
-        \schemestart $R_aG_b$ \arrow{<=>[$r_l$][$r_g$]} $R_{a}G_{b-1}$ + $G$ \schemestop
+        R_aG_b \xrightleftharpoons[r_l]{r_g} R_{a}G_{b-1} + G 
         \quad \text{for all}\; a\ge 0,b> 0\; \text{s.t.}\; a+b=7
     \end{gathered}
 \end{equation}
 
-To compute the value of colocalization, we compute the percentage of holoenzymes
-with at least one red and one green subunit i.e. $\frac{\sum_{a\ge 1, b \ge 1}
-[R_aG_b]}{ \sum_{a\ge0,b \ge 0}[R_aG_b]}$. We simulate this reaction network to
-estimate values of rate constants $r_g$ and $r_l$ which best describe the data
-presented in \cite{stratton_activation-triggered_2014} at various \gls{camkii}
-concentration (\FIG{estimate_of_exchange_rate}). Our model captures the dynamics
-of colocalization (\FIG{estimate_of_exchange_rate}C) and concentration dependent
-reduction in colocalization very well (\FIG{estimate_of_exchange_rate}D). The
-values of 
+The value of colocalization is the percentage of holoenzymes with at least one
+red and one green subunit in it i.e. $\frac{\sum_{a\ge 1, b \ge 1} [R_aG_b]}{
+\sum_{a\ge0,b \ge 0}[R_aG_b]}$. We simulate the reaction network given by
+\EQ{mixing_assay} for various values of $r_l$ and $r_g$
+(\FIG{estimate_of_exchange_rate}B) to estimate the values of rate constants
+$r_g$ and $r_l$ which describe the data in
+\cite{stratton_activation-triggered_2014} well for the given \gls{camkii}
+concentration. Our value of $k_x^+, k_y^+, k_x^-, k_y^-$ are close to estimated
+values of $r_g$ and $r_l$ (red cross v/s black dots in
+\FIG{estimate_of_exchange_rate}B). 
 
-\begin{figure}
-\includegraphics[]{PaperFigures/suppl/ExperimentalDataStrattonELife2016/figure_exchange_rate.pdf}
-\captionof{figure}{Estimate of subunit exchange rate. 
-}\label{fig:estimate_of_exchange_rate}
+For typical values of $r_g$ and $r_l$ used in our simulations, we computed the
+colocalization dynamics in our model at two different \gls{camkii}
+concentrations i.e. \gls{camkii}=\SI{8}{\micro M} and \SI{1}{\micro M}
+(\FIG{estimate_of_exchange_rate}D). When compared with data from
+\cite{stratton_activation-triggered_2014}, our model captures the time-scale
+and concentration dependant decrease in colocalization rate reasonably well.
+
+\begin{figure}[ht!]
+    \includegraphics[width=\linewidth]{./PaperFigures/elifeFigure8/figure_exchange_rate.pdf}
+    \caption{Estimate of subunit exchange rate. \textbf{(A)} Colocalization
+        dynamics as reported in \cite{stratton_activation-triggered_2014} at
+        \gls{camkii}=\SI{8}{\micro M} (blue dots). Solid blue line shows a best
+        fit $100(1-e^{-t/\tau})$ with $\tau$=\SI{62.7}{min}. \textbf{(B)} Phase
+        plot of $\tau$ of colocalization trajectories generated for various
+        values of $r_g$ and $r_l$ (\EQ{mixing_assay}). Black does shows values
+        of $r_g$ and $r_l$ for which $\tau=62.7\pm 20\% (S.E.M.)$. Red Red
+        circled plus marks shows the typical values of rate constants
+        (\EQ{losegainx}) used in this study. \textbf{(C)} Timescale of subunit
+        exchange are concentration dependant. For fixed value of $r_g$ and
+        $r_l$, three trajectories are shown for different \gls{camkii}
+        concentration. As seen in experimental data, rate of colocalization
+        increases with increasing \gls{camkii} concentration. \textbf{(D)} For
+        typical values of exchange rate used in this paper, we plotted
+        simulation results (solid lines) with experimental values (dots).
+    }\label{fig:estimate_of_exchange_rate}
 \end{figure}
+
 
 
 \subsection{PP1 deactivation}\label{subsec:pp1_deactivation} 
@@ -772,8 +792,8 @@ followed \gls{mz} model for \EQ{i1pandpp1} where \gls{i1} inactivates \gls{pp1}.
 
 \begin{equation}\label{eq:i1pandpp1}
     \begin{gathered}
-        \text{PP1} + \text{I1P} \xrightleftharpoons[k_4]{k_3} \text{I1P.PP1} \\
-        \text{I1P} = \text{I1} \frac{v_{PKA}}{v_{CaN}} 
+        PP1 + I1P \xrightleftharpoons[k_4]{k_3} I1P.PP1 \\
+        I1P = I1 \frac{v_{PKA}}{v_{CaN}} 
             \frac{1+\left(\frac{Ca}{k_{H2}}\right)^3}{\left(\frac{Ca}{k_{H2}}\right)^3}
     \end{gathered}
 \end{equation}
@@ -789,8 +809,8 @@ $v_{t}=\SI{30}{\per\hour}$ \citep{ehlers_activity_2003}.
 
 \begin{equation} \label{eq:turnover}
     \begin{gathered}
-        x_ay_{6-a} \xrightarrow{v_t} x_6y_0 \\
-        x_ay_{7-a} \xrightarrow{v_t} x_7y_0,\; \text{for } a \ge 1
+        x_ay_{6-a} \xrightarrow{v_t} x_6y_0\; \text{for}\; 6\ge a\ge 1 \\
+        x_ay_{7-a} \xrightarrow{v_t} x_7y_0\; \text{for}\; 7\ge a\ge 1
     \end{gathered}
 \end{equation}
 
