@@ -1,4 +1,5 @@
-all :  figure_pp1_profile.pdf  ./figure_diff.pdf
+all :  figure_pp1_profile.pdf  ./figure_diff.pdf ./ExperimentalDataStrattonELife2016/figure_exchange_rate.pdf
+	cd ./ExperimentalDataStrattonELife2016/ && make 
 
 DATFILES := analyze_pp1_detailed.py_summary.dat analyze_pp1_detailed.py_1e-14_summary.dat
 
