@@ -722,11 +722,12 @@ number of holoenzymes in the system.
 To estimate reaction rates of \EQ{losegainx}, we modeled the "single molecule
 assay" from \cite{stratton_activation-triggered_2014} (Figure 2). In this assay,
 two distinct populations of \gls{camkii} labelled by green and red fluorophores
-were mixed together. Upon subunit exchange, a holoenzyme may have both color
-subunits. The readout from this assay is ``cololocalization'' which is the
-fraction of total holoenzymes containing subunits of both colors.
+were mixed together. A green holoenzyme may pick up a red subunit and vice versa
+thereby giving rise to a mixed colored population. The readout from this assay
+is called ``cololocalization'' which is the fraction of total holoenzymes
+containing subunits of both colors.
 
-In our simulation of this assay, a \gls{camkii} holoenzyme is represented by
+In our model of this assay, a \gls{camkii} holoenzyme is represented by
 $R_aG_{n-a}$ where $n=6\;\text{or}\;7$. The green population consists of
 holoenzymes with only green subunits ($R_0G_6$ and $R_0G_7$) and the red
 population has holoenzymes with all red subunits (all $R_6G_0$ or $R_7G_0$).  We
@@ -758,8 +759,10 @@ For typical values of $r_g$ and $r_l$ used in our simulations, we computed the
 colocalization dynamics in our model at two different \gls{camkii}
 concentrations i.e. \gls{camkii}=\SI{8}{\micro M} and \SI{1}{\micro M}
 (\FIG{estimate_of_exchange_rate}D). When compared with data from
-\cite{stratton_activation-triggered_2014}, our model captures the time-scale
-and concentration dependant decrease in colocalization rate reasonably well.
+\cite{stratton_activation-triggered_2014}, our model captures the time-scale and
+concentration dependant decrease in the rate of colocalization reasonably well.
+Note that we do not model effect of diffusion, labelling efficiency, and
+experimental errors in readout mechanism.  
 
 \begin{figure}[ht!]
     \includegraphics[width=\linewidth]{./PaperFigures/elifeFigure8/figure_exchange_rate.pdf}
@@ -960,13 +963,13 @@ approximate diffusion.
         k\textsubscript{4} & The dissociation rate constant of PP1.I1P
         complex & \SI{0.1}{\second^{-1}} & \citep{endo_multiple_1996,miller_stability_2005}\\
         k\textsubscript{x}\textsuperscript{+} & The rate of adding 
-        unphosphorylated subunit x & \SI{0.1}{\per\second\per \SUB{N}{CaMKII}} & This paper\\
+        unphosphorylated subunit x & \SI{1}{\per\second\per \SUB{N}{CaMKII}} & This paper\\
         k\textsubscript{y}\textsuperscript{+} & The rate of adding
-        phosphorylated subunit y & \SI{0.1}{\per\second\per\SUB{N}{CaMKII}} & This paper\\
+        phosphorylated subunit y & \SI{1}{\per\second\per\SUB{N}{CaMKII}} & This paper\\
         k\textsubscript{x}\textsuperscript{-} & The rate of losing
-        unphosphorylated subunit x & \SI{1}{\per \second} & This paper\\
+        unphosphorylated subunit x & \SI{0.1}{\per \second} & This paper\\
         k\textsubscript{y}\textsuperscript{-} & The rate of losing
-        phosphorylated subunit y & \SI{1}{\per \second} & This paper\\
+        phosphorylated subunit y & \SI{0.1}{\per \second} & This paper\\
         v\textsubscript{t} & Turnover rate of CaMKII & \SI{30}{\hour^{-1}} &
         \citep{ehlers_activity_2003,miller_stability_2005}\\
         D\textsubscript{PP1} & Diffusion coefficient of \gls{pp1} & 
