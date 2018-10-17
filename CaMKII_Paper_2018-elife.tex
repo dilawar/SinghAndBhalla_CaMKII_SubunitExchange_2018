@@ -83,8 +83,8 @@ a kinase and its phosphatase could form a bistable molecular switch able to
 maintain its state for a very long time despite turnover
 \citep{lisman_mechanism_1985}. It has been shown by various mathematical models
 that \gls{camkii} and its phosphatase \gls{pp1} may form a bistable switch
-\citep{zhabotinsky_bistability_2000} which can retain its
-state for years despite stochastic chemical noise and protein turnover
+\citep{zhabotinsky_bistability_2000} which can retain its state for years
+despite stochastic chemical noise and protein turnover
 \citep{miller_stability_2005}. Although there is experimental evidence that
 CaMKII/PP1 is bistable in \emph{in vitro} settings
 \citep{bradshaw_ultrasensitive_2003,urakubo_vitro_2014}, experimental evidence
@@ -95,7 +95,7 @@ bistable in special micro-environments such as the ``core'' \gls{psd} where it
 attaches to NMDA receptor \citep{dosemeci_postsynaptic_2016,
 petersen_distribution_2003}.
 
-From computational perspective, the CaMKII/PP1 bistable system is an attractive
+From a computational perspective, the CaMKII/PP1 bistable system is an attractive
 candidate for memory storage \citep{koch_biophysics_2004}.  Bistability provides
 a plausible solution to the problem of state maintenance. Previous modeling work
 has shown that CaMKII/PP1 system may form a very stable switch despite protein
@@ -113,9 +113,9 @@ bistable behaviour only in a narrow range of \gls{pp1} concentrations in the
 In this process, two \gls{camkii} holoenzymes can exchange active subunits
 leading to spread of \gls{camkii} activation \citep{stratton_activation-triggered_2014}.
 
-In this paper, we adapt the model of \gls{mz} \citep{miller_stability_2005} to
-include subunit exchange and diffusion, and quantify the effects of subunit
-exchange on the properties of the CaMKII-PP1 system in two adjacent neuronal
+In this paper, we adapt the \gls{mz} \citep{miller_stability_2005} to include
+subunit exchange and diffusion, and quantify the effects of subunit exchange on
+the properties of the \gls{camkii}-\gls{pp1} PP1 system in two adjacent neuronal
 micro-environments: \gls{psd} and spine cytosol. 
 
 In the \gls{psd}, \gls{pp1} is tightly regulated and \gls{camkii} is protected
@@ -132,17 +132,30 @@ time-courses of \gls{camkii} activity as a result of subunit exchange
 
 \subsection{Model validation}\label{subsec:model-validation}
 
-The basic computational units in our model are individual \gls{camkii} subunits
+The basic computational units in our model are individual \gls{camkii} subunits,
 and \gls{camkii} ring consisting of 6 or 7 \gls{camkii} subunits. We treat the
 \gls{camkii} ring as a proxy for the \gls{camkii} holoenzyme, which consists of
 two such rings stacked over each other
 \citep{woodgett_calmodulin-dependent,hoelz_crystal_2003,chao_mechanism_2011}. In
-our model, \gls{camkii} exists in 15 possible states compared to 2 in
-\citep{miller_stability_2005} (see \nameref{sec:materials_and_methods}). This
-leads to many more reactions than the \gls{mz} model. Since analytical
-comparison of the two models was not possible, we first compared numerical
-results from our model without diffusion and without subunit exchange with the
-\gls{mz} model (\FIG{validation}).
+our model, \gls{camkii} exists in 15 possible states compared to 2 in the
+\gls{mz} model (see \nameref{sec:materials_and_methods}). This leads to many
+more reactions than the \gls{mz} model. Since analytical comparison of the two
+models was not possible, we first compared numerical results from our model
+without diffusion and without subunit exchange with the \gls{mz} model
+(\FIG{validation}).
+
+Our model exhibited all the key properties of the \gls{mz} model: 1. In
+\gls{psd}, under basal \gls{ca}  stimulus conditions, CaMKII/PP1 formed a
+bistable switch (\FIG{validation}C, D), 2. The stability of the switch increased
+exponentially with system size (\FIG{validation}E), 3.  Increased number of
+\gls{pp1} molecules (\SUB{N}{PP1}) shut off the switch (\FIG{tolerance_pp1}),
+and, 4. Bistability was robust to slow turnover of \gls{camkii}
+(\FIG{turnover}).
+
+Thus, our baseline model exhibited all the key properties that have
+previously been predicted for the bistable \gls{camkii} switch. However, the
+subunit exchange and diffusion introduce several interesting additional
+properties, which we examine now.
 
 \begin{figure}[t]%[hbt] 
     % \begin{fullwidth}
@@ -171,18 +184,6 @@ results from our model without diffusion and without subunit exchange with the
 % \end{fullwidth}
 \end{figure}
 
-Our model exhibited all the key properties of the \gls{mz} model: 1. In
-\gls{psd}, under basal \gls{ca}  stimulus conditions, CaMKII/PP1 formed a
-bistable switch (\FIG{validation}C, D), 2. The stability of the switch
-increased exponentially with system size (\FIG{validation}E), 3)
-Increased number of \gls{pp1} molecules (\SUB{N}{PP1}) shut off the switch
-(\FIG{tolerance_pp1}), and 4. bistability was robust to slow turnover
-of \gls{camkii} (\FIG{turnover}).
-
-Thus, our baseline model exhibited all the key properties that have
-previously been predicted for the bistable \gls{camkii} switch. However, the
-subunit exchange and diffusion introduce several interesting additional
-properties, which we examine now.
 
 \subsection{Subunit exchange increases the tolerance of the CaMKII switch to PP1 
 and to protein turnover}\label{subsec:result_tolerance}
@@ -213,38 +214,43 @@ and to protein turnover}\label{subsec:result_tolerance}
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure2}}
 \end{figure}
 
-    
 We first analyzed switch sensitivity to \gls{pp1}. In our model as well in the
-\gls{mz} model, the number of PP1 molecules (\SUB{N}{PP1}) had an upper limit
+\gls{mz} model, the number of PP1 molecules (\SUB{N}{PP1}) has an upper limit
 for the switch to exhibit bistability. This constraint arises because \gls{pp1}
 must saturate in the \texttt{ON} state of the switch, i.e., the maximal
 enzymatic turnover of \gls{pp1} must be smaller than the rate of activation of
 \gls{camkii} subunits.  However, unlike the \gls{mz} model where the addition of
-one extra \gls{pp1} molecule changed the spontaneous state switching time
-(residence time) of \texttt{ON} state by roughly 90\% (Figure~2C in
-\citep{miller_stability_2005}), we did not find lifetime of \texttt{ON} and
-\texttt{OFF} states to be this sensitive to \gls{pp1}. We conjecture that this
-could be due to the increased number of reactions in which \gls{pp1}
-participates, as well as replacement of Michaelis-Menten approximation by
-mass-action kinetics used in our mode (\EQ{dephosphorylation}). It required on
-average 0.5$\times$\SUB{N}{CaMKII} extra \gls{pp1} molecules to cause a 90\%
-change in the residence time. This number is roughly equal to the maximum number
-of \gls{camkii} subunits (released from \gls{camkii} holoenzymes during subunit
-exchange \EQ{losegainx}) that can exists at any time in our model.
+one extra \gls{pp1} molecule changed the residence time of \texttt{ON} state by
+roughly 90\% (Figure~2C in \citep{miller_stability_2005}), we did not find
+residence time of \texttt{ON} state to be this sensitive to \gls{pp1}. In our
+model, on average it required 0.5$\times$\SUB{N}{CaMKII} extra \gls{pp1}
+molecules to cause a 90\% change in the residence time of \texttt{ON} state.
+This number is roughly equal to the maximum number of \gls{camkii} subunits
+(released from \gls{camkii} holoenzymes during subunit exchange \EQ{losegainx})
+that can exist at any given time in our model. Due to this numerical fact, we
+conjecture that this reduced sensitivity to \gls{pp1} is due to the increased
+number of \gls{pp1} reactions, as well as replacement of Michaelis-Menten
+approximation in the \gls{mz} model by equivalent mass-action kinetics in our
+model (\EQ{dephosphorylation}). 
 
-We found that the system consisting of \SUB{N}{CaMKII} holoenzymes remained
+We found that a system consisting of \SUB{N}{CaMKII} holoenzymes remained
 bistable for \SUB{N}{PP1}=8$\times$ to 15$\times$\SUB{N}{CaMKII} without subunit
 exchange, and for \SUB{N}{PP1}=12$\times$ to 21$\times$\SUB{N}{CaMKII} with
 subunit exchange. Thus, subunit exchange shifted the bistable range to higher
-values of \gls{pp1}. Nevertheless, the ratio range in both cases was about the
-same (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).
+values of \gls{pp1}. Nevertheless, the ratio of upper and lower limit remained
+the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).
+Such shifts are typical in dose-response curve of drugs when a competitive
+antagonists is added. This suggests that subunit exchange acts as a compensatory
+mechanism for \gls{pp1} dephosphorylation.
 
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
 exchange was enabled, the relaxation time was reduced (red v/s blue dotted line
-in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}.  Moreover,
-the standard deviation of the relaxation time was greatly reduced in the
-presence of subunit exchange (red and blue curve, \FIG{tolerance_pp1}C).
+in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}. This means
+that there were fewer number of ineffective transition from \texttt{ON} to
+\texttt{OFF} state.
+Moreover, the standard deviation of the relaxation time was greatly reduced in the
+presence of subunit exchange (red and blue curve, \FIG{tolerance_pp1}C). 
 
 Parallel results were obtained for the effect of subunit exchange on
 \gls{camkii} switch robustness in the context of protein turnover. Without

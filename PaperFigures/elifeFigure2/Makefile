@@ -1,4 +1,4 @@
-all : ./figure_effect_of_tolerace_114mm.pdf
+all : ./figure_effect_of_tolerace_140mm.pdf
 
 
 %.pdf : %.tex
