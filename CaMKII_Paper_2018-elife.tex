@@ -167,7 +167,8 @@ properties, which we examine now.
         and blue balls represent phosphorylated and un-phosphorylated subunits
         respectively.  \textbf{(C)} Basal \gls{ca} profile in spine and
         \gls{psd} in all simulations. Basal \gls{ca} level is \SI{80}{\nano M} with fluctuations
-        every \SI{2}{\second}, lasting for \SI{2}{\second}. These fluctuations are sampled from a uniform
+        every \SI{2}{\second}, lasting for \SI{2}{\second}. 
+        These fluctuations (represented by $\epsilon$ are sampled from a uniform
         distribution with median of \SI{120}{\nano M} and range  of
         \SI{40}{\nano M} (see \nameref{sec:materials_and_methods}).
         \textbf{(D)} Without diffusion and subunit exchange, CaMKII in our model is bistable.
@@ -311,17 +312,16 @@ reactions (See \nameref{sec:materials_and_methods}).  We did not try 2D/3D
 diffusion because of its simulation complexity and because it would be expected
 to be qualitatively similar \citep{fange_stochastic_2010}.
 
-We fixed the diffusion coefficient of \gls{pp1} (\SUB{D}{PP1}) and quantified
-the effect of varying the diffusion coefficient of subunits (\SUB{D}{sub}) and
-basal calcium levels. We used
-\SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} which is the observed
-value of the diffusion coefficient of Ras, which is a similar sized protein
-\citep{harvey_spread_2008}. We ran simulations for 4 hours at basal calcium
-concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ and without subunit exchange (i.e.,
-\SUB{D}{sub}=0). We set \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII} to make sure the
-system show no significant \gls{camkii} activity (\FIG{tolerance_pp1}B, red
-curve) to better quantify the effect of subunit exchange. When we enabled
-subunit exchange by setting
+We fixed the diffusion coefficient of \gls{pp1} (\SUB{D}{PP1}) to quantify the
+effect of varying the diffusion coefficient of subunits (\SUB{D}{sub}) and basal
+calcium levels. We used \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}
+which is the observed value of the diffusion coefficient of Ras, a similar sized
+protein \citep{harvey_spread_2008}. We ran simulations for 4 hours at basal
+calcium concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ and without subunit
+exchange (i.e., \SUB{D}{sub}=0). We set \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII}
+to make sure the system shows no significant \gls{camkii} activity
+(\FIG{tolerance_pp1}B, red curve). This served as the baseline to quantify the
+effect of subunit exchange. When we enabled subunit exchange by setting
 \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, \gls{camkii} activity
 rose to maximum within \SI{4}{\hour} (\FIG{subunit_facilitates_spread}B). At
 higher basal \gls{ca} level (\SI{120}{\nano M}), system showed moderate
@@ -346,9 +346,8 @@ scale.
         level of \SI{80}{\nano M} (\FIG{validation}C) and
         \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII} for various values of
         \SUB{D}{sub}. When subunits diffused with zero or negligible coefficient
-        (\SUB{D}{sub}=0 and
-        \SUB{D}{sub}=\SI{e-8}{\micro\meter\squared\per\second}), mean activity
-        of \gls{camkii} is negligible. For \SUB{D}{sub}=\SI{0.001} and
+        (\SUB{D}{sub}=0 and \SUB{D}{sub}=\SI{e-8}{\micro\meter\squared\per\second})
+        , mean activity of \gls{camkii} is negligible. For \SUB{D}{sub}=\SI{0.001} and
         \SI{0.1}{\micro\meter\squared\per\second}, the mean \gls{camkii}
         activity reached its maximum within \SI{4}{\hour}.  \textbf{(C)}
         \gls{camkii} activates faster at higher mean basal calcium level of
@@ -424,8 +423,8 @@ When there is no subunit exchange across voxels i.e., \SUB{D}{sub}=0, these
 switches are expected to switch independently like multiple coins flipped
 together, resulting in a binomial distribution of activity. The clustered system
 had 3 relatively stable bistable systems (long residence time,
-\FIG{validation}E). As expected, without subunit exchange, activity in
-this system had a binomial distribution (\FIG{sync_spread}B, red plot). 
+\FIG{validation}E). As expected, without subunit exchange, activity in this
+system had a binomial distribution (\FIG{sync_spread}B, red plot). 
 
 Then we allowed \gls{pp1} and \gls{camkii} subunits to undergo linear diffusion.
 We fixed \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} as before and
@@ -585,22 +584,22 @@ implications. A very plastic synapse is good at registering activity dependent
 changes (learning) but bad at retaining old memories. On the other hand, a rigid
 synapse is good at retaining old memories but is not efficient at learning. A
 theoretical meta-model which sought to strike a balance between these two
-competing demands requires that diversity of timescales should exist at the
-synapse \citep{benna_computational_2016}. In this model, complex synapses with
-state variables with diverse time-scales are shown to form a memory network in
-which storage capacity scales linearly with number of synapses, and memory decay
-follows \(1/\sqrt{t}\) --- a power-law supported by psychological studies
-\citep{wixted_form_1991}. This model requires memory trace to be first stored in
-a fast variable and then progressively and efficiently transferred to slower
-variables.  Our study suggests a concrete mechanism for such a process. Here,
-\gls{ca} concentration in PSD can be mapped to the fastest variable.  The
-\gls{camkii} integrator in cytosol could represent the second slower variable to
-which the trace is transferred from \gls{ca}. Further, the state information is
-transferred to the third slower \gls{camkii} bistable switch. The dynamics of
-\gls{camkii} in the PSD forms an even slower bistable variable for longer
-retention of the memory trace. It is possible that memory is transferred from
-here to even slower variables, such as sustained receptor insertion
-\citep{hayer_molecular_2005}, PKM-$\zeta$ activation
+competing demands requires that such diversity of timescales must exist at the
+synapse \citep{benna_computational_2016} for optimum performance. In this model,
+complex synapses with state variables with diverse time-scales are shown to form
+a memory network in which storage capacity scales linearly with number of
+synapses, and memory decay follows \(1/\sqrt{t}\) --- a power-law supported by
+psychological studies \citep{wixted_form_1991}. This model requires memory trace
+to be first stored in a fast variable and then progressively and efficiently
+transferred to slower variables.  Our study suggests a concrete mechanism for
+such a process. Here, \gls{ca} concentration in PSD can be mapped to the fastest
+variable.  The \gls{camkii} integrator in cytosol could represent the second
+slower variable to which the trace is transferred from \gls{ca}. Further, the
+state information is transferred to the third slower \gls{camkii} bistable
+switch. The dynamics of \gls{camkii} in the PSD forms an even slower bistable
+variable for longer retention of the memory trace. It is possible that memory is
+transferred from here to even slower variables, such as sustained receptor
+insertion \citep{hayer_molecular_2005}, PKM-$\zeta$ activation
 \citep{sacktor_memory_2012}, or local protein synthesis
 \citep{aslam_translational_2009}.
 
@@ -629,7 +628,7 @@ respectively. We ignore all rotational permutations and kinetically unlikely
 cases where there are discontiguous phosphorylated subunits in the ring. We
 assumed that the phosphorylation of neighbouring subunit proceeds clockwise.
 
-\subsection{\SUP{Ca}{2+} background activity}\label{subsec:calcium_background}
+\subsection{\SUP{Ca}{2+} background activity $\epsilon$}\label{subsec:calcium_background}
 
 We assumed the resting \gls{ca} level in spine to be \SI{80}{\nano M}
 \citep{berridge_neuronal_1998}. In \gls{mz} model, Miller et. al. assumed that
@@ -638,8 +637,8 @@ train with an average rate of \SI{0.5}{Hz}.  Since $\sim$0.5 \gls{nmda}
 receptors are open on average \citep{nimchinsky_number_2004}, we reduced the
 frequency of NMDA opening events to \SI{0.25}{Hz}. We used a periodic pulse with
 time-period of \SI{4}{\second} and duty cycle of 50\% instead of a Poisson train
-since sampling from either of them will produce similar statistics for long
-simulation time used here. 
+since sparse sampling (once in few 1 to 10 seconds) from either of them will
+produce similar statistics for long simulation time used here. 
 
 To model NMDA activity in \SI{2}{\second} long \texttt{ON} period of our
 \SI{4}{\second} long periodic pulse, we sampled from a uniform distribution with
@@ -649,10 +648,11 @@ M} (\FIG{validation}C). This distribution is informed by figure 2B,C from
 
 We did not consider decay dynamics of \gls{ca} influx through \gls{nmda} channel
 since including the timescale of decay (roughly \SI{100}{\milli\second}) would
-have made simulations very slow. We are confident the neglecting decay dynamics
-of \gls{ca} dynamics entering via \gls{nmda} is harmless since the time-steps of
-Gillespie methods are much longer than the timescale of decay. We did not
+have made simulations very slow. The effect of ignoring decay dynamics are
+expected to be negligible given the time-scale of \gls{camkii} activation is
+much larger than the time course of \gls{ca} decay dynamics.  We did not
 consider contributions to background \gls{ca} fluctuations by other channels.
+This background activity is represented by $\epsilon$ in other figures.
 
 \subsection{Phosphorylation and dephosphorylation of CaMKII ring}
 \label{phosphorylation-and-dephosphorylation-of-ring} 
