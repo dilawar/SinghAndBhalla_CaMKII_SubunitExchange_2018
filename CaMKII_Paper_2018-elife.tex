@@ -189,14 +189,14 @@ properties, which we examine now.
 and to protein turnover}\label{subsec:result_tolerance}
 
 \begin{figure}[ht]
-    \includegraphics[width=\linewidth]{PaperFigures/elifeFigure2/figure_effect_of_tolerace_140mm.pdf}
+    \includegraphics[width=140mm]{PaperFigures/elifeFigure2/figure_effect_of_tolerace_140mm.pdf}
     \caption{Subunit exchange improves switch tolerance of \gls{pp1}.
         \textbf{(A)} Two representative trajectories (\SUB{N}{CaMKII}=12) are
         shown with subunit exchange (+SE, blue) and without
         subunit exchange (-SE, red) respectively. \textbf{(B)} Blue and red
         solid-lines represent average activity of switch with and without 
         subunit exchange respectively. The lines are fitted with the 
-        function \(\frac{a}{1+e^{k(x-x_0)}}\).
+        function \({a}/\left({1+e^{k(x-x_0)}}\right)\).
         Dotted red and blue lines show the fraction of time that the switch
         spends in intermediate states (\SUB{x}{a}\SUB{y}{n-a}, 1<a<n-1) with
         and without subunit exchange respectively. Due to subunit exchange,
@@ -241,15 +241,16 @@ values of \gls{pp1}. Nevertheless, the ratio of upper and lower limit remained
 the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).
 Such shifts are typical in dose-response curve of drugs when a competitive
 antagonists is added. This suggests that subunit exchange acts as a compensatory
-mechanism for \gls{pp1} dephosphorylation.
+mechanism for \gls{pp1} dephosphorylation. 
 
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
 exchange was enabled, the relaxation time was reduced (red v/s blue dotted line
-in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}. This means
-that there were fewer number of ineffective transition from \texttt{ON} to
-\texttt{OFF} state.
-Moreover, the standard deviation of the relaxation time was greatly reduced in the
+in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}. Due to
+subunit exchange, the \texttt{ON} state has tighter distribution (blue v/s red
+histogram in \FIG{tolerance_pp1}A) which means that there were fewer number of
+ineffective transition from \texttt{ON} to \texttt{OFF} state.  Expectedly the
+standard deviation of the relaxation time was also greatly reduced in the
 presence of subunit exchange (red and blue curve, \FIG{tolerance_pp1}C). 
 
 Parallel results were obtained for the effect of subunit exchange on
