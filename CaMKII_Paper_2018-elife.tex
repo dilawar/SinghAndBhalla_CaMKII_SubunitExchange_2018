@@ -1,4 +1,4 @@
-\documentclass[9pt,lineno]{elife}
+\documentclass[9pt,lineno,doublespacing]{elife}
 \usepackage{nameref}
 \usepackage{setspace}
 \usepackage{booktabs}
@@ -243,7 +243,7 @@ the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).  In
 the presence of subunit exchange, any subunit de-phosphorylated by \gls{pp1} is
 quickly phosphorylated back as evident by tighter distribution of \texttt{ON}
 state (blue v/s red histogram, \FIG{tolerance_pp1}A). Taken together, subunit
-exchange acts as an compensatory mechanism for dephosphorylation by \gls{pp1}.
+exchange acts as a compensatory mechanism for dephosphorylation by \gls{pp1}.
 
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
@@ -256,15 +256,17 @@ standard deviation of the relaxation time was also greatly reduced in the
 presence of subunit exchange (red and blue curve, \FIG{tolerance_pp1}C). 
 
 Parallel results were obtained for the effect of subunit exchange on
-\gls{camkii} switch robustness in the context of protein turnover. Without
-subunit exchange, switch stability as measured by residence time of the
-\texttt{ON} state decreased exponentially with increasing turnover rate. With
-subunit exchange, however, residence time of \texttt{ON} state remained roughly
-constant upto a $\sim$10 fold increase in turnover (\FIG{turnover}B), after
-which subunit exchange could not phosphorylate all inactive holoenzymes produced
-by turnover, and the switch started to show exponential decay of stability. As
-expected, turnover increased the number of switching events in the regime of
-bistability in both cases.
+\gls{camkii} switch robustness in the context of protein turnover.  Turnover
+replace any active \gls{camkii} holoenzyme  by an inactive holoenzyme with a
+constant rate (\EQ{turnover}). Turnover decreases the stability of \texttt{ON}
+state. Without subunit exchange, switch stability as measured by residence time
+of the \texttt{ON} state decreased exponentially with increasing turnover rate.
+With subunit exchange, however, residence time of \texttt{ON} state remained
+roughly constant upto a $\sim$10 fold increase in turnover (\FIG{turnover}B),
+after which subunit exchange could not phosphorylate all inactive holoenzymes
+produced by turnover, and the switch started to show exponential decay of
+stability. As expected, turnover increased the number of switching events in the
+regime of bistability in both cases.
 
 \begin{figure}[th!]
     \includegraphics[width=114mm]{./PaperFigures/elifeFigure3/figure_turnover_tolerance_114.pdf}
@@ -324,9 +326,10 @@ to make sure the system shows no significant \gls{camkii} activity
 (\FIG{tolerance_pp1}B, red curve). This served as the baseline to quantify the
 effect of subunit exchange. When we enabled subunit exchange by setting
 \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, \gls{camkii} activity
-rose to maximum within \SI{4}{\hour} (\FIG{subunit_facilitates_spread}B). At
-higher basal \gls{ca} level (\SI{120}{\nano M}), system showed moderate
-\gls{camkii} activity with same values of parameters and the effect of subunit
+rose to maximum within \SI{4}{\hour} (\FIG{subunit_facilitates_spread}B).
+Similarly, raising basal \gls{ca} level to (\SI{120}{\nano M}) also had similar
+effect. The system showed moderate \gls{camkii} activity with 
+same values of parameters and the effect of subunit
 exchange (rise time quantified as the time taken by \gls{camkii} to rise from
 10\% to 90\%) was stronger (\FIG{subunit_facilitates_spread}C). Increasing
 \SUB{D}{sub} increased the effect of subunit exchange (decreased rise time of
