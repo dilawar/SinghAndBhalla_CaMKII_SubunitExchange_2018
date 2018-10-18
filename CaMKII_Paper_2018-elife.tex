@@ -323,17 +323,15 @@ protein \citep{harvey_spread_2008}. We ran simulations for 4 hours at basal
 calcium concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ and without subunit
 exchange (i.e., \SUB{D}{sub}=0). We set \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII}
 to make sure the system shows no significant \gls{camkii} activity
-(\FIG{tolerance_pp1}B, red curve). This served as the baseline to quantify the
-effect of subunit exchange. When we enabled subunit exchange by setting
-\SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, \gls{camkii} activity
-rose to maximum within \SI{4}{\hour} (\FIG{subunit_facilitates_spread}B).
-Similarly, raising basal \gls{ca} level to (\SI{120}{\nano M}) also had similar
-effect. The system showed moderate \gls{camkii} activity with 
-same values of parameters and the effect of subunit
-exchange (rise time quantified as the time taken by \gls{camkii} to rise from
-10\% to 90\%) was stronger (\FIG{subunit_facilitates_spread}C). Increasing
-\SUB{D}{sub} increased the effect of subunit exchange (decreased rise time of
-\gls{camkii} activity, \FIG{subunit_facilitates_spread}D,E).
+(\FIG{subunit_facilitates_spread}A, red curve). This served as the baseline to
+quantify the effect of subunit exchange. When we enabled subunit exchange by
+setting \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, \gls{camkii}
+activity rose to maximum within \SI{4}{\hour}
+(\FIG{subunit_facilitates_spread}AB, black curve). Expectedly, at higher basal
+\gls{ca} level (\SI{120}{\nano M}), system showed higher \gls{camkii} activity
+for all values of \SUB{D}{sub} (compare \FIG{subunit_facilitates_spread}B and
+C). Increasing \SUB{D}{sub} increased the effect of subunit exchange (decreased
+rise time of \gls{camkii} activity, \FIG{subunit_facilitates_spread}D,E).
 
 Thus, subunit exchange facilitates the spread of kinase activity at short time
 scale.
@@ -454,7 +452,7 @@ Finally, we asked if subunit exchange might account for the complex time-course
 of \gls{camkii} dynamics in spine as observed in recent experiments
 \citep{chang_camkii_2017}. We designed a simulation to replicate an experiment
 where \gls{camkii} was inhibited by a genetically encoded photoactivable
-inhibitory peptide after activating it by glutamate uncaging
+inhibitory peptide after activating \gls{camkii} by glutamate uncaging
 \citep{murakoshi_kinetics_2017}. In the spine, \gls{camkii} is more accessible
 to phosphatases than in the \gls{psd}, where our previous calculations had been
 located. To model the increased availability of phosphatases, we increased the
@@ -511,12 +509,12 @@ clustered \gls{camkii} in spine cytosol (e.g., \gls{camkii} bound to actin)
 because of the proximity of holoenzymes, leading to rapid exchange.  Our
 simulations supported this prediction. If there are populations of clustered as
 well as non-clustered \gls{camkii} in the spine, we expect that they will
-exhibit long and short time-courses of activity decay and therefore a mixed
+exhibit long and short time-courses of activity decay. Therefore a mixed
 population of clustered and non-clustered \gls{camkii} will decay with two
 time-constants. 
 
-In \citep{chang_camkii_2017}, the decay kinetics of \gls{camkii} was obtained by
-curve fitting of experimental data and is given by a double-exponential
+In \cite{chang_camkii_2017}, the decay kinetics of \gls{camkii} was obtained by
+curve fitting of experimental data. It is given by a double-exponential
 function: $F(t)=P_{fast}e^{-t/\tau_{fast}}+P_{slow}e^{-t/\tau_{slow}}$ where
 $P_{fast}=0.74, P_{slow}=0.26,  \tau_{fast}= 6.4\pm0.7 \si{\second},
 \tau_{slow}=92.6 \pm 50.7\si{\second}$ (\FIG{cytosol_integrator}C, magenta).  We
