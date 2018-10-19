@@ -339,34 +339,46 @@ scale.
 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure4/figure_camkii_activation_130mm.pdf}
-    \caption{Subunit exchange facilitates the spread of kinase activity
-        \citep{stratton_activation-triggered_2014}. \textbf{(A)} 18 \gls{camkii} holoenzymes were put in
-        a cylinder of volume \SI{0.0275}{\cubic\micro\meter} discretized into 18
+    \caption{
+        Subunit exchange facilitates the spread of kinase activity
+        \citep{stratton_activation-triggered_2014}. \textbf{(A)} 18 \gls{camkii} holoenzymes 
+        were put in a cylinder of volume \SI{0.0275}{\cubic\micro\meter} discretized into 18
         voxels, each separated by \SI{30}{\nano\meter}. Red and blue balls
-        represent active and inactive subunits respectively.  For all
-        simulations \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}.
+        represent unphosphorylated and phosphorylated subunits respectively.
+        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} for all
+        simulations presented here. 
+        %
         \textbf{(B)} Activation profile of \gls{camkii} at mean basal calcium
-        level of \SI{80}{\nano M} (\FIG{validation}C) and
-        \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII} for various values of
+        level of \SI{80}{\nano M}+$\epsilon$ for various values of 
         \SUB{D}{sub}. When subunits diffused with zero or negligible coefficient
         (\SUB{D}{sub}=0 and \SUB{D}{sub}=\SI{e-8}{\micro\meter\squared\per\second})
-        , mean activity of \gls{camkii} is negligible. For \SUB{D}{sub}=\SI{0.001} and
+        , mean activity of \gls{camkii} is negligible because we set
+        \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII}. This serves as baseline for
+        further comparisons. For \SUB{D}{sub}=\SI{0.001} and
         \SI{0.1}{\micro\meter\squared\per\second}, the mean \gls{camkii}
-        activity reached its maximum within \SI{4}{\hour}.  \textbf{(C)}
-        \gls{camkii} activates faster at higher mean basal calcium level of
-        \SI{100}{\nano M}. \textbf{(D)} The time taken by \gls{camkii} to rise
+        activity reached its maximum within \SI{4}{\hour} suggesting facilitation
+        of \gls{camkii} activation by subunit exchange.
+        %
+        \textbf{(C)} At slightly higher level of basal \gls{ca} activity of
+        \SI{100}{\nano M}+$\epsilon$, subunit exchange has stronger effect on
+        \gls{camkii} activation for similar value of \SUB{N}{PP1} as in (A).
+        %
+        \textbf{(D)} The time taken by \gls{camkii} to rise
         from 10\% to 90\% of its maximum value (rise time) in hours v/s
         \SUB{D}{sub} for different mean basal calcium levels. The effect of
-        subunit exchange is more prominent at higher calcium levels for all
+        subunit exchange is stronger at higher calcium levels for all
         values of \SUB{D}{sub}, and stronger (decreasing rise time) for larger
-        \SUB{D}{sub} for all values of \gls{ca} level. 40 trajectories were
-        generated for each trace. Error bars represents standard deviation.
+        \SUB{D}{sub} for all values of \gls{ca} level. Error bars represents
+        standard deviation (n=40 trajectories).
+        %
         \textbf{(E)} The onset of activity time (in hours) v/s \SUB{D}{sub},
         where onset of activity time is measured as the time taken by inactive
         \gls{camkii} to rise from zero to 10\% of its maximum value. Average
-        time for onset of activity decreased with increasing basal \gls{ca} level
-        but remained independent of \SUB{D}{sub}. Error bar represents standard
-        deviation.  
+        time for the onset of activity decreased with increasing basal \gls{ca} level
+        but remained independent of \SUB{D}{sub} suggesting that
+        subunit exchange does not play any significant role in very early activation of
+        \gls{camkii} by \gls{ca}. Error bar represents standard
+        deviation (n=40 trajectories).  
     }\label{fig:subunit_facilitates_spread} 
 % first suppl
 \figsupp[Sample trajectories of
@@ -390,23 +402,24 @@ of all 40 trajectories.
 
 \begin{figure}%[t]%[bth] 
     \includegraphics[width=0.9\linewidth]{./PaperFigures/elifeFigure5/figure_sync_150mm.pdf}
-    \caption{In \gls{psd}, subunit exchange synchronizes activity of
-        \gls{camkii} clusters. \textbf{(A)} 3 clusters of N\textsubscript{CaMKII}=6 
-        separated by distance \(d\) were put in a cylinderical arena
-        of volume \SI{0.0275}{\micro\meter^3} discretized into 3 voxels, each
-        separated by \(d\). \Gls{camkii} subunits are shown as red (active) and
-        blue (inactive) balls. Subunits and \gls{pp1} (not shown) were allowed to diffuse along
-        the axis. \textbf{(B)} Without subunit exchange, all three switches
-        flipped independently i.e., state distribution on right is binomial when bin size is \SUB{N}{CaMKII}
-        (left, red). With subunit exchange, all switches synchronized their activity
-        i.e., population acted as a single bistable switch (right, blue).  \textbf{(C)}
-        Strength of synchronization (k\textsubscript{s}) v/s diffusion
+    \caption{In the \gls{psd}, subunit exchange synchronizes activity of
+        \gls{camkii} clusters. \textbf{(A)} 3 clusters of size 6
+        (i.e., \SUB{N}{CaMKII}=6) separated by distance \(d\) were simulated in 
+        a cylinderical arena of volume \SI{0.0275}{\micro\meter^3} discretized into 3 voxels, each
+        separated by \(d\). \Gls{camkii} subunits are shown as red
+        (unphosphorylated) and blue (phosphorylated) balls. Subunits and \gls{pp1} (not shown) 
+        were allowed to diffuse along
+        the axis. \textbf{(B)} (\textbf{left}) Without subunit exchange, all three switches
+        flipped independently with low residence time resulting in a binomial
+        distribution of states (shown on right, red). (\textbf{right}) With subunit exchange, 
+        all switches synchronized their activity i.e., they acted as a single
+        bistable switch with larger residence time (shown on right, blue). \textbf{(C)}
+        Strength of synchronization (\SUB{k}{s}) v/s diffusion
         coefficient \SUB{D}{sub} for a system of 3 switches separated from each
-        other by a distance \SI{30}{\nano \meter}.
-        $k_s=1-t_i$ where $t_i$ is fraction of time
-        spent by switches in intermediate states
-        x\textsubscript{a}y\textsubscript{n-a}; 1\textless{}a\textless{}n.
-        Synchronization is strong for k\textsubscript{s} \textgreater{} 0.4.
+        other by a distance of \SI{30}{\nano \meter}. Variable $k_s=1-t_i$ where 
+        $t_i$ is the fraction of total time spent by the switches in the 
+        intermediate states x\textsubscript{a}y\textsubscript{n-a}; 1\textless{}a\textless{}n.
+        Synchronization is strong if k\textsubscript{s} \textgreater{} 0.4.
         \textbf{(D)} Phase plot of \SUB{k}{s} v/s \SUB{D}{sub} and d. The effect
         of synchronization \SUB{k}{s} due to subunit exchange is strong (red
         region) and robust to changes in \SUB{D}{sub}, and strong for $d$ as large as
@@ -470,12 +483,12 @@ decreased the rate of dephosphorylation roughly by a factor of 5
 
 \begin{figure}%[t]%[tbh]
     \includegraphics[width=11.4cm]{PaperFigures/elifeFigure6/figure_two_timecourses_114mm.pdf}
-    \caption{ In \gls{pp1} rich spine cytosol, \gls{camkii} acts as a leaky integrator of \gls{ca} 
+    \caption{ In the \gls{pp1} rich spine cytosol, \gls{camkii} acts as a leaky integrator of \gls{ca} 
         activity. As clustered \gls{camkii} population decays much slowly due
         to subunit exchange, a mixed population of clustered and non-clustered \gls{camkii}
         can explain observed two time-constants of \gls{camkii} decay \citep{chang_camkii_2017}.
-        \textbf{(A)} Trajectories of \gls{camkii} activity (fraction of total \gls{camkii})
-        are shown when a strong periodic \gls{ca} pulse of \SI{3}{\second}
+        \textbf{(A)} Trajectories of \gls{camkii} activity (fraction of all
+        \gls{camkii} which are active) are shown when a strong periodic \gls{ca} pulse of \SI{3}{\second}
         duration was applied to the system after every \SI{1000}{\second} ($\downarrow$).
         After the pulse, \gls{ca} levels were brought down to \SI{80}{\nano M}. 
         Three trajectories are shown: without subunit exchange (red), with
@@ -483,23 +496,18 @@ decreased the rate of dephosphorylation roughly by a factor of 5
         red + 24\% blue as estimated in \citep{chang_camkii_2017}). 
         \textbf{(B)} Average decay dynamics after the onset of strong \gls{ca} pulse ($\downarrow$). 
         When there is no subunit exchange, \gls{camkii} decays at timescale of
-        approximately \SI{41.65}{\second} (dashed yellow). When subunit exchange is enabled, 
-        \gls{camkii} decay has larger time-constant of $\SI{200.82}{\second}$ (dashed blue). 
-        \textbf{(C)} Dynamics of mixed population (black, raw data shown in
-        black in \textbf{A}). Fit of mixed population by a double
+        approximately \SI{41.65}{\second} (red and dashed yellow (fit)). When subunit exchange is enabled, 
+        \gls{camkii} decay has larger time-constant of $\SI{200.82}{\second}$
+        (blue and dashed blue (fit)). \textbf{(C)} Average dynamics of mixed population
+        (black). Fit of mixed population by a double
         exponential i.e. $ae^{-t/\tau_{1}}+(1-a)e^{-t/\tau_{2}}$ for
-        $a=0.74$ (dashed red). Time constants $\tau_1$ and $\tau_2$ are estimated to be \SI{8.4}{\second} and
-        \SI{86.2}{\second} respectively. 
-        Function $0.74e^{-t/6.4}+0.26e^{-t/92.6}$ is the best fit of
-        experimental activity estimated in \citep{chang_camkii_2017} (magenta). 
-        For a given $a=0.74$ (estimated in \citep{chang_camkii_2017}), our time-constants
-        (\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
+        $a=0.74$ (dashed red). 
+        For a given $a=0.74$ (estimated in \citep{chang_camkii_2017}), our
+        estimate of time-constants (\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
         estimated time-constants (\SI{6.4}{\second}$\pm$0.7, \SI{92.6}{\second}$\pm$50.7). 
-        Shaded areas are the standard deviation. $N_{v}=10$,
+        Shaded areas are the standard deviation. Number of voxels $N_{v}=10$,
         \SUB{D}{sub}=\SI{1}{\micro\meter\squared\per\second},
         \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}.
-        All fits were performed using 
-        \href{https://gnuplot.info}{Gnuplot} (version 5.2.4).
     }\label{fig:cytosol_integrator}
 \figdata{Source and data are available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure6}}
@@ -777,16 +785,17 @@ experimental errors in readout mechanism.
 
 \begin{figure}[ht!]
     \includegraphics[width=\linewidth]{./PaperFigures/elifeFigure8/figure_exchange_rate.pdf}
-    \caption{Estimate of subunit exchange rate. \textbf{(A)} Colocalization
+    \caption{Rough estimation of subunit exchange rate by fitting experimental
+        data to a model of "single molecule assay" \cite{stratton_activation-triggered_2014}. 
+        \textbf{(A)} Colocalization
         dynamics as reported in \cite{stratton_activation-triggered_2014} at
         \gls{camkii}=\SI{8}{\micro M} (blue dots). Solid blue line shows a best
         fit $100(1-e^{-t/\tau})$ with $\tau$=\SI{62.7}{min}. \textbf{(B)} Phase
         plot of $\tau$ of colocalization trajectories generated for various
         values of $r_g$ and $r_l$ (\EQ{mixing_assay}). Black does shows values
-        of $r_g$ and $r_l$ for which $\tau=62.7\pm 20\% (S.E.M.)$. Red Red
-        circled plus marks shows the typical values of rate constants
-        (\EQ{losegainx}) used in this study. \textbf{(C)} Timescale of subunit
-        exchange are concentration dependant. For fixed value of $r_g$ and
+        of $r_g$ and $r_l$ for which $\tau=62.7\pm 20\%$ (S.E.M.). Circled red +
+        marks shows the values of rate constants (\EQ{losegainx}) used in this 
+        study at various volumne and \SUB{N}{CaMKII}. \textbf{(C)} For fixed value of $r_g$ and
         $r_l$, three trajectories are shown for different \gls{camkii}
         concentration. As seen in experimental data, rate of colocalization
         increases with increasing \gls{camkii} concentration. \textbf{(D)} For
@@ -873,21 +882,22 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
 \begin{figure}[ht!]
     \includegraphics[width=12cm]{./PaperFigures/elifeFigure7/figure_su_long_term_effect.pdf}
     \caption{Method validation. \SUB{N}{CaMKII}=6 holoenzymes as described in
-        \FIG{subunit_facilitates_spread} was put in cylinderical arena divided
+        the \FIG{subunit_facilitates_spread} are simulated in a cylinderical arena divided
         into 6 voxels separated by \SI{30}{\nano\meter}. Basal \gls{ca} label
-        fixed to \SI{100}{\nano M}+$\epsilon$. Another system with same parameter set was put in a single
-        `well-mixed' cylinder of same length and volume known to elicit bistable
+        fixed to \SI{100}{\nano M}+$\epsilon$. Another system with same
+        parameter set was simulated in a single `well-mixed' cylinder of 
+        same length and volume known to elicit bistable
         behaviour (henceforth reference bistable system, data not shown). 
         \textbf{(A)} For fixed \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, varying
-        \SUB{D}{sub} does not affect \gls{camkii} activity. \textbf{(B)} On the
-        other hand, for fixed
+        \SUB{D}{sub} does not affect average \gls{camkii} activity. 
+        \textbf{(B)} On the other hand, for fixed
         \SUB{D}{sub}=\SI{0.5}{\micro\meter\squared\per\second} , increasing
-        \SUB{D}{PP1}, increases \gls{camkii} activity. We see a bistable
+        \SUB{D}{PP1}, increases average \gls{camkii} activity. We see a bistable
         trajectory (red) which is similar to the behaviour or reference bistable
         system (data not shown). \textbf{(C)} Phase plot shows the discretized
-        system converges to reference bistable system (black dots). \Gls{camkii}
-        activity (simulation time=10 days) is independent of \SUB{D}{sub}, and
-        only depends on \SUB{D}{PP1}.  Black dots represent bistable
+        system converges to reference bistable system (black dots). Long time
+        average \Gls{camkii} activity (simulation time=10 days) is independent of 
+        \SUB{D}{sub}, and only depends on \SUB{D}{PP1}. Black dots represent bistable
         configurations with at least 4 transitions observed in 10 days long
         simulation. Thus discretized system converges to reference bistable system.
     }\label{fig:method_validation} 
