@@ -11,7 +11,7 @@
 \usepgfplotslibrary{units}
 \usetikzlibrary{calc,positioning,fit,shapes}
 \usepackage{xstring}
-\input{macros}
+\input{../macros}
 
 % dimensions
 \pgfmathsetmacro{\figW}{13} 
@@ -101,7 +101,7 @@
         \pgfmathsetmacro{\xpos}{\j*1.25*#3/#2-7.5}
         \coordinate (pos\j) at (\xpos mm, 0);
         \pgfmathsetmacro{\NumberOfSuInRing}{6}
-        \CAMKIIWithoutHub{c\j}{pos\j}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
+        \CAMKII{c\j}{above=0mm of pos\j}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
     }
 
     \foreach \j in {1,2,...,#2}

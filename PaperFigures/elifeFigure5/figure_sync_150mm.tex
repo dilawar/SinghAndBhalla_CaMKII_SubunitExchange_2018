@@ -23,7 +23,7 @@
 \usepgfplotslibrary{patchplots}
 \usepgfplotslibrary{units}
 \usepackage{xifthen} % provides isempty
-\input{macros}
+\input{../macros}
 
 \begin{document}
 
@@ -100,7 +100,7 @@
 % Controls the stretch in which free subunits are drawn.
 \pgfmathsetmacro{\fW}{14}
 
-\begin{tabularx}{\figW cm}{X X}
+\begin{tabularx}{\figW cm}{@{}X @{}X}
     \begin{tikzpicture}[baseline]
         % Draw camkii rings.
         \foreach \i/\x in {-3/1,0/2,3/3}
@@ -116,7 +116,7 @@
                 \coordinate (camkii0) at (\i+0.3*rand,0.3*\CylWidth*rand);
                 \begin{scope}[rotate=30*rand]
                     \pgfmathsetmacro{\NumberOfSuInRing}{random(6,7)}
-                    \CAMKIIWithoutHub{c0}{camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
+                    \CAMKII{c0}{above=0mm of camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
                 \end{scope}
             }
         }
