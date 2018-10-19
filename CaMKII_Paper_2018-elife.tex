@@ -158,31 +158,32 @@ subunit exchange and diffusion introduce several interesting additional
 properties, which we examine now.
 
 \begin{figure}[t]%[hbt] 
-    % \begin{fullwidth}
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure1/figure_validation_178mm.pdf}
-    \caption{Model description and validation. \textbf{(A)} CaMKII/PP1
-        pathway described in \gls{sbgn} - Process Description (PD) Language \citep{novere_systems_2009}. 
-        \textbf{(B)} \textbf{(above)} Major chemical reactions in the CaMKII/PP1 pathway. 
-        \textbf{(below)} Subunit exchange between two \gls{camkii} holoenzymes. Red
-        and blue balls represent phosphorylated and un-phosphorylated subunits
-        respectively.  \textbf{(C)} Basal \gls{ca} profile in spine and
-        \gls{psd} in all simulations. Basal \gls{ca} level is \SI{80}{\nano M} with fluctuations
-        every \SI{2}{\second}, lasting for \SI{2}{\second}. 
-        These fluctuations ($\epsilon$) are sampled from a uniform
-        distribution with median of \SI{120}{\nano M} and range  of
-        \SI{40}{\nano M} (see \nameref{sec:materials_and_methods}).
-        \textbf{(D)} Without diffusion and subunit exchange, CaMKII in our model is bistable.
-        Two trajectories of \gls{camkii} activity (fraction of total \gls{camkii}
-        holoenzymes with at least 2 subunits phosphorylated) are shown for different system
-        size \SUB{N}{CaMKII}=15 (\textbf{top}) and \SUB{N}{CaMKII}=35 (\textbf{bottom}).
-        \textbf{(E)} Switch stability measured as average residence time of
-        its stable states increases exponentially with system size \SUB{N}{CaMKII}.
-        Turnover rate \SUB{v}{t}=\SI{30}{\per \hour}. Panels \textbf{C, D}, and
-        \textbf{E} show key properties of our model that are very similar to those of the \gls{mz} 
-        model.}\label{fig:validation} 
+    \caption{Model description and validation. \textbf{(A)} CaMKII/PP1 pathway
+        described in \gls{sbgn} - Process Description (PD) Language
+        \citep{novere_systems_2009}.  \textbf{(B)} \textbf{(above)} Major
+        chemical reactions in the CaMKII/PP1 pathway.  \textbf{(below)} Subunit
+        exchange between two \gls{camkii} holoenzymes. Red and blue balls
+        represent phosphorylated and un-phosphorylated subunits respectively.
+        \textbf{(C)} Basal \gls{ca} profile in spine and \gls{psd}. Basal
+        \gls{ca} level is \SI{80}{\nano M} with fluctuations every
+        \SI{2}{\second}, lasting for \SI{2}{\second}.  These fluctuations
+        ($\epsilon$) are sampled from a uniform distribution with median of
+        \SI{120}{\nano M} and range  of \SI{40}{\nano M} (see
+        \nameref{sec:materials_and_methods}) (this fluctuation is represented by
+        $\epsilon$).  \textbf{(D)} Without diffusion and subunit exchange,
+        CaMKII in our model is bistable.  Two trajectories of \gls{camkii}
+        activity (fraction of total \gls{camkii} holoenzymes with at least 2
+        subunits phosphorylated) are shown for different system size
+        \SUB{N}{CaMKII}=15 (\textbf{top}) and \SUB{N}{CaMKII}=35
+        (\textbf{bottom}).  \textbf{(E)} Switch stability measured as average
+        residence time of its stable states increases exponentially with system
+        size \SUB{N}{CaMKII}.  Turnover rate \SUB{v}{t}=\SI{30}{\per \hour}.
+        Panels \textbf{C, D}, and \textbf{E} show key properties of our model
+        that are very similar to those of the \gls{mz} model.
+    }\label{fig:validation} 
     \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure1}}
-% \end{fullwidth}
 \end{figure}
 
 
@@ -191,7 +192,8 @@ and to protein turnover}\label{subsec:result_tolerance}
 
 \begin{figure}[ht]
     \includegraphics[width=140mm]{PaperFigures/elifeFigure2/figure_effect_of_tolerace_140mm.pdf}
-    \caption{Subunit exchange improves switch tolerance of \gls{pp1}.
+    \caption{Subunit exchange improves the switch's tolerance of \gls{pp1} by
+        acting as a compensatory mechanism for the dephosphorylation by \gls{pp1} 
         \textbf{(A)} Two representative trajectories (\SUB{N}{CaMKII}=12) are
         shown with subunit exchange (+SE, blue) and without
         subunit exchange (-SE, red) respectively. \textbf{(B)} Blue and red
@@ -545,8 +547,9 @@ uniformly distributed in \gls{psd}, subunit exchange facilitated more rapid
 activation of \gls{camkii} (\FIG{subunit_facilitates_spread}BCD)
 \citep{stratton_activation-triggered_2014}. These simulation results predict
 that a \gls{camkii} mutant lacking subunit exchange would be deficient in switch
-stability and slower to activate thereby resulting in degraded memory retention
-and deficient learning in memory related behavioural experiments, respectively.
+stability and slower to be activated by \gls{ca} thereby resulting in degraded
+memory retention and deficient learning in memory related behavioural
+experiments, respectively.
 
 In the spine head, subunit exchange facilitated integration by prolonging the
 decay time-course of kinase activity (\FIG{cytosol_integrator}).  The fact that
@@ -577,31 +580,31 @@ lead to synchronization when \gls{camkii} is clustered, or more rapid activation
 by \gls{ca} when it is uniformly distributed. Given that \gls{camkii} can form
 clusters with \gls{nmda} receptors, it would be interesting to study the mixed
 case where some \gls{camkii} is clustered and rest is uniformly distributed.
-This would require detailed 3D simulation and is beyond the scope of this study.
+This would require a detailed 3D simulation and is beyond the scope of this study.
 
-Finally, we suggest that existence of diverse time-scales of \gls{camkii}
-activity -- bistable and highly stable synchronized bistable in PSD, slow and
-fast decaying leaky integrator in spine head -- has important theoretical
-implications. A very plastic synapse is good at registering activity dependent
-changes (learning) but bad at retaining old memories. On the other hand, a rigid
-synapse is good at retaining old memories but is not efficient at learning. A
-theoretical meta-model which sought to strike a balance between these two
-competing demands requires that such diversity of timescales must exist at the
-synapse \citep{benna_computational_2016} for optimum performance. In this model,
-complex synapses with state variables with diverse time-scales are shown to form
-a memory network in which storage capacity scales linearly with number of
-synapses, and memory decay follows \(1/\sqrt{t}\) --- a power-law supported by
-psychological studies \citep{wixted_form_1991}. This model requires memory trace
-to be first stored in a fast variable and then progressively and efficiently
-transferred to slower variables.  Our study suggests a concrete mechanism for
-such a process. Here, \gls{ca} concentration in PSD can be mapped to the fastest
-variable.  The \gls{camkii} integrator in cytosol could represent the second
-slower variable to which the trace is transferred from \gls{ca}. Further, the
-state information is transferred to the third slower \gls{camkii} bistable
-switch. The dynamics of \gls{camkii} in the PSD forms an even slower bistable
-variable for longer retention of the memory trace. It is possible that memory is
-transferred from here to even slower variables, such as sustained receptor
-insertion \citep{hayer_molecular_2005}, PKM-$\zeta$ activation
+Finally, we suggest that existence of diverse multiple time-scales of
+\gls{camkii} activity -- bistable and highly stable synchronized bistable in
+PSD, slow and fast decaying leaky integrator in spine head -- has important
+theoretical implications. A very plastic synapse is good at registering activity
+dependent changes (learning) but bad at retaining old memories. On the other
+hand, a rigid synapse is good at retaining old memories but is not efficient at
+learning. A theoretical meta-model which sought to strike a balance between
+these two competing demands requires that such diversity of timescales must
+exist at the synapse \citep{benna_computational_2016} for optimum performance.
+In this model, complex synapses with state variables with diverse time-scales
+are shown to form a memory network in which storage capacity scales linearly
+with number of synapses, and memory decay follows \(1/\sqrt{t}\) --- a power-law
+supported by psychological studies \citep{wixted_form_1991}. This model requires
+memory trace to be first stored in a fast variable and then progressively and
+efficiently transferred to slower variables.  Our study suggests a concrete
+mechanism for such a process. Here, \gls{ca} concentration in PSD can be mapped
+to the fastest variable. The \gls{camkii} integrator in cytosol could represent
+the second slower variable to which the trace is transferred from \gls{ca}.
+Further, the state information is transferred to the third slower \gls{camkii}
+bistable switch. The dynamics of \gls{camkii} in the PSD forms an even slower
+bistable variable for longer retention of the memory trace. It is possible that
+memory is transferred from here to even slower variables, such as sustained
+receptor insertion \citep{hayer_molecular_2005}, PKM-$\zeta$ activation
 \citep{sacktor_memory_2012}, or local protein synthesis
 \citep{aslam_translational_2009}.
 
