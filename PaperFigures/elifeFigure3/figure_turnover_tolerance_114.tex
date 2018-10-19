@@ -67,7 +67,8 @@
     \begin{axis}[name=#1, at={(#2)}
         , anchor = north
         , height=\plotH cm, yshift=-5mm
-        , ymax = 1, ytick={0,1}
+        % , ymax = 1, ytick={0,1}
+        , ytick={0,5,10}
         , enlarge y limits={abs=0.1}
         , enlarge x limits={abs=3}
         , xmin=10, xmax = 20
@@ -79,7 +80,7 @@
         ]
         \addplot [color=\COLOR] gnuplot [ raw gnuplot ] {
             plot "./data_(turnover=#3,SU=#4).dat_processed.dat" 
-            using (column("time")/86400):(column("CaMKII*")/10) every 5;
+            using (column("time")/86400):(column("CaMKII*")) every 5;
         };
         \legend{${v_t}=1/#3 \si{\per \hour}$}
     \end{axis}
@@ -90,9 +91,10 @@
         \PlotTraj{plota11}{(0,0)}{30}{OFF}{title={$-$SE}}
         \PlotTraj{plota12}{plota11.south}{3}{OFF}{ }
         \PlotTraj{plota13}{plota12.south}{0.5}{OFF}{
-            xlabel=Time, x unit=day, ylabel=CaMKII\textsuperscript{*}
+            xlabel=Time, x unit=day
+            , ylabel=Active CaMKII
             , x axis line style={draw=black}
-            , xtick=
+            , ylabel style={xshift=10mm}
         }
         \node[above left=8mm of plota11.north west] {\bf A};
     \end{tikzpicture} 
@@ -102,9 +104,9 @@
         \PlotTraj{plota11}{(0,0)}{30}{ON}{title={$+$SE}}
         \PlotTraj{plota12}{plota11.south}{3}{ON}{ }
         \PlotTraj{plota13}{plota12.south}{0.5}{ON}{
-            xlabel=Time, x unit=day, ylabel=CaMKII\textsuperscript{*}
+            xlabel=Time, x unit=day, ylabel=Active CaMKII
             , x axis line style={draw=black}
-            , xtick=
+            , ylabel style={xshift=10mm}
         }
         \node[above left=8mm of plota11.north west, xshift=0 mm] {\bf B};
     \end{tikzpicture} 
@@ -114,7 +116,7 @@
         % Another node just below of A. Effect of SE on turnover.
         \begin{semilogxaxis}[name=plotb1
                 , xlabel=$v_t$, x unit=\si{\per \hour}
-                , ylabel={Time spent ({\tt ON})}
+                , ylabel={Fraction of time \\spent in {\tt ON} state}
                 , ylabel style={align=center}
                 , width=0.95*\plotW cm, height=\plotH cm %, scale only axis
                 , legend style={font=\scriptsize, at={(0.5,1.05)}, anchor=south west}
