@@ -1,0 +1,208 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[10pt, preview,multi=false,varwidth=14cm]{standalone}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepgfplotslibrary{units}
+\usepgfplotslibrary{patchplots}
+\usepackage{siunitx}
+\usetikzlibrary{calc,positioning}
+\usepackage{luacode}
+\usepackage[default,osfigures,scale=0.9]{opensans}
+%% Alternatively
+%% use the option 'defaultsans' instead of 'default' to replace the
+%% sans serif font only.
+\usepackage[T1]{fontenc}
+
+\begin{document}
+
+\begin{luacode}
+    function sniffCode(filename)
+        local f = io.open(filename, "r");
+        local txt = f:read("*all");
+        local tau = string.match(txt, 'tau%s+=%s*(%d+.%d+)');
+        tex.write( string.format('%.1f', tau) );
+    end
+\end{luacode}
+
+\pgfplotsset{
+    , xtick align=center
+    , ytick align=center
+    , unit markings=parenthesis
+    , legend style={fill=none,draw=none,font=\footnotesize}
+    % , axis lines*=left
+    , label style={font=\small}
+    , tick style={font=\scriptsize}
+    ,  ylabel near ticks
+}
+
+% This is from here https://tex.stackexchange.com/a/210259/8087
+\pgfplotsset{
+    legend image code/.code={
+    \draw[mark repeat=2,mark phase=2]
+        plot coordinates {(0cm,0cm) (0.15cm,0cm) (0.3cm,0cm)};
+    }
+}
+
+\edef\Height{4}
+\edef\figW{14}
+\pgfmathsetmacro{\ColWidth}{\figW/2}
+\pgfmathsetmacro{\PlotW}{\figW/2.3}
+
+\newcommand\GetTau[1]{\directlua{sniffCode(#1)}}
+
+\begin{tabular}{@{}l@{}l@{}}
+    \vspace{0pt}
+    \begin{tikzpicture}[baseline, scale=1]
+        \def\DATAFILE{./data_fig3c_merged.csv}
+        \begin{axis}[ xlabel=Time, x unit=min
+            , ylabel={\% colocalization} 
+            , legend style={at={(0,1)}, anchor=south west}
+            , height=\Height cm
+            , width=\PlotW cm
+            , axis lines*=left
+            ]
+            \addplot+ [only marks, mark=*, mark options={fill=blue!50}, opacity=0.8] 
+                table[x=time, y=colocalization, col sep=comma]{\DATAFILE};
+
+            % fit using gnuplot.
+            \addplot+ [thick, no marks, blue] gnuplot[raw gnuplot] {
+                    set datafile separator ",";
+                system("rm -f fit.log");
+                f(x)=100*(1-exp(-x/tau));
+                fit f(x) "\DATAFILE" using "time":"colocalization" via tau;
+                plot [x=0:120] f(x);
+            };
+            \def\Tau{\GetTau{"fit.log"}}
+            \legend{{Stratton et al., eLife 2016, Fig 3C}, $100(1-e^{-t/\Tau}$ (fit)}
+        \end{axis}
+        \node[above=0mm of current bounding box.north west] {\bf A};
+    \end{tikzpicture}
+    &
+    % Surf plot to show the relationship between rlose, rgain and tau.
+    \def\Tau{\GetTau{"fit.log"}}
+    \pgfmathsetmacro\LOWTAU{0.8*\Tau}
+    \pgfmathsetmacro\HIGHTAU{1.2*\Tau}
+    \vspace{0pt}
+    \begin{tikzpicture}[baseline, scale=1, every node/.style={} ]
+        \begin{loglogaxis}[
+            view={0}{90}
+            , xlabel=$r_g$, x unit=\si{\cubic\meter\per\mole\per\second}
+            , ylabel=$r_l$, y unit=\si{\per\second}
+            , width=0.8*\PlotW cm
+            , colorbar right, colorbar style={width=2mm, ytick pos=right}
+            , unbounded coords=jump
+            , ticklabel style={font=\footnotesize}
+            , title = {$\tau$ (min) at [CaMKII]=\SI{8}{\micro M}}
+            , enlargelimits=false
+            ]
+
+            \addplot3 [ 
+                    % patch
+                    % , patch type=biquadratic
+                    % , shader=faceted
+                    , surf
+                    , shader=interp
+                    , mesh/rows=40
+                ] table[x=rgain,y=rlose,col sep=comma
+                , z expr=\thisrow{tau}>300?nan:\thisrow{tau}
+                ] {./summary_CM8e-3.csv};
+
+            \addplot3 [only marks, mark=*, mark size=1pt] table[x=rgain,y=rlose
+                , col sep=comma
+                , x expr={\thisrow{tau}<\LOWTAU?nan:\thisrow{rgain}}
+                , y expr={\thisrow{tau}>\HIGHTAU?nan:\thisrow{rlose}}
+                ]{./summary_CM8e-3.csv};
+
+            % Our range of parameters.
+            \addplot3 [only marks, mark=oplus, mark size=3pt
+                , every mark/.append style={draw=red}
+                ]  coordinates {
+                    (0.75, 0.1, 1) 
+                    (0.5, 0.1, 1) 
+                    (1/6, 0.1, 1)
+                };
+        \end{loglogaxis}
+        \node[above=0mm of current bounding box.north west] {\bf B};
+    \end{tikzpicture}	
+    \\
+    \vspace{0pt}
+    \begin{tikzpicture}[scale=1, baseline]
+        \begin{axis}[ xlabel=Time, x unit=min
+            , ylabel=\% colocalization
+            , width=\PlotW cm
+            , height=\Height cm
+            , axis lines*=left
+            , legend style={at={(0,1)},anchor=south west}
+            , legend columns=2
+            , no marks
+            , title={$r_g=0.1\si{\cubic\meter\per\mole\per\second}, r_l=0.14\si{\per\second}$ }
+            , title style={font=\small, at={(0.5,1.25)}, align=center,
+                        text width=0.9*\PlotW cm}
+            ]
+            \addplot+[no marks, thick] gnuplot[raw gnuplot] {
+                set datafile separator ",";
+                plot "./CM1e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
+                    using "time":"colocalization_perc" every 20;
+            };
+            \addplot+[no marks, thick] gnuplot[raw gnuplot] {
+                set datafile separator ",";
+                plot "./CM8e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
+                    using "time":"colocalization_perc" every 20;
+            };
+            \addplot+[no marks, thick] gnuplot[raw gnuplot] {
+                set datafile separator ",";
+                plot "./CM100e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
+                    using "time":"colocalization_perc" every 20;
+            };
+            \legend{{CaMKII=\SI{1}{\micro M}}
+                , {CaMKII=\SI{8}{\micro M}}
+                , {CaMKII=\SI{100}{\micro M}}
+            };
+    \end{axis}
+    \node[above=0mm of current bounding box.north west] {\bf C};
+    \end{tikzpicture}
+    &
+    \vspace{0pt}
+    \begin{tikzpicture}[baseline, scale=1]
+        \def\DATAFILE{./data_fig2c_merged.csv}
+        \begin{axis}[ xlabel=Time, x unit=min
+            , ylabel={\% colocalization} 
+            , legend style={at={(0,1)}, anchor=south west}
+            , height=\Height cm
+            , width=\PlotW cm
+            , axis lines*=left
+            , unbounded coords=jump
+            ]
+
+            \addplot+ [ only marks, error bars/.cd, y dir=both, y explicit] table 
+                [ col sep=comma, x=time, y=mean_8_37, y error=std_8_37]
+                {\DATAFILE};
+            \addlegendentry{[CaMKII]=8\si{\micro M}, (Stratton et al., 2016)};
+
+            % Now draw best fit lines.
+            \def\OptRg{0.5541}
+            \def\OptRl{0.1438}
+            \addplot+ [thick, no marks, blue] gnuplot[raw gnuplot] {
+                set datafile separator ",";
+                plot "< cat ./CM8e-3_rg\OptRg*_rl\OptRl*.csv" using 
+                    "time":"colocalization_perc" every 20;
+            };
+        \addlegendentry{Sim $r_g=\OptRg,r_l=\OptRl$};
+
+            \addplot+ [red, only marks, error bars/.cd, y dir=both, y explicit] table 
+                [ col sep=comma, x=time, y=mean_1_37, y error=std_1_37]
+                {\DATAFILE};
+            \addlegendentry{[CaMKII]=1\si{\micro M}, (Stratton et al. 2016)};
+
+            \addplot+ [thick, no marks, red] gnuplot[raw gnuplot] {
+                set datafile separator ",";
+                plot "< cat ./CM1e-3_rg\OptRg*_rl\OptRl*.csv" using 
+                    "time":"colocalization_perc" every 20;
+            };
+        \addlegendentry{Sim $r_g=\SI{\OptRg}{},r_l=\OptRl$};
+
+        \end{axis}
+        \node[above=0mm of current bounding box.north west] {\bf D};
+    \end{tikzpicture}
+\end{tabular}
+\end{document}

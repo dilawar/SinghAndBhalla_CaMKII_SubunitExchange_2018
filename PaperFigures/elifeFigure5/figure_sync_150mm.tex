@@ -1,0 +1,224 @@
+%=====================================================================================
+%    Description:  Multiple bistables in PSD synchronized by subunit exchange.
+%    87mm version.
+%=====================================================================================
+\RequirePackage{luatex85,shellesc}
+\documentclass[crop=true,multi=false,varwidth=15.0cm,class=../elife]{standalone}
+\usepackage{pgfplots}
+\usepackage{xstring}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage{tabularx}
+
+% Cokumntype P has fixed width and align to left as well. See 
+% https://tex.stackexchange.com/a/7348/8087 
+\usepackage{array}
+\usepackage{ragged2e}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+% \renewcommand\familydefault{\sfdefault}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{calc,positioning}
+\usetikzlibrary{shapes,arrows,arrows.meta,fit}
+
+\usepgfplotslibrary{patchplots}
+\usepgfplotslibrary{units}
+\usepackage{xifthen} % provides isempty
+\input{../macros}
+
+\begin{document}
+
+\pgfmathsetmacro{\figW}{15.0}
+\pgfmathsetmacro{\colW}{0.45*\figW}
+\pgfmathsetmacro{\plotW}{0.9*\colW}
+\pgfmathsetmacro{\plotH}{2.5}
+\def\PSDLENGTH{\plotW}
+\pgfplotsset{axis lines=left}
+\pgfplotsset{legend style={fill=none,draw=none}}
+
+% Used in last row to control height of surf plots.
+\edef\HEIGHT{40mm}
+
+\pgfplotsset{
+    , xtick align=center
+    , ytick align=center
+    , unit markings=parenthesis
+    , xticklabel style={/pgf/number format/fixed}
+    , axis line style={-}
+    , ylabel near ticks
+    , xlabel near ticks
+}
+
+% label macro
+\newcommand\LABEL[2]{\node[above left=of #1.north west,xshift=0mm,yshift=-8mm]{\bf #2};}
+\newcommand\SUB[2]{#1\textsubscript{#2}}
+
+% macro for plotting trajectories and its histogram.
+\newcommand\PlotTrajWithHist[6]{ %name,location,filename,every,color,extra
+    \edef\plotH{1.5}
+    \begin{axis}[name=#1, at={#2}, anchor=north west
+        , width=0.65*\plotW cm, height=\plotH cm,scale only axis 
+        , ytick={0,6,12,18}
+        , enlarge y limits=0.1
+        , enlarge x limits=0.1
+        , ylabel={Active CaMKII}
+        , ylabel style={font=\footnotesize}
+        , title style={at={(0.5,0.75)}}
+        , #6
+        ]
+        \addplot [color=#5] gnuplot [ raw gnuplot, id=#1fig21 ] { 
+            plot "#3" every #4 using (column("time")/86400):"CaMKII*"; 
+        };
+    \end{axis}
+    \begin{axis}[
+        , enlarge y limits=0.1
+        , enlarge x limits=0.1
+        , height=\plotH cm, width=0.8*\plotH cm,scale only axis
+        , ytick={0,6,12,18}
+        , ymax=18, xmax=0.025
+        , yticklabels=\empty
+        , at = (#1.north east), xshift=3mm
+        , anchor = north west
+        , x filter/.code=\pgfmathparse{rawy}
+        , y filter/.code=\pgfmathparse{rawx}
+        , try min ticks=2
+        , scaled ticks=false
+        , title style={font=\scriptsize,at={(0.5,0.75)}}
+        , ymin = 0
+        ]
+        \addplot [fill=#5,xbar, draw=#5, bar width=0.5mm] gnuplot [ raw gnuplot,id=#1fig ] 
+        {
+            stats "#3" using "CaMKII*" prefix "A";
+            bin(x,width)=width*floor(x/width);
+            plot "#3" using (bin(column("CaMKII*"),1)):(1.0/A_sum) smooth freq;
+        };
+    \end{axis}
+}
+
+% Controls the size of subunits.
+\edef\SUSIZE{0.1}
+\edef\CylWidth{15mm}
+% Controls the stretch in which free subunits are drawn.
+\pgfmathsetmacro{\fW}{14}
+
+\begin{tabularx}{\figW cm}{@{}X @{}X}
+    \begin{tikzpicture}[baseline]
+        % Draw camkii rings.
+        \foreach \i/\x in {-3/1,0/2,3/3}
+        {
+            \node[ draw=red, dotted, thick, circle, minimum size=\CylWidth
+                , label={[node distance=3mm]above:{\small Cluster \x}}
+                ] (switch\x)  at (\i,0) { };
+
+            \foreach \j in {1,...,6}
+            {
+                \edef\activeSE{random(1,7),random(1,7),random(1,7),random(1,7),random(1,7),random(1,7),random(1,7)}
+                % Each switch has some camkii here.
+                \coordinate (camkii0) at (\i+0.3*rand,0.3*\CylWidth*rand);
+                \begin{scope}[rotate=30*rand]
+                    \pgfmathsetmacro{\NumberOfSuInRing}{random(6,7)}
+                    \CAMKII{c0}{above=0mm of camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
+                \end{scope}
+            }
+        }
+
+        % Draw PSD over switches.
+        \node[cylinder, minimum width=\CylWidth, minimum height=0.8*\figW cm
+            , draw=blue, fill=blue!50, opacity=0.1, inner sep=1mm
+            ] (psd) at (switch2) {};
+
+        % K distance away from each other.
+        \draw[|<->|,thick] let \p{r1}=(switch1), \p{r2}=(switch2),
+            \p{y0}=([yshift=-2mm]psd.south)
+            in  (\x{r1},\y{y0}) -- (\x{r2},\y{y0}) node[below,midway] {d};
+
+        \foreach \j in {1,2,...,9}
+        {
+            \node[ 
+                shade,ball color=red, fill=red, circle, minimum size=\SUSIZE cm ,inner sep=1pt
+            ] (su\j) at (\fW/3*rand,0.4*\CylWidth*rand) {};
+            \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
+            \draw[-latex,color=red,very thin] (su\j) -- ++(\Ang:2mm);
+        }
+
+        \foreach \j in {1,2,...,20}
+        {
+            \node[
+                shade,ball color=blue,fill=blue,circle ,minimum size=\SUSIZE cm, inner sep=1pt
+                ] (su\j) at (\fW/3*rand,0.4*\CylWidth*rand) { };
+            \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
+            \draw[-latex,color=blue,very thin] (su\j) -- ++(\Ang:2mm);
+        }
+        \node[xshift=0mm, yshift=-3mm, above=of psd.bottom] (labeld) {\bf A};
+    \end{tikzpicture} 
+    \\
+   \begin{tikzpicture}[scale=1, every node/.style={} ]
+        \PlotTrajWithHist{without_su_axis}{(0,0)}{%
+            ./CaMKII-6+PP1-27+L-125e-9+N-3+diff-0.dat_processed.dat}{20}{red}{
+                title={-SE,\SUB{D}{sub}=0},xlabel=Time, x unit=day
+        }
+        \LABEL{without_su_axis}{B}
+    \end{tikzpicture}  
+    &
+   \begin{tikzpicture}[scale=1, every node/.style={} ]
+        \PlotTrajWithHist{with_su_axis}{(without_su_axis.below south west)}{%
+            ./CaMKII-6+PP1-27+L-125e-9+N-3+diff-1e-12.dat_processed.dat}{20}{blue}{%
+            xlabel=Time, x unit=day
+            , title={+SE,\;\SUB{D}{sub}=\SI{1}{\micro\meter\squared\per\second}}
+            , yshift=-2mm
+        }
+    \end{tikzpicture}  
+    \\
+    \begin{tikzpicture}[scale=1]
+        \begin{semilogxaxis}[name=f1
+            , axis lines*=left
+            , xlabel= \SUB{D}{sub}
+            , x unit=\si{\micro\meter \squared \per \second}
+            % , label style={font=\scriptsize}
+            , height=\HEIGHT 
+            , enlargelimits
+            , legend style={fill=none,at={(1.01,0.5)},anchor=south west}
+            , legend columns=1
+            , ymax = 1, ymin = 0
+            , ytick={0,1}
+            , title={d=\SI{30}{\nano\meter}}
+            ]
+            \addplot+ [color=blue] table [
+                x expr={\thisrow{diff const}*1e12}
+                , y=intermediate states mean
+                , col sep=comma]{decay_of_intermediate_states.dat};
+
+            \addplot+ [color=red] table [
+                x expr={\thisrow{diff const}*1e12}
+                , y expr={1-\thisrow{intermediate states mean}}
+                , col sep=comma]{decay_of_intermediate_states.dat};
+            \legend{\SUB{t}{i}, \SUB{k}{s}=1-\SUB{t}{i}};
+        \end{semilogxaxis}
+        \node[above=of f1.north west, yshift=-5mm, xshift=-15mm] {\bf C};
+    \end{tikzpicture} 
+    &
+    \begin{tikzpicture}[]
+        \pgfplotsset{axis lines*=box}
+        \begin{semilogxaxis}[name=f2
+            , axis lines*=box
+            , change y base=true
+            , view={0}{90}
+            , xlabel= \SUB{D}{sub}
+            , x unit=\si{\micro\meter\squared\per\second}
+            , title=\SUB{k}{s}
+            , height=\HEIGHT 
+            , colorbar
+            , colorbar style={width=1.5mm}
+            , enlargelimits=false
+            , ylabel = d, y unit=\si{\meter}
+            , y SI prefix=nano % scales the axis appropriately unlike \si{nm}.
+            , ylabel shift=-2mm 
+            % , label style={font=\scriptsize}
+            ]
+            \addplot3 [surf,mesh/rows=10 ] table[col sep=comma
+            , x expr={\thisrow{D}*1e12} % unit are um^2/sec
+            , z expr={1-\thisrow{intermediate_state}}]{./data_sync_phase_plot.csv};
+        \end{semilogxaxis}
+        \node[above=of f1.north west, yshift=-5mm, xshift=-15mm] {\bf D};
+    \end{tikzpicture}
+\end{tabularx}
+\end{document}

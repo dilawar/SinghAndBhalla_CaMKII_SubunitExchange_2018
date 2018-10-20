@@ -1,4 +1,4 @@
-all :  figure_pp1_profile.pdf  ./figure_diff.pdf
+all :  figure_pp1_profile.pdf  ./figure_diff.pdf 
 
 DATFILES := analyze_pp1_detailed.py_summary.dat analyze_pp1_detailed.py_1e-14_summary.dat
 

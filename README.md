@@ -8,8 +8,7 @@ The preprint is available at [https://doi.org/10.1101/372748](biorxiv, https://d
 
 # Whom to contact
 
-If you need any assistant while running this model, fee free to create a ticket on this repo or 
-drop an email to dilawars@ncbs.res.in .
+If you need any assistant, fee free to create a ticket on this repo or drop an email to dilawars@ncbs.res.in .
 
 # The model
 
@@ -19,7 +18,7 @@ other python libraries: numpy, scipy, pandas, networkx. Except of `pymoose` and
 analyzing and plotting data.
 
 The model script is available in `./model` directory. See
-[./model/README.md](mode/README.md) for detailed instructions before you
+[./model/README.md](model/README.md) for detailed instructions before you
 continue. And for a sample output run with default parameters.
 
 # Figures in the paper
@@ -31,16 +30,13 @@ them are included in each folder for verification.
 
 ## Regenerating figures
 
-Install `cmake` and `gnuplot` along with `texlive-2017`. If you are lucky, following will regenerate
+Install `gnuplot` along with `texlive-2017`. If you are lucky, following will regenerate
 the figure:
 
     $ cd ./PaperFigures
-    $ cmake .
     $ make
     
-All figures generated in this folder are in `pdf` format. You have to search
-which figure is where in the paper (sorry, they are not numbered in the same way
-as they appear in paper).
+All figures will be generated in `pdf` format.
 
 # Generating raw data used in figures
 

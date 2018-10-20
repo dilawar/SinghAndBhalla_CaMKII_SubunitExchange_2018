@@ -14,16 +14,16 @@
 %%                
 %%=====================================================================================
 \RequirePackage{luatex85,shellesc}
-\documentclass[crop,tikz,class=../elife]{standalone}
+\documentclass[9pt, crop,tikz,class=../elife]{standalone}
 \usetikzlibrary{fit,shapes,positioning,arrows}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc}
 \usepackage{xstring}
 
 % \usepackage[sfdefault]{FiraSans}
-\renewcommand\familydefault{\sfdefault}
+% \renewcommand\familydefault{\sfdefault}
 
-\input{macros_1.tex}
+\input{../macros.tex}
 
 \begin{document}
 
@@ -33,12 +33,12 @@
 
 \centering
 \begin{tikzpicture} [ node distance=3cm
-        , Species/.style = { inner sep=1pt, circle, shading=ball, ball color=green!80 }
+        , Species/.style = { inner sep=2pt, circle, shading=ball, ball color=green!80 }
         , PP1/.style = { star, star points=2, minimum size = 1cm }
         , I1P/.style = { rectangle, fill=blue, minimum size = 0.3cm }
         , CaM/.style = { star,  minimum size=1.5cm, star points = 4
             , star point ratio=2 }
-        , every path/.style = { ->, thick}
+        , every path/.style = { -latex, very thick}
         , Process/.style = { circle, inner sep=1pt, minimum size=1pt, fill=black }
     ]
 
@@ -47,8 +47,9 @@
     \begin{scope}
         \node[CaM, fill=blue!50, label=above:CaM] (cam) {};
         \node[CaM, fill=blue!80, right=of cam, label=above:Ca-CaM] (cacam) {};
+
         \foreach \i in {1,2,3,4} {
-            \node[Species, inner sep=1pt] (ca\i) at (cacam.outer point \i) {};
+            \node[Species] (ca\i) at (cacam.outer point \i) {};
         }
 
         %% Calcium comes from here
@@ -56,10 +57,13 @@
 
         \node[inner sep=0pt] (caCamBinding) at ($(cam)!0.5!(cacam)$) {};
 
-        \draw[->, line width=3pt] (cam) to[] node[] (binding) {} (cacamComplex);
+        \draw[-stealth, line width=2.5pt] (cam) to[] node[] (binding) {} (cacamComplex);
+
         %% Draw an incoming calcium
-        \node[Species, label=Ca] (incomingCa) at ([yshift=1cm,xshift=-1cm]binding) {};
+        \node[Species, label=Ca\textsuperscript{++}] (incomingCa) 
+            at ([yshift=1cm,xshift=-1cm]binding) {};
         \draw[-.] (incomingCa) to[,bend right] (binding.center);
+
     \end{scope}
 
     %% In this scope, CaCaM activates CaMKII.
@@ -69,11 +73,11 @@
         \CAMKII{camkii1}{right=of camkii0}{1}{0.5}{6};
         \CAMKII{camkii11}{right=of camkii1}{1,2,3,4,5,6}{0.5}{6};
 
-        \draw[->, shorten <>= 0.1cm] (camkii0) 
+        \draw[-latex, shorten <>= 0.1cm] (camkii0) 
             edge  node[Process] (phospho1) {} (camkii1);
 
 
-        \draw[->, shorten <>= 0.1cm, line width=2.5pt] (camkii1) 
+        \draw[-latex, shorten <>= 0.1cm, line width=2.5pt] (camkii1) 
             to[] node[Process] (phospho2) {} (camkii11);
 
         % Autophosphorylation.
@@ -87,7 +91,7 @@
     % Dephosphorylation of CaMKII
     \begin{scope}
 
-        \draw[->, bend left ] (camkii11) 
+        \draw[-latex, bend left ] (camkii11) 
             to[] node[Process] (dephosphorylation) {} (camkii0);
         
         \node[I1P, fill=blue!80, label=below:I1P] (i1p) [below of=camkii11] {};
