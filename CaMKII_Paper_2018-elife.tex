@@ -99,8 +99,7 @@ petersen_distribution_2003}.
 From a computational perspective, the CaMKII/PP1 bistable system is an attractive
 candidate for memory storage \citep{koch_biophysics_2004}.  Bistability provides
 a plausible solution to the problem of state maintenance. Previous modeling work
-has shown that the CaMKII/PP1 system may form a very stable switch despite 
-protein
+has shown that the CaMKII/PP1 system may form a very stable switch despite protein 
 turnover and stochastic noise in the small volume of the synapse.  The stability
 increases exponentially with the number of holoenzymes
 \citep{miller_stability_2005}. It is important to note that this model exhibits
@@ -518,13 +517,12 @@ decreased the rate of dephosphorylation roughly by a factor of 5
 
 We expected subunit exchange to have a strong effect on the decay activity of
 clustered \gls{camkii} in spine cytosol (e.g., \gls{camkii} bound to actin)
-because of the proximity of holoenzymes, leading to rapid exchange.  
-Thus, if there are populations of clustered as
-well as non-clustered \gls{camkii} in the spine, we expected that they would
-exhibit long and short time-courses of activity decay, respectively. 
-Therefore a mixed
-population of clustered and non-clustered \gls{camkii} should decay with two
-time-constants.  Our simulations supported this prediction. 
+because of the proximity of holoenzymes, leading to rapid exchange.  Thus, if
+there are populations of clustered as well as non-clustered \gls{camkii} in the
+spine, we expected that they would exhibit long and short time-courses of
+activity decay, respectively.  Therefore a mixed population of clustered and
+non-clustered \gls{camkii} should decay with two time-constants.  Our
+simulations supported this prediction. 
 
 In \cite{chang_camkii_2017}, the decay kinetics of \gls{camkii} were obtained by
 curve fitting of experimental data. It is given by a double-exponential
@@ -547,16 +545,16 @@ cytosol.
 \section{Discussion}\label{discussion}
 
 Here we have shown that subunit exchange strongly affects the properties of the
-CaMKII/PP1 pathway, both in its role as a bistable switch in the PSD and as a 
-leaky
-integrator of \gls{ca} activity in spine cytosol. In the PSD, where the model
-was tuned to elicit bistable dynamics from clustered \gls{camkii}, subunit
+CaMKII/PP1 pathway, both in its role as a bistable switch in the PSD and as a
+leaky integrator of \gls{ca} activity in spine cytosol. In the PSD, where the
+model was tuned to elicit bistable dynamics from clustered \gls{camkii}, subunit
 exchange improved the stability of \gls{camkii}/\gls{pp1} switch by
-synchronizing the kinase activity across the PSD (\FIG{cytosol_integrator}). 
-It also improved active \gls{camkii} tolerance of PP1 and turnover rate
-(\FIG{tolerance_pp1} and \FIG{turnover}). In the case where \gls{camkii} was
-uniformly distributed in \gls{psd}, subunit exchange facilitated more rapid
-activation of \gls{camkii} (\FIG{subunit_facilitates_spread}B-D)
+synchronizing the kinase activity across the \gls{psd}
+(\FIG{cytosol_integrator}).  It also improved active \gls{camkii} tolerance of
+PP1 and turnover rate (\FIG{tolerance_pp1} and \FIG{turnover}). In the case
+where \gls{camkii} was uniformly distributed in \gls{psd}, subunit exchange
+facilitated more rapid activation of \gls{camkii}
+(\FIG{subunit_facilitates_spread}B-D)
 \citep{stratton_activation-triggered_2014}. These simulation results predict
 that a \gls{camkii} mutant lacking subunit exchange would be deficient in switch
 stability and slower to be activated by \gls{ca} thereby resulting in degraded
@@ -602,26 +600,23 @@ theoretical implications. A very plastic synapse is good at registering activity
 dependent changes (learning) but poor at retaining old memories. On the other
 hand, a rigid synapse is good at retaining old memories but is not efficient at
 learning. A theoretical meta-model which sought to strike a balance between
-these two competing demands requires that a diversity of timescales must
-exist at the synapse \citep{benna_computational_2016} for optimum performance.
-In this model, complex synapses with state variables with diverse time-scales
-are shown to form a memory network in which storage capacity scales linearly
-with the number of synapses, and memory decay follows \(1/\sqrt{t}\) --- a 
-power-law
+these two competing demands requires that a diversity of timescales must exist
+at the synapse \citep{benna_computational_2016} for optimum performance.  In
+this model, complex synapses with state variables with diverse time-scales are
+shown to form a memory network in which storage capacity scales linearly with
+the number of synapses, and memory decay follows \(1/\sqrt{t}\) --- a power-law
 supported by psychological studies \citep{wixted_form_1991}. This model requires
 the memory trace to be first stored in a fast variable and then progressively
 and efficiently transferred to slower variables.  Our study suggests a concrete
-mechanism for such a process. Here, the \gls{ca} concentration in the PSD can 
-be mapped
-to the fastest variable. The \gls{camkii} integrator in the cytosol could 
-represent
-the second slower variable to which the trace is transferred from \gls{ca}.
-Further, the state information is transferred to the third slower \gls{camkii}
-bistable switch. The dynamics of \gls{camkii} in the PSD forms an even slower
-bistable variable for longer retention of the memory trace. It is possible that
-memory is transferred from here to even slower variables, such as sustained
-receptor insertion \citep{hayer_molecular_2005}, PKM-$\zeta$ activation
-\citep{sacktor_memory_2012}, or local protein synthesis
+mechanism for such a process. Here, the \gls{ca} concentration in the PSD can be
+mapped to the fastest variable. The \gls{camkii} integrator in the cytosol could
+represent the second slower variable to which the trace is transferred from
+\gls{ca}.  Further, the state information is transferred to the third slower
+\gls{camkii} bistable switch. The dynamics of \gls{camkii} in the PSD forms an
+even slower bistable variable for longer retention of the memory trace. It is
+possible that memory is transferred from here to even slower variables, such as
+sustained receptor insertion \citep{hayer_molecular_2005}, PKM-$\zeta$
+activation \citep{sacktor_memory_2012}, or local protein synthesis
 \citep{aslam_translational_2009}.
 
 % MATERIALS AND METHODS
