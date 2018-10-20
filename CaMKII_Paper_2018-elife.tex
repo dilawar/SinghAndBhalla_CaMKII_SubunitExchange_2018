@@ -45,8 +45,9 @@ protein turnover and stochastic noise. It has recently been shown that CaMKII
 holoenzymes exchange subunits among themselves. Here we used computational
 methods to analyze the effect of subunit exchange on the CaMKII pathway in the
 presence of diffusion in two different micro-environments, the Post Synaptic
-Density (PSD) and spine cytosol. CaMKII exhibits multiple timescales of activity
-and subunit exchange enhances the information retention ability of CaMKII by
+Density (PSD) and spine cytosol. We show that CaMKII exhibits multiple 
+timescales of activity due to subunit exchange. Further,
+subunit exchange enhances information retention by CaMKII both by
 improving the stability of its switching in the PSD, and by slowing the decay of
 its activity in the spine cytosol. The existence of diverse timescales in the
 synapse has important theoretical implications for memory storage in networks.
@@ -98,7 +99,8 @@ petersen_distribution_2003}.
 From a computational perspective, the CaMKII/PP1 bistable system is an attractive
 candidate for memory storage \citep{koch_biophysics_2004}.  Bistability provides
 a plausible solution to the problem of state maintenance. Previous modeling work
-has shown that CaMKII/PP1 system may form a very stable switch despite protein
+has shown that the CaMKII/PP1 system may form a very stable switch despite 
+protein
 turnover and stochastic noise in the small volume of the synapse.  The stability
 increases exponentially with the number of holoenzymes
 \citep{miller_stability_2005}. It is important to note that this model exhibits
@@ -152,10 +154,10 @@ exponentially with system size (\FIG{validation}E), 3.  Increased number of
 and, 4. Bistability was robust to slow turnover of \gls{camkii}
 (\FIG{turnover}).
 
-Thus, our baseline model exhibited all the key properties that have
-previously been predicted for the bistable \gls{camkii} switch. However, the
-subunit exchange and diffusion introduce several interesting additional
-properties, which we examine now.
+Thus, our baseline model exhibited all the key properties that had
+previously been predicted for the bistable \gls{camkii} switch. However, 
+subunit exchange and diffusion introduced several interesting additional
+properties, which we examine below.
 
 \begin{figure}[t]%[hbt] 
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure1/figure_validation_178mm.pdf}
@@ -229,7 +231,7 @@ model, on average it required 0.5$\times$\SUB{N}{CaMKII} extra \gls{pp1}
 molecules to cause a 90\% change in the residence time of \texttt{ON} state.
 This number is roughly equal to the maximum number of \gls{camkii} subunits
 (released from \gls{camkii} holoenzymes during subunit exchange \EQ{losegainx})
-that can exist at any given time in our model. Due to this numerical fact, we
+that can exist at any given time in our model. We
 conjecture that this reduced sensitivity to \gls{pp1} is due to the increased
 number of \gls{pp1} reactions, as well as replacement of Michaelis-Menten
 approximation in the \gls{mz} model by equivalent mass-action kinetics in our
@@ -242,7 +244,8 @@ subunit exchange. Thus, subunit exchange shifted the bistable range to higher
 values of \gls{pp1}. Nevertheless, the ratio of upper and lower limit remained
 the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).  In
 the presence of subunit exchange, any subunit de-phosphorylated by \gls{pp1} is
-quickly phosphorylated back as evident by tighter distribution of \texttt{ON}
+quickly phosphorylated back as shown by the tighter distribution 
+of the \texttt{ON}
 state (blue v/s red histogram, \FIG{tolerance_pp1}A). Taken together, subunit
 exchange acts as a compensatory mechanism for dephosphorylation by \gls{pp1}.
 
@@ -258,8 +261,8 @@ presence of subunit exchange (red and blue curve, \FIG{tolerance_pp1}C).
 
 Parallel results were obtained for the effect of subunit exchange on
 \gls{camkii} switch robustness in the context of protein turnover.  Turnover
-replace any active \gls{camkii} holoenzyme  by an inactive holoenzyme with a
-constant rate (\EQ{turnover}). Turnover decreases the stability of \texttt{ON}
+replaces any active \gls{camkii} holoenzyme  by an inactive holoenzyme with a
+constant rate (\EQ{turnover}), thus decreasing the stability of the \texttt{ON}
 state. Without subunit exchange, switch stability as measured by residence time
 of the \texttt{ON} state decreased exponentially with increasing turnover rate.
 With subunit exchange, however, residence time of \texttt{ON} state remained
@@ -298,20 +301,20 @@ over which the switch remains bistable.
 \label{res:spread_activity}
 
 As suggested in \citep{stratton_activation-triggered_2014}, we found that
-subunit exchange facilitates spread of \gls{camkii} activation
+subunit exchange facilitated spread of \gls{camkii} activation
 (\FIG{subunit_facilitates_spread}). When subunits were allowed to diffuse, they
 could be picked by neighbouring inactive \gls{camkii} holoenzymes.  This
 effectively overcame the first slow step of \gls{camkii} phosphorylation
 (\EQ{phospho}) thereby facilitating the spread of activation.
 
-We put \SUB{N}{CaMKII}=18 inactive holoenzymes in a cylinder with the volume of
-\SI{0.0275}{\cubic\micro\meter} and the length of \SI{540}{\nano\meter}
+We put \SUB{N}{CaMKII}=18 inactive holoenzymes in a cylinder with a volume of
+\SI{0.0275}{\cubic\micro\meter} and a length of \SI{540}{\nano\meter}
 representing the \gls{psd}. The cylinder was divided into 18 voxels (1
 holoenzyme in each voxel). Each voxel was separated by \SI{30}{\nano\meter},
 which is the average nearest-neighbour distance for \gls{camkii} holoenzymes
 \citep{feng_quantitative_2011}.  Each voxel was considered to be a
 \emph{well-mixed} environment i.e., diffusion was instantaneous within the
-voxel. Between voxel, diffusion was implemented as cross-voxel ``jump''
+voxel. Between voxels, diffusion was implemented as cross-voxel ``jump''
 reactions (See \nameref{sec:materials_and_methods}).  We did not try 2D/3D
 diffusion because of its simulation complexity and because it would be expected
 to be qualitatively similar \citep{fange_stochastic_2010}.
@@ -323,7 +326,7 @@ which is the observed value of the diffusion coefficient of Ras, a similar sized
 protein \citep{harvey_spread_2008}. We ran simulations for 4 hours at basal
 calcium concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ and without subunit
 exchange (i.e., \SUB{D}{sub}=0). We set \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII}
-to make sure the system shows no significant \gls{camkii} activity
+to make sure the system showed no significant \gls{camkii} activity
 (\FIG{subunit_facilitates_spread}A, red curve). This served as the baseline to
 quantify the effect of subunit exchange. When we enabled subunit exchange by
 setting \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, \gls{camkii}
@@ -335,7 +338,7 @@ C). Increasing \SUB{D}{sub} increased the effect of subunit exchange (decreased
 rise time of \gls{camkii} activity, \FIG{subunit_facilitates_spread}D,E).
 
 Thus, subunit exchange facilitates the spread of kinase activity at short time
-scale.
+scales.
 
 \begin{figure}
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure4/figure_camkii_activation_130mm.pdf}
@@ -515,14 +518,15 @@ decreased the rate of dephosphorylation roughly by a factor of 5
 
 We expected subunit exchange to have a strong effect on the decay activity of
 clustered \gls{camkii} in spine cytosol (e.g., \gls{camkii} bound to actin)
-because of the proximity of holoenzymes, leading to rapid exchange.  Our
-simulations supported this prediction. If there are populations of clustered as
-well as non-clustered \gls{camkii} in the spine, we expect that they will
-exhibit long and short time-courses of activity decay. Therefore a mixed
-population of clustered and non-clustered \gls{camkii} will decay with two
-time-constants. 
+because of the proximity of holoenzymes, leading to rapid exchange.  
+Thus, if there are populations of clustered as
+well as non-clustered \gls{camkii} in the spine, we expected that they would
+exhibit long and short time-courses of activity decay, respectively. 
+Therefore a mixed
+population of clustered and non-clustered \gls{camkii} should decay with two
+time-constants.  Our simulations supported this prediction. 
 
-In \cite{chang_camkii_2017}, the decay kinetics of \gls{camkii} was obtained by
+In \cite{chang_camkii_2017}, the decay kinetics of \gls{camkii} were obtained by
 curve fitting of experimental data. It is given by a double-exponential
 function: $F(t)=P_{fast}e^{-t/\tau_{fast}}+P_{slow}e^{-t/\tau_{slow}}$ where
 $P_{fast}=0.74, P_{slow}=0.26,  \tau_{fast}= 6.4\pm0.7 \si{\second},
@@ -531,8 +535,8 @@ used their estimate of $P_{fast}$ and $P_{slow}$ to construct a mixed population
 of slow and fast decaying \gls{camkii} (\FIG{cytosol_integrator}A, black) and
 estimated a double-exponential function which fits it
 (\FIG{cytosol_integrator}C, dashed red). The time-constants obtained
-(\SI{8.4}{\second}, \SI{86.2}{\second}) matches well with experimentally
-estimated time-constants (\SI{6.4}{\second}$\pm$0.7,
+(\SI{8.4}{\second}, \SI{86.2}{\second}) matched well with experimentally
+estimated time-constants of (\SI{6.4}{\second}$\pm$0.7,
 \SI{92.6}{\second}$\pm$50.7). 
 
 Thus, we suggest that subunit exchange may be a mechanism that leads to
@@ -542,16 +546,17 @@ cytosol.
 % DISCUSSION
 \section{Discussion}\label{discussion}
 
-Here we have shown that subunit exchange strongly affects the properties of
-CaMKII/PP1 pathway, both in its role as a bistable switch in PSD and as a leaky
+Here we have shown that subunit exchange strongly affects the properties of the
+CaMKII/PP1 pathway, both in its role as a bistable switch in the PSD and as a 
+leaky
 integrator of \gls{ca} activity in spine cytosol. In the PSD, where the model
 was tuned to elicit bistable dynamics from clustered \gls{camkii}, subunit
 exchange improved the stability of \gls{camkii}/\gls{pp1} switch by
-synchronizing the kinase activity across PSD (\FIG{cytosol_integrator}). It also
-improved active \gls{camkii} tolerance of PP1 and turnover rate
+synchronizing the kinase activity across the PSD (\FIG{cytosol_integrator}). 
+It also improved active \gls{camkii} tolerance of PP1 and turnover rate
 (\FIG{tolerance_pp1} and \FIG{turnover}). In the case where \gls{camkii} was
 uniformly distributed in \gls{psd}, subunit exchange facilitated more rapid
-activation of \gls{camkii} (\FIG{subunit_facilitates_spread}BCD)
+activation of \gls{camkii} (\FIG{subunit_facilitates_spread}B-D)
 \citep{stratton_activation-triggered_2014}. These simulation results predict
 that a \gls{camkii} mutant lacking subunit exchange would be deficient in switch
 stability and slower to be activated by \gls{ca} thereby resulting in degraded
@@ -578,34 +583,38 @@ rich region of the bulk spine head or dendrite. We therefore consider it
 unlikely that \gls{camkii} subunit exchange plays any role in intra-spine
 information exchange such as synaptic tagging.
 
-\Gls{camkii} is non uniformly distributed in \gls{psd} where it is mostly
+\Gls{camkii} is non uniformly distributed in the \gls{psd} where it is mostly
 concentrated in a small region of \SI{16}{\nano \meter} to \SI{36}{\nano \meter}
-below synaptic cleft \citep{petersen_distribution_2003}. In \gls{psd},
-\gls{camkii} may exist in large clusters given that \gls{psd} is rich in
+below synaptic cleft \citep{petersen_distribution_2003}. In the \gls{psd},
+\gls{camkii} may exist in large clusters given that the \gls{psd} is rich in
 \gls{camkii} binding partners.  Our study predicts that subunit exchange may
 lead to synchronization when \gls{camkii} is clustered, or more rapid activation
 by \gls{ca} when it is uniformly distributed. Given that \gls{camkii} can form
 clusters with \gls{nmda} receptors, it would be interesting to study the mixed
-case where some \gls{camkii} is clustered and rest is uniformly distributed.
-This would require a detailed 3D simulation and is beyond the scope of this study.
+case where some \gls{camkii} is clustered and the rest is uniformly distributed.
+This would require a detailed 3D simulation and is beyond the scope of this 
+study.
 
-Finally, we suggest that existence of diverse multiple time-scales of
+Finally, we suggest that the existence of diverse multiple time-scales of
 \gls{camkii} activity -- bistable and highly stable synchronized bistable in
 PSD, slow and fast decaying leaky integrator in spine head -- has important
 theoretical implications. A very plastic synapse is good at registering activity
-dependent changes (learning) but bad at retaining old memories. On the other
+dependent changes (learning) but poor at retaining old memories. On the other
 hand, a rigid synapse is good at retaining old memories but is not efficient at
 learning. A theoretical meta-model which sought to strike a balance between
-these two competing demands requires that such diversity of timescales must
+these two competing demands requires that a diversity of timescales must
 exist at the synapse \citep{benna_computational_2016} for optimum performance.
 In this model, complex synapses with state variables with diverse time-scales
 are shown to form a memory network in which storage capacity scales linearly
-with number of synapses, and memory decay follows \(1/\sqrt{t}\) --- a power-law
+with the number of synapses, and memory decay follows \(1/\sqrt{t}\) --- a 
+power-law
 supported by psychological studies \citep{wixted_form_1991}. This model requires
-memory trace to be first stored in a fast variable and then progressively and
-efficiently transferred to slower variables.  Our study suggests a concrete
-mechanism for such a process. Here, \gls{ca} concentration in PSD can be mapped
-to the fastest variable. The \gls{camkii} integrator in cytosol could represent
+the memory trace to be first stored in a fast variable and then progressively
+and efficiently transferred to slower variables.  Our study suggests a concrete
+mechanism for such a process. Here, the \gls{ca} concentration in the PSD can 
+be mapped
+to the fastest variable. The \gls{camkii} integrator in the cytosol could 
+represent
 the second slower variable to which the trace is transferred from \gls{ca}.
 Further, the state information is transferred to the third slower \gls{camkii}
 bistable switch. The dynamics of \gls{camkii} in the PSD forms an even slower
