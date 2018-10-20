@@ -241,12 +241,18 @@ bistable for \SUB{N}{PP1}=8$\times$ to 15$\times$\SUB{N}{CaMKII} without subunit
 exchange, and for \SUB{N}{PP1}=12$\times$ to 21$\times$\SUB{N}{CaMKII} with
 subunit exchange. Thus, subunit exchange shifted the bistable range to higher
 values of \gls{pp1}. Nevertheless, the ratio of upper and lower limit remained
-the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).  In
-the presence of subunit exchange, any subunit de-phosphorylated by \gls{pp1} is
-quickly phosphorylated back as shown by the tighter distribution 
-of the \texttt{ON}
-state (blue v/s red histogram, \FIG{tolerance_pp1}A). Taken together, subunit
-exchange acts as a compensatory mechanism for dephosphorylation by \gls{pp1}.
+the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B). In
+the presence of subunit exchange, the \texttt{ON} state of switch has tighter
+distribution (blue v/s red histogram, \FIG{tolerance_pp1}A) i.e. there are fewer
+holoenzymes being completely de-phosphorylated by \gls{pp1}. Any subunit in a
+holoenzyme de-phosphorylated by the \gls{pp1} is more likely to be
+phosphorylated back in the presence of subunit exchange. Because when the switch
+is in \texttt{ON} state, most subunits floating around in the \gls{psd} are in
+phosphorylated state and hence, in addition to auto-phosphorylation, the
+exchange reactions (\EQ{losegainx}) turn unphosphorylated subunits to
+phosphorylated subunits with a significant rate (data not shown). Taken
+together, subunit exchange acts as a compensatory mechanism for
+dephosphorylation by \gls{pp1}.
 
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
@@ -453,8 +459,8 @@ This effect was strong and robust to variation in \SUB{D}{sub}. Even for a very
 small value of \SUB{D}{sub}=\SI{0.01}{\micro\meter\squared\per\second}, we
 observed strong synchronization (\FIG{sync_spread}D). The synchronization
 disappeared completely for \SUB{D}{sub} less than
-\SI{e-4}{\micro\meter\squared\per\second}, and  for $d$ less than
-\SI{30}{\nano\meter} (\FIG{sync_spread}D).
+\SI{e-4}{\micro\meter\squared\per\second}, and  for $d$ greater than
+\SI{100}{\nano\meter} (\FIG{sync_spread}D).
 
 Thus, for most physiologically plausible values of diffusion coefficient
 \SUB{D}{sub}, subunit exchange causes synchronization of switching activity of
