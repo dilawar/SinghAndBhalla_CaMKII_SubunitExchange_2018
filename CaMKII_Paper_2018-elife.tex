@@ -690,10 +690,10 @@ figures.
 \label{phosphorylation-and-dephosphorylation-of-ring} 
 
 The activation of \gls{camkii} follows the same dynamics as in \gls{mz} model
-(\EQ{phospho}). By phosphorylation/activation of \gls{camkii} subunit of
-holoenzyme, we mean the phosphorylation of \SUP{Thr}{286}.  The first step in
-\gls{camkii} activation requires simultaneous binding of two \gls{cacam} to the
-two adjacent subunits of \gls{camkii}. Once a subunit is phosphorylated
+(\EQ{phospho}). In this paper, by phosphorylation/activation of a \gls{camkii}
+subunit or a holoenzyme, we mean phosphorylation at \SUP{Thr}{286}. The first
+step in \gls{camkii} activation requires simultaneous binding of two \gls{cacam}
+to the two adjacent subunits of \gls{camkii}. Once a subunit is phosphorylated
 (\SUP{Thr}{286}), it catalyzes phosphorylation of it's neighbour
 (\emph{auto-phosphorylation}) which requires binding of only one \gls{cacam}.
 Therefore, further phosphorylation proceeds at much faster rate.  The
@@ -763,12 +763,13 @@ maintained the following ratio \(k_x^- \approx 10 k_x^+ N_{\text{CaMKII}}\) and
 \subsubsection{Estimation of subunit exchange rate}\label{subsec:estimate_exchange_rate}
 
 To estimate reaction rates of \EQ{losegainx}, we modeled the "single molecule
-assay" from \cite{stratton_activation-triggered_2014} (Figure 2). In this assay,
-two distinct populations of \gls{camkii} labelled by green and red fluorophores
-were mixed together. A green holoenzyme may pick up a red subunit and vice versa
-thereby giving rise to a mixed colored population. The readout from this assay
-is called ``cololocalization'' which is the fraction of total holoenzymes
-containing subunits of both colors.
+assay" used in \cite{stratton_activation-triggered_2014}. In this assay, two
+distinct populations of \gls{camkii} labelled by either green or red
+fluorophores were mixed together. The holoenzymes were not free to move but
+release subunits could move freely. A green holoenzyme may pick up a red subunit
+and vice versa thereby giving rise to a mixed colored population.  The readout
+from this assay is called ``cololocalization'' which is the fraction of total
+holoenzymes containing subunits of both colors.
 
 In our model of this assay, a \gls{camkii} holoenzyme is represented by
 $R_aG_{n-a}$ where $R$ and $G$ represent a red and a green subunit in the
@@ -777,39 +778,42 @@ of holoenzymes with only green subunits (i.e., $R_0G_6$ and $R_0G_7$) and the
 red population has holoenzymes with all red subunits (i.e., $R_6G_0$ or
 $R_7G_0$). We assume that each color population has equal number of dodecameric
 (n=6) and tetradecameric (n=7) holoenzymes. Upon mixing red and green
-populations, following reactions (\EQ{mixing_assay}) take place.
+populations, following reactions take place.
 
 \begin{equation}\label{eq:mixing_assay}
     \begin{gathered}
-        R_aG_b \xrightleftharpoons[r_l]{r_g} R_{a-1}G_b + R 
-        \quad \text{for all}\; a>0,b\ge 0\; \text{s.t.}\; a+b=7 \\
-        R_aG_b \xrightleftharpoons[r_l]{r_g} R_{a}G_{b-1} + G 
+        R_aG_b \xrightleftharpoons[r_g]{r_l} R_{a-1}G_b + R 
+        \quad \text{for all}\; a>0,b\ge 0\; \text{s.t.}\; a+b=6 \\
+        R_aG_b \xrightleftharpoons[r_g]{r_l} R_{a}G_{b-1} + G 
         \quad \text{for all}\; a\ge 0,b> 0\; \text{s.t.}\; a+b=7
     \end{gathered}
 \end{equation}
 
-The value of colocalization is the percentage of holoenzymes with at least one
-red and one green subunit in it i.e. $\frac{\sum_{a\ge 1, b \ge 1} [R_aG_b]}{
-\sum_{a\ge0,b \ge 0}[R_aG_b]}$. We simulate the reaction network given by
-\EQ{mixing_assay} for various values of $r_l$ and $r_g$
-(\FIG{estimate_of_exchange_rate}B) to estimate the values of rate constants
-$r_g$ and $r_l$ which describe the data in
-\cite{stratton_activation-triggered_2014} well for the given \gls{camkii}
-concentration. Our value of $k_x^+, k_y^+, k_x^-, k_y^-$ are close to estimated
-values of $r_g$ and $r_l$ (red cross v/s black dots in
-\FIG{estimate_of_exchange_rate}B). 
+The value of colocalization is equal to the percentage of all holoenzymes
+containing at least one red and one green subunit i.e. $\frac{\sum_{a\ge 1, b
+\ge 1} [R_aG_b]}{ \sum_{a\ge0,b \ge 0}[R_aG_b]}$. We simulated the reaction
+network given by \EQ{mixing_assay} for various values of $r_l$ and $r_g$
+(\FIG{estimate_of_exchange_rate}B) and  found the values of $r_g$ and $r_l$
+which described the data in \cite{stratton_activation-triggered_2014} reasonably
+well.
 
-For typical values of $r_g$ and $r_l$ used in our simulations, we computed the
-colocalization dynamics in our model at two different \gls{camkii}
-concentrations of [\gls{camkii}]=\SI{8}{\micro M} and \SI{1}{\micro M}
-(\FIG{estimate_of_exchange_rate}D). When compared with data from
-\cite{stratton_activation-triggered_2014}, our model captures the time-scale of
-colocalization dynamics, and the concentration dependant decrease in the rate of
-colocalization reasonably well. Note that we do not model effect of diffusion,
-labelling efficiency, and experimental errors in readout mechanism. 
+First we explored the space of $r_l$ and $r_g$ for which the time constant of
+colocalization dynamics matched well with the experimental data for
+[\gls{camkii}]=\SI{8}{\nano M} (\FIG{estimate_of_exchange_rate}B, black dots)}.
+From these values, we choose a combination of $r_g$ and $r_l$ which best explain
+the concentration dependant changes in the rate of colocalization
+(\FIG{estimate_of_exchange_rate}D).  When compared with the data from
+\cite{stratton_activation-triggered_2014}, the time scale of colocalization and
+the concentration dependant decrease in the rate of colocalization compared
+reasonably well for such a pair of $r_l$ and $r_g$. Note that we do not model
+effect of diffusion, labelling efficiency, and experimental errors in readout
+mechanism.  Our values of $k_x^+, k_y^+, k_x^-, k_y^-$ used in \EQ{losegainx}
+are close to estimated values of $r_g$ and $r_l$ (red cross v/s black dots in
+\FIG{estimate_of_exchange_rate}B). Note that $r_g$ and $r_l$ are proxies for
+$k_x^+,k_y^+$ and $k_x^-, k_y^-$ respectively.
 
 \begin{figure}[ht!]
-    \includegraphics[width=\linewidth]{./PaperFigures/elifeFigure8/figure_exchange_rate.pdf}
+    \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure8/figure_exchange_rate.pdf}
     \caption{Rough estimation of subunit exchange rate by fitting experimental
         data to a model of "single molecule assay" \cite{stratton_activation-triggered_2014}. 
         \textbf{(A)} Colocalization
@@ -829,7 +833,8 @@ labelling efficiency, and experimental errors in readout mechanism.
     }\label{fig:estimate_of_exchange_rate}
 \end{figure}
 
-
+Thus we are confident that rate parameters used in \EQ{losegainx} in our model
+are reasonably well within the physiologically relevant range.
 
 \subsection{PP1 deactivation}\label{subsec:pp1_deactivation} 
 
