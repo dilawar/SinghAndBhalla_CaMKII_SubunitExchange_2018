@@ -1050,19 +1050,20 @@ the manuscript. This work was funded by NCBS/TIFR and SERB JC Bose fellowship
 % alternative row
 \subsection*{Stochastic diffusion using cross-voxel reactions}\label{sec:diff_as_gillespie}
 
-In our model, diffusion of any molecule is linear i.e., the molecules diffuse
-along the axis of cylinder. The cylindrical compartment of length $L$ and radius $r$
-is divided into $n$ \emph{well-mixed} voxels of length $h$ ($h=L/n$) i.e., within
-a voxel, diffusion is instantaneous.  
+To implement linear diffusion of any molecule in volume $V$, we construct a
+cylindrical compartment of volumne $V$ with length $L$ and radius $r$. The
+cylinder is divided into $n$ \emph{well-mixed} voxels of length $h$ ($h=L/n$)
+i.e., within a voxel, diffusion is instantaneous.  
 
-Diffusion is implemented as cross-voxel reactions in which a molecule
-\emph{jump} to its neighbouring voxels with a rate constant $k$ which is a
-function of diffusion coefficient $D$ and length of voxel $h$. For example,
+Diffusion across these voxels is implemented as cross-voxel reactions in which a
+molecule \emph{jump} to its neighbouring voxels with a rate constant $k$ which
+is a function of diffusion coefficient $D$ and length of voxel $h$. For example,
 assume that molecule A with diffusion coefficient of $D_A$ is put into a
 cylinder. We divide the entire cylinderical volume into $n$ voxels. We uniformly
 distribute all molecules of A into these $n$ voxels. Any molecule from voxel $i$
 (labelled $A_i$) can only jump to neighbouring voxel $i+1$ or $i-1$ with rate
-$k_D^A$. This process is described by following chemical reactions (\EQ{stoch_diff}).
+$k_D^A$. This process is described by following chemical reactions
+(\EQ{stoch_diff}).
 
 \begin{equation}
 \begin{gathered}
@@ -1077,7 +1078,7 @@ $k_D^A$. This process is described by following chemical reactions (\EQ{stoch_di
 \subsection*{Stochastic diffusion with bimolecular reaction}\label{subsec:rdme}
 
 Consider a cylindrical arena with a bimolecular reaction $A+B \rightarrow \phi$.
-Both A and B diffuses while $\phi$ does not. In our model, this reaction
+Both A and B diffuse while $\phi$ does not. In our model, this reaction
 resembles dephosphorylation of subunit or \gls{camkii} holoenzyme by \gls{pp1} .
 If we divide the cylinder into $n$ voxels labelled 1, 2, $\ldots$, $n$, then we
 have following resultant chemical system.
@@ -1108,15 +1109,15 @@ Where $k_D^A=\frac{D_A}{h^2}$ and $k_D^B=\frac{D_B}{h^2}$ and
 $[A_1]=[A_2]=\ldots=[A_n]=[A]$, $[B_1]=[B_2]=\ldots=[B_n]=[B]$ where $[X]$ is
 concentration of X.
 
-For system described by \EQ{discrete}, as $h$ decreases, the accuracy of
+For a system described by \EQ{discrete}, as $h$ decreases, the accuracy of
 method increases first after which it starts decreasing. Specifically, the
 diffusion component of system become more accurate as $h$ decreases but
 bimolecular reactions events starts decreasing when Gillespie method is used
-\citep{gardiner_correlations_1976}. Analytical methods  suggests a lower bound on
-$h$, namely $h\gg \frac{k}{D_A+D_B}$ below which the method is likely to
-produce large errors \citep{isaacson_reaction-diffusion_2009}. A numerical
-study \citep{erban_stochastic_2009} suggests that $h\ge 10\frac{k}{D_A+D_B}$ is
-a good value to keep the errors less than 1\% in distributions.
+\citep{gardiner_correlations_1976}. Analytical methods  suggests a lower bound
+on $h$, namely $h\gg \frac{k}{D_A+D_B}$ below which the method is likely to
+produce large errors \citep{isaacson_reaction-diffusion_2009}. A numerical study
+\citep{erban_stochastic_2009} suggests that $h\ge 10\frac{k}{D_A+D_B}$ is a good
+value to keep the errors less than 1\% in the distributions of trajectory.
 
 \begin{center}
     \includegraphics[width=\linewidth]{PaperFigures/suppl/figure_bimolecular_reac_rdme.pdf}\label{si:fig:discretization}
