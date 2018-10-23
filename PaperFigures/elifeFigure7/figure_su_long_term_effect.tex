@@ -138,6 +138,8 @@
                     , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
                     , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
                     , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
+                    , title style={at={(0,1.25)}, anchor=south west
+                        , text width=\plotW cm}, font=\footnotesize
                     , width=\plotW cm
                     , enlargelimits=true
                     , unbounded coords=jump
@@ -149,7 +151,7 @@
                             % samples=5
                             ,height=1.8mm, anchor=north west
                             , xtick={0,2,4,6}
-                            % , at={(0,1.1)}
+                            , at={(0,1.25)}
                         }
                     ]
                     \addplot3 [surf, mesh/cols=6] table 
