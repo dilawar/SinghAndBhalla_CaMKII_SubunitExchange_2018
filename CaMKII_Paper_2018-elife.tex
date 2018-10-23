@@ -1050,19 +1050,22 @@ the manuscript. This work was funded by NCBS/TIFR and SERB JC Bose fellowship
 % alternative row
 \subsection*{Stochastic diffusion using cross-voxel reactions}\label{sec:diff_as_gillespie}
 
-To implement linear diffusion of any molecule in volume $V$, we construct a
-cylindrical compartment of volumne $V$ with length $L$ and radius $r$. The
-cylinder is divided into $n$ \emph{well-mixed} voxels of length $h$ ($h=L/n$)
-i.e., within a voxel, diffusion is instantaneous.  
+To implement diffusion of a molecule in a linear arena of volume $V$, we
+construct a cylindrical compartment of volumne $V$ with length $L$ and radius
+$r$. The cylinder is divided into $n$ \emph{well-mixed} voxels of length $h$
+($h=L/n$) i.e., within a voxel, diffusion is instantaneous.
 
 Diffusion across these voxels is implemented as cross-voxel reactions in which a
 molecule \emph{jump} to its neighbouring voxels with a rate constant $k$ which
-is a function of diffusion coefficient $D$ and length of voxel $h$. For example,
-assume that molecule A with diffusion coefficient of $D_A$ is put into a
-cylinder. We divide the entire cylinderical volume into $n$ voxels. We uniformly
-distribute all molecules of A into these $n$ voxels. Any molecule from voxel $i$
-(labelled $A_i$) can only jump to neighbouring voxel $i+1$ or $i-1$ with rate
-$k_D^A$. This process is described by following chemical reactions
+is a function of diffusion coefficient $D$ and length of voxel $h$. Accuracy of
+this methods increases as $h$ decreases and converges to analytical solution for
+$\lim_{h \to 0}$. The cost of simulation increases as $h$ decreases.
+
+For example, assume that molecule A with diffusion coefficient of $D_A$ is put
+into a cylinder. We divide the entire cylinderical volume into $n$ voxels. We
+uniformly distribute all molecules of A into these $n$ voxels. Any molecule from
+voxel $i$ (labelled $A_i$) can only jump to neighbouring voxel $i+1$ or $i-1$
+with rate $k_D^A$. This process is described by following chemical reactions
 (\EQ{stoch_diff}).
 
 \begin{equation}
@@ -1077,13 +1080,11 @@ $k_D^A$. This process is described by following chemical reactions
 %% METHOD: Stochastic diffusion.
 \subsection*{Stochastic diffusion with bimolecular reaction}\label{subsec:rdme}
 
-Consider a cylindrical arena with a bimolecular reaction $A+B \rightarrow \phi$.
+Consider a cylindrical arena with a simple bimolecular reaction $A+B \rightarrow \phi$.
 Both A and B diffuse while $\phi$ does not. In our model, this reaction
 resembles dephosphorylation of subunit or \gls{camkii} holoenzyme by \gls{pp1} .
 If we divide the cylinder into $n$ voxels labelled 1, 2, $\ldots$, $n$, then we
 have following resultant chemical system.
-
-This system is completely described by following reactions.
 
 \begin{equation}
     \begin{gathered}
@@ -1098,46 +1099,48 @@ This system is completely described by following reactions.
             \ldots,\, B_{n-1} \xrightleftharpoons[k_D^B]{k_D^B} B_n \\ 
     \end{gathered}
     \label{eq:discrete}
-\end{equation}
+\end{equation} where $k_D^A=\frac{D_A}{h^2}$ and $k_D^B=\frac{D_B}{h^2}$ and
+$[A_1]=[A_2]=\ldots=[A_n]=[A]$, $[B_1]=[B_2]=\ldots=[B_n]=[B]$ where $[X]$ is
+concentration of X.
 
 \begin{center}
 \includegraphics[width=0.8\linewidth]{./PaperFigures/suppl/figure_diff.pdf}
 \captionof{figure}{Summary of the stochastic reaction diffusion method employed.}
 \end{center}
 
-Where $k_D^A=\frac{D_A}{h^2}$ and $k_D^B=\frac{D_B}{h^2}$ and
-$[A_1]=[A_2]=\ldots=[A_n]=[A]$, $[B_1]=[B_2]=\ldots=[B_n]=[B]$ where $[X]$ is
-concentration of X.
-
-For a system described by \EQ{discrete}, as $h$ decreases, the accuracy of
-method increases first after which it starts decreasing. Specifically, the
-diffusion component of system become more accurate as $h$ decreases but
-bimolecular reactions events starts decreasing when Gillespie method is used
-\citep{gardiner_correlations_1976}. Analytical methods  suggests a lower bound
-on $h$, namely $h\gg \frac{k}{D_A+D_B}$ below which the method is likely to
-produce large errors \citep{isaacson_reaction-diffusion_2009}. A numerical study
+For a bimolecular system described by \EQ{discrete} when solved using Gillespie
+algorithm, as $h$ decreases, the accuracy of solution increases first after
+which it starts decreasing. This is because with decreasing $h$, the diffusion
+component becomes more precise but we start losing reaction events
+\citep{gardiner_correlations_1976}. Analytical methods suggests a lower bound on
+$h$, namely $h\gg \frac{k}{D_A+D_B}$ below which errors in the solution are
+large \citep{isaacson_reaction-diffusion_2009}. A numerical study
 \citep{erban_stochastic_2009} suggests that $h\ge 10\frac{k}{D_A+D_B}$ is a good
-value to keep the errors less than 1\% in the distributions of trajectory.
+value which keeps errors less than 1\% in the distributions of trajectory.
+
+Here, we simulate the system and estimate relative errors for various values of
+diffusion coefficient (\FIG{suppl_reac_rdme}).
 
 \begin{center}
     \includegraphics[width=\linewidth]{PaperFigures/suppl/figure_bimolecular_reac_rdme.pdf}\label{si:fig:discretization}
-    \captionof{figure}{Error estimates for bimolecular reaction
+    \captionof{figure}{Error estimate for the bimolecular reaction
         $A+B\xrightarrow{k} \phi$ where
-        $k=\SI{1e3}{\meter\cubed\per\mole\per\second}$. Parameters of this
-        system are similar to the reaction \EQ{dephosphorylation} in main text. 
-        4 molecules of A and B each are put into a cylinder 
-        of length $L$=\SI{500}{\nano\meter} and radius $r$=\SI{20}{\nano\meter}. This arena is divided into $n$
-        equal subvolumes, each of length $h=L/n$.  Diffusion of A and B is implemented as described in eq.
+        $k=\SI{1e3}{\meter\cubed\per\mole\per\second}$. The values of parameters
+        used in this system are similar to the reaction \EQ{dephosphorylation} in main text. 
+        4 molecules of A and B each  were simulated in a cylinderical arena 
+        of length $L$=\SI{500}{\nano\meter} and radius $r$=\SI{20}{\nano\meter}. 
+        This arena is divided into $n$ equal subvolumes, each of length $h=L/n$. 
+        Diffusion of A and B is implemented as described in
         \EQ{discrete} in \nameref{subsec:rdme} where $D_A=D_B=D$.
         {\bf(A,B,C,D,E)} Average of 20 trajectories of A vs time (error bars are
         standard-deviation) for different combinations of $n$ and $D$. For fixed
         value of $n$, kinetics are undistinguishable from each other for non-zero
         value of $D$ (A, B and C). This suggests that the results described in 
-        \FIGSUPP[subunit_facilitates_spread]{diffusion_reduces_pp1_potency} are majorly not due to 
-        computational errors. For fixed value of $D$, however, changing $n$ has
-        huge impact on dynamics of A (D,E) especially when there is less than 1 molecule in
-        each voxel (compare plots where n=1,4 vs n=8,16). {\bf(F)} Time for A to reach zero
-        ($t_0$) vs $D$ and $n$. 
+        \FIGSUPP[subunit_facilitates_spread]{diffusion_reduces_pp1_potency} are
+        not majorly due to computational errors. For fixed value of $D$, however, 
+        changing $n$ has huge impact on dynamics of A (D,E) especially when there 
+        is less than 1 molecule in each voxel (compare plots where n=1,4 vs n=8,16). 
+        {\bf(F)} Time for A to reach zero ($t_0$) vs $D$ and $n$. 
     }\label{fig:suppl_reac_rdme}
 \end{center}
 \end{appendixbox}
