@@ -52,8 +52,6 @@ its activity in the spine cytosol. The existence of diverse timescales in the
 synapse has important theoretical implications for memory storage in networks.
 \end{abstract}
 
-
-
 \section{Introduction}\label{introduction}
 
 Memories are believed to be stored in synapses, encoded as changes in synaptic
@@ -129,14 +127,12 @@ time-courses of \gls{camkii} activity as a result of subunit exchange
 
 % RESULTS
 \section{Results}\label{sec:results} 
-
 \subsection{Model validation}\label{subsec:model-validation}
-
 The basic computational units in our model are individual \gls{camkii} subunits,
 and \gls{camkii} ring consisting of 6 or 7 \gls{camkii} subunits. We treat the
 \gls{camkii} ring as a proxy for the \gls{camkii} holoenzyme, which consists of
 two such rings stacked over each other
-\citep{woodgett_calmodulin-dependent,hoelz_crystal_2003,chao_mechanism_2011}. In
+\citep{woodgett_calmodulin-dependent_1983,hoelz_crystal_2003,chao_mechanism_2011}. In
 our model, \gls{camkii} exists in 15 possible states compared to 2 in the
 \gls{mz} model (see \nameref{sec:materials_and_methods}). This leads to many
 more reactions than the \gls{mz} model. We also replaced Michaelis-Menten
@@ -873,7 +869,7 @@ Diffusion is implemented as cross voxel ``jump'' reaction. Diffusion of a
 species X with diffusion-coefficient \SUB{D}{X} between voxel A and B separated
 by distance $h$ is modelled by reaction $X_A \xrightleftharpoons[k]{k} X_B$
 where \( k={D_X}/{h^2}\), and \([X_A]=[X_B]=[X]/2 \)
-\citep{erban_practical_2007}. Based on our own numerical results (\FIGSUPP{suppl_reac_rdme}) and
+\citep{erban_practical_2007}. Based on our own numerical results (Appendix 1, \autoref{fig:suppl_reac_rdme}) and
 other studies \citep{isaacson_reaction-diffusion_2009,erban_stochastic_2009}, we
 are confident that \( h \ge 10h_{crit}\) where
 \(h_{crit}=\frac{k^+}{D_{PP1}+D_{sub}}\) is a good value. We have \( h_{crit} \le \SI{3.2}{\nano\meter} \)
@@ -962,7 +958,7 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
         $h_{crit}=\SI{0.33}{\nano\meter}$, satisfying the condition \(h\gg
         h_{crit}\)
         \citep{isaacson_reaction-diffusion_2009}\citep{erban_stochastic_2009}.
-        (Also see Fig. \FIG{suppl_reac_rdme} and
+        (Also see Appendix 1, \autoref{fig:suppl_reac_rdme} and
         \nameref{sec:diff_as_gillespie}) Thus we do not expect that this is a
         numerical artifact due to our use of cross-voxel jump reactions to
 approximate diffusion.
@@ -1119,7 +1115,7 @@ large \citep{isaacson_reaction-diffusion_2009}. A numerical study
 value which keeps errors less than 1\% in the distributions of trajectory.
 
 Here, we simulate the system and estimate relative errors for various values of
-diffusion coefficient (\FIG{suppl_reac_rdme}).
+diffusion coefficient (Appendix 1, \autoref{fig:suppl_reac_rdme}).
 
 \begin{center}
     \includegraphics[width=\linewidth]{PaperFigures/suppl/figure_bimolecular_reac_rdme.pdf}\label{si:fig:discretization}
