@@ -7,6 +7,8 @@
 \usepackage{siunitx}
 \usepackage{tabularx}
 \usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{chemfig}
 
 % glossaries. Disable the link in main document.
 \usepackage[acronym]{glossaries}
@@ -29,8 +31,8 @@
 % macros for superscript and subscript.
 \newcommand\SUB[2]{#1\textsubscript{#2}}
 \newcommand\SUP[2]{#1\textsuperscript{#2}}
-% \rowcolors{1}{gray!20}{white}
 
+% Document begins here.
 \begin{document}
 \maketitle
 
@@ -791,24 +793,29 @@ populations, the following reactions take place.
 
 The value of colocalization is equal to the percentage of all holoenzymes
 containing at least one red and one green subunit i.e. $\frac{\sum_{a\ge 1, b
-\ge 1} [R_aG_b]}{ \sum_{a\ge0,b \ge 0}[R_aG_b]}$. We simulated the reaction
-network given by \EQ{mixing_assay} for various values of $r_l$ and $r_g$
-(\FIG{estimate_of_exchange_rate}B) and  found the values of $r_g$ and $r_l$
-which described the data in \cite{stratton_activation-triggered_2014} reasonably
-well.
+\ge 1} [R_aG_b]}{ \sum_{a\ge0,b \ge 0}[R_aG_b]}$. The dynamics of colocalization
+was fit by $100(1-e^{-t/\tau})$. We first computed $\tau$ for experimental data
+when [CaMKII]=\SI{8}{\micro M} (\FIG{estimate_of_exchange_rate}A). This served
+as the baseline for further analysis.
 
-First we explored the space of $r_l$ and $r_g$ for which the time constant of
-colocalization dynamics matched well with the experimental data for
-[\gls{camkii}]=\SI{8}{\nano M} (\FIG{estimate_of_exchange_rate}B, black dots)}.
-From these values, we chose a combination of $r_g$ and $r_l$ which best 
-explained the concentration dependant changes in the rate of colocalization
-(\FIG{estimate_of_exchange_rate}D).  When compared with the data from
-\cite{stratton_activation-triggered_2014}, the time scale of colocalization and
-the concentration dependant decrease in the rate of colocalization compared
-reasonably well for $r_l$ and $r_g$. Note that we do not model
-effect of diffusion, labelling efficiency, and experimental errors in readout
-mechanism. Our values of $k_x^+, k_y^+, k_x^-, k_y^-$ used in \EQ{losegainx}
-are close to estimated values of $r_g$ and $r_l$ (red cross v/s black dots in
+Next we explored the space of $r_l$ and $r_g$ for which the time constant $\tau$
+of colocalization dynamics matched well with the baseline case (ie., $\tau$ for
+these trajectories were $\tau_{\text{[CaMKII]=8}} \pm 20\%$
+(\FIG{estimate_of_exchange_rate}B, black dots)}.  From these values, we chose a
+combination of $r_g$ and $r_l$ which best explained the concentration dependant
+changes in the rate of colocalization (\FIG{estimate_of_exchange_rate}D). When
+compared with the data from \cite{stratton_activation-triggered_2014}, the time
+scale of colocalization and the concentration dependant decrease in the rate of
+colocalization compared reasonably well for $r_l$ and $r_g$ ie.,
+$\tau=\SI{49.1}{\min}$ (data) vs $\tau=\SI{21.0}{min}$ (simulation) when
+[CaMKII]=\SI{8}{\micro M} and $\tau=\SI{119.0}{min}$ (data) vs
+$\tau=\SI{150.0}{min}$ (simulation) when [CaMKII]=\SI{1}{\micro M}, and,
+$\frac{d\tau}{d\text{[CaMKII]}}=\SI{-10.06}{min\per\micro M}$ (data) vs
+$\frac{d\tau}{d\text{[CaMKII]}}=\SI{-18.05}{min\per\micro M}$ (simulation)
+(\FIG{estimate_of_exchange_rate}D). Note that we do not model effect of
+diffusion, labelling efficiency, and experimental errors in readout mechanism.
+Our values of $k_x^+, k_y^+, k_x^-, k_y^-$ used in \EQ{losegainx} are close to
+estimated values of $r_g$ and $r_l$ (red cross v/s black dots in
 \FIG{estimate_of_exchange_rate}B). Note that $r_g$ and $r_l$ are proxies for
 $k_x^+,k_y^+$ and $k_x^-, k_y^-$ respectively.
 
@@ -816,20 +823,27 @@ $k_x^+,k_y^+$ and $k_x^-, k_y^-$ respectively.
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure8/figure_exchange_rate.pdf}
     \caption{Rough estimation of subunit exchange rate by fitting experimental
         data to a model of "single molecule assay" \cite{stratton_activation-triggered_2014}. 
-        \textbf{(A)} Colocalization
-        dynamics as reported in \cite{stratton_activation-triggered_2014} at
+        %
+        \textbf{(A)} Colocalization dynamics as reported in 
+        \cite{stratton_activation-triggered_2014} (all data scraped from figures) at
         \gls{camkii}=\SI{8}{\micro M} (blue dots). Solid blue line shows a best
-        fit $100(1-e^{-t/\tau})$ with $\tau$=\SI{62.7}{min}. \textbf{(B)} Phase
-        plot of $\tau$ of colocalization trajectories generated for various
-        values of $r_g$ and $r_l$ (\EQ{mixing_assay}). Black does shows values
-        of $r_g$ and $r_l$ for which $\tau=62.7\pm 20\%$ (S.E.M.). Circled red +
-        marks shows the values of rate constants (\EQ{losegainx}) used in this 
-        study at various volumne and \SUB{N}{CaMKII}. \textbf{(C)} For fixed value of $r_g$ and
-        $r_l$, three trajectories are shown for different \gls{camkii}
-        concentration. As seen in experimental data, rate of colocalization
-        increases with increasing \gls{camkii} concentration. \textbf{(D)} For
-        typical values of exchange rate used in this paper, we plotted
-        simulation results (solid lines) with experimental values (dots).
+        fit $100(1-e^{-t/\tau})$ with $\tau$=\SI{62.7}{min}. 
+        %
+        \textbf{(B)} Phase plot of $\tau$ of colocalization trajectories generated 
+        for various values of $r_g$ and $r_l$ (\EQ{mixing_assay}). Black dots show values
+        of $r_g$ and $r_l$ for which $\tau=62.7\pm 20\%$ (S.E.M.). Red
+        $\oplus$ marks show the values of rate constants (\EQ{losegainx}) 
+        used in this study at various volume and \SUB{N}{CaMKII}. 
+        %
+        \textbf{(C)} For the fixed values of $r_g$ and $r_l$, three trajectories 
+        are shown at different \gls{camkii} concentrations. As seen in experimental data
+        , rate of colocalization increases with increasing \gls{camkii} concentration. 
+        %
+        \textbf{(D)} For typical values of exchange rates used in this paper, we plotted
+        simulation results (solid lines) with experimental values (dots) and their best
+        exponential fit (dashed lines). The ${d\tau}/{d\left[\text{\tiny CaMKII}\right]}$ 
+        was \SI{-10.06}{min \per \micro M} (data) and \SI{-18.54}{min\per\micro
+        M} (simulation).
     }\label{fig:estimate_of_exchange_rate}
 \end{figure}
 
@@ -934,20 +948,25 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
 
     % suppl
     \figsupp[\gls{pp1} potency reduces as \SUB{D}{PP1} increases.]{CaMKII/PP1
-        system was put into a cylinder discretized into 6 voxels of equal volume
-        separated by distance \(h\)=\SI{30}{\nano\meter}.  \textbf{(A)}
-        \textbf{(above)} For each voxel, trajectory of active \gls{pp1} v/s time
+        system was simulated in a cylinderical arena discretized into 6 voxels 
+        of equal volume separated by distance \(h\)=\SI{30}{\nano\meter}.
+        %
+        \textbf{(A)} \textbf{(above)} For each voxel, trajectory of active \gls{pp1} v/s time
         is plotted in blue. \textbf{(below)} Cross-correlation matrix (Pearson
         product-moment correlation coefficient, using \texttt{numpy.corrcoef}
-        function). \textbf{(B,C)} Same as \textbf{A} but with different value of
+        function). 
+        % B
+        \textbf{(B,C)} Same as \textbf{A} but with different value of
         \SUB{D}{PP1}, \SI{0.001}{\micro\meter\squared\per\second} and
         \SI{0.1}{\micro\meter\squared\per\second} respectively. \gls{pp1}
         activity reduces in all voxels with increased \SUB{D}{PP1}. The
         correlation of \gls{pp1} activity among voxels does not improve with
         increased \SUB{D}{PP1} therefore non-linear distribution of \gls{pp1} in
         voxels is unlikely to be a significant contributor to the observed loss
-        of \gls{pp1} potency. \textbf{(D)} \gls{pp1} activity decreased with
-        increased \SUB{D}{PP1} but remained independent of diffusion coefficient
+        of \gls{pp1} potency. 
+        %
+        \textbf{(D)} \gls{pp1} activity decreased with increased \SUB{D}{PP1} 
+        but remained independent of diffusion coefficient
         of subunit (\SUB{D}{sub}). On y-axis, \gls{pp1} activity is measured as
         ratio of sum of number of all active \gls{pp1} in all voxels during the
         simulation divided by the simulation time in hours. On top, dotted blue
@@ -960,14 +979,13 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
         that a similar effect is seen for a range of \SUB{D}{sub}, including
         \SUB{D}{sub}=\SI{5}{\micro\meter\squared\per\second}, for which
         $h_{crit}=\SI{0.33}{\nano\meter}$, satisfying the condition \(h\gg
-        h_{crit}\)
-        \citep{isaacson_reaction-diffusion_2009}\citep{erban_stochastic_2009}.
+        h_{crit}\) \citep{isaacson_reaction-diffusion_2009,erban_stochastic_2009}.
         (Also see Appendix 1, \autoref{fig:suppl_reac_rdme} and
         \nameref{sec:diff_as_gillespie}) Thus we do not expect that this is a
         numerical artifact due to our use of cross-voxel jump reactions to
-approximate diffusion.
-}{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
-\label{figsupp:diffusion_reduces_pp1_potency} \end{figure}
+        approximate diffusion.
+    }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
+    \label{figsupp:diffusion_reduces_pp1_potency} \end{figure}
 
 \subsection{Table of parameters} 
 \TABLE{si:parameters} summarizes parameters of our model.
@@ -1143,6 +1161,7 @@ diffusion coefficient (Appendix 1, \autoref{fig:suppl_reac_rdme}).
         {\bf(F)} Time for A to reach zero ($t_0$) vs $D$ and $n$. 
     }\label{fig:suppl_reac_rdme}
 \end{center}
+
 \end{appendixbox}
 
 \end{document}
