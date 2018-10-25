@@ -68,7 +68,7 @@
 
             % fit using gnuplot.
             \addplot+ [thick, no marks, blue] gnuplot[raw gnuplot] {
-                    set datafile separator ",";
+                set datafile separator ",";
                 system("rm -f fit.log");
                 f(x)=100*(1-exp(-x/tau));
                 fit f(x) "\DATAFILE" using "time":"colocalization" via tau;
@@ -177,32 +177,60 @@
             , unbounded coords=jump
             ]
 
-            \addplot+ [ only marks, error bars/.cd, y dir=both, y explicit] table 
+            \addplot+ [forget plot, only marks, error bars/.cd, y dir=both, y explicit] table 
                 [ col sep=comma, x=time, y=mean_8_37, y error=std_8_37]
                 {\DATAFILE};
-            \addlegendentry{[CaMKII]=8\si{\micro M}, (Stratton et al., 2016)};
+
+            \addplot+ [blue, no marks, dashed, thick] gnuplot [raw gnuplot] {
+                set datafile separator ",";
+                system("rm -f fitd1.log");
+                set fit logfile "fitd1.log";
+                f(x)=100*(1-exp(-x/tau));
+                fit f(x) "\DATAFILE" using "time":"mean_8_37" via tau;
+                plot [x=0:150] f(x);
+            };
+            \addlegendentry{[CaMKII]=8\si{\micro M}, (Stratton et al., 2016),
+                $\tau$=\GetTau{"fitd1.log"}};
 
             % Now draw best fit lines.
             \def\OptRg{0.5541}
             \def\OptRl{0.1438}
             \addplot+ [thick, no marks, blue] gnuplot[raw gnuplot] {
                 set datafile separator ",";
-                plot "< cat ./CM8e-3_rg\OptRg*_rl\OptRl*.csv" using 
-                    "time":"colocalization_perc" every 20;
+                plot "< cat ./CM8e-3_rg\OptRg*_rl\OptRl*.csv" using "time":"colocalization_perc" every 20;
+                system("rm -f fitd3.log");
+                set fit logfile "fitd3.log";
+                f(x)=100*(1-exp(-x/tau));
+                fit f(x) "< cat ./CM8e-3_rg\OptRg*_rl\OptRl*.csv" using "time":"colocalization_perc" via tau;
             };
-        \addlegendentry{Sim $r_g=\OptRg,r_l=\OptRl$};
+        \addlegendentry{Sim $r_g=\OptRg,r_l=\OptRl$, $\tau$=\GetTau{"fitd3.log"}};
 
-            \addplot+ [red, only marks, error bars/.cd, y dir=both, y explicit] table 
+            % and then plot its fit as well.
+            \addplot+ [forget plot, red, only marks, error bars/.cd, y dir=both, y explicit] table 
                 [ col sep=comma, x=time, y=mean_1_37, y error=std_1_37]
                 {\DATAFILE};
-            \addlegendentry{[CaMKII]=1\si{\micro M}, (Stratton et al. 2016)};
+
+            \addplot+ [red, no marks, dashed, thick] gnuplot [raw gnuplot] {
+                set datafile separator ",";
+                system("rm -f fitd2.log");
+                set fit logfile "fitd2.log";
+                f(x)=100*(1-exp(-x/tau));
+                fit f(x) "\DATAFILE" using "time":"mean_1_37" via tau;
+                plot [x=0:150] f(x);
+            };
+
+            \addlegendentry{[CaMKII]=1\si{\micro M}, (Stratton et al. 2016), $\tau$=\GetTau{"fitd2.log"}};
 
             \addplot+ [thick, no marks, red] gnuplot[raw gnuplot] {
                 set datafile separator ",";
                 plot "< cat ./CM1e-3_rg\OptRg*_rl\OptRl*.csv" using 
                     "time":"colocalization_perc" every 20;
+                system("rm -f fitd4.log");
+                set fit logfile "fitd4.log";
+                f(x)=100*(1-exp(-x/tau));
+                fit f(x) "< cat ./CM1e-3_rg\OptRg*_rl\OptRl*.csv" using "time":"colocalization_perc" via tau;
             };
-        \addlegendentry{Sim $r_g=\SI{\OptRg}{},r_l=\OptRl$};
+            \addlegendentry{Sim $r_g=\SI{\OptRg}{},r_l=\OptRl$, $\tau$=\GetTau{"fitd4.log"}};
 
         \end{axis}
         \node[above=0mm of current bounding box.north west] {\bf D};
