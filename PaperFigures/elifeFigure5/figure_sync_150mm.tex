@@ -42,7 +42,7 @@
     , xtick align=center
     , ytick align=center
     , unit markings=parenthesis
-    , xticklabel style={/pgf/number format/fixed}
+    % , xticklabel style={/pgf/number format/fixed}
     , axis line style={-}
     , ylabel near ticks
     , xlabel near ticks
@@ -200,7 +200,6 @@
         \pgfplotsset{axis lines*=box}
         \begin{semilogxaxis}[name=f2
             , axis lines*=box
-            , change y base=true
             , view={0}{90}
             , xlabel= \SUB{D}{sub}
             , x unit=\si{\micro\meter\squared\per\second}
@@ -209,8 +208,11 @@
             , colorbar style={width=1.5mm, title=\SUB{k}{s}}
             , enlargelimits=false
             , ylabel = d, y unit=\si{\meter}
+            , change y base=true
             , y SI prefix=nano % scales the axis appropriately unlike \si{nm}.
             , ylabel shift=-2mm 
+            , scaled x ticks=false
+            , xticklabel style={log ticks with fixed point}
             % , label style={font=\scriptsize}
             ]
             \addplot3 [surf,mesh/rows=10 ] table[col sep=comma
