@@ -171,7 +171,7 @@ properties, which we examine below.
         $\epsilon$). \textbf{(D)} Without diffusion and subunit exchange,
         CaMKII in our model is bistable. Two trajectories of \gls{camkii}
         activity (fraction of total \gls{camkii} holoenzymes with at least 2
-        subunits phosphorylated) are shown for different system size
+        subunits phosphorylated) are shown for different system sizes
         \SUB{N}{CaMKII}=15 (\textbf{top}) and \SUB{N}{CaMKII}=35
         (\textbf{bottom}). \textbf{(E)} Switch stability measured as average
         residence time of its stable states increases exponentially with system
@@ -237,29 +237,30 @@ subunit exchange. Thus, subunit exchange shifted the bistable range to higher
 values of \gls{pp1}. Nevertheless, the gap between the upper and lower limit remained
 the same in both cases (blue and red sigmoidal fit in \FIG{tolerance_pp1}B).
 
-In the presence of subunit exchange, the \texttt{ON} state of switch has tighter
-distribution (blue v/s red histogram, \FIG{tolerance_pp1}A) i.e., there are
-fewer holoenzymes being completely de-phosphorylated by \gls{pp1}. Any subunit
-in a holoenzyme de-phosphorylated by the \gls{pp1} is more likely to be
-phosphorylated back in the presence of subunit exchange. Because when the switch
-is in \texttt{ON} state, most subunits floating around in the \gls{psd} are in
-the phosphorylated state and hence, in addition to auto-phosphorylation, the
-exchange reactions (\EQ{losegainx}) turn unphosphorylated holoenzymes to
-phosphorylated holoenzymes with a significant rate (data not shown). Taken
-together, subunit exchange acts as a compensatory mechanism for
-dephosphorylation by \gls{pp1} in the \texttt{ON} state of the switch.
+In the presence of subunit exchange, the \texttt{ON} state of switch has a
+tighter distribution (blue v/s red histogram, \FIG{tolerance_pp1}A), i.e., there
+are fewer holoenzymes that are completely de-phosphorylated by \gls{pp1}. We
+interpret this as follows: In the presence of subunit exchange, any subunit in a
+holoenzyme de-phosphorylated by the \gls{pp1} is likely to be rapidly
+re-phosphorylated. This is because, when the switch is in \texttt{ON} state,
+most subunits present in the \gls{psd} are in the phosphorylated state. Hence,
+in addition to auto-phosphorylation, the exchange reactions (\EQ{losegainx})
+turn unphosphorylated holoenzymes to phosphorylated holoenzymes with a
+significant rate (data not shown). Taken together, subunit exchange acts as a
+compensatory mechanism for dephosphorylation by \gls{pp1} in the \texttt{ON}
+state of the switch.
 
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
 exchange was enabled, the relaxation time was reduced (red v/s blue dotted line
 in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}. As
-mentioned previously, due to subunit exchange, the \texttt{ON} state has tighter
-distribution (blue v/s red histogram in \FIG{tolerance_pp1}A) which means that
-there were fewer number of ineffective transition from \texttt{ON} to
-\texttt{OFF} state. Expectedly the standard deviation of the relaxation time was
-also greatly reduced in the presence of subunit exchange (red and blue curve,
-\FIG{tolerance_pp1}C). Thus subunit exchange makes the switch's \texttt{ON}
-state less noisy or more robust to dephosphorylation by \gls{pp1}.
+mentioned previously, due to subunit exchange, the \texttt{ON} state has a
+tighter distribution (blue v/s red histogram in \FIG{tolerance_pp1}A). This
+means that there were fewer ineffective transitions from the \texttt{ON} to the
+\texttt{OFF} state. As expected, the standard deviation of the relaxation time
+was also greatly reduced in the presence of subunit exchange (red and blue
+curve, \FIG{tolerance_pp1}C). Thus subunit exchange makes the switch's
+\texttt{ON} state less noisy and more robust to dephosphorylation by \gls{pp1}.
 
 Parallel results were obtained for the effect of subunit exchange on
 \gls{camkii} switch robustness in the context of protein turnover. Turnover
@@ -270,9 +271,10 @@ of the \texttt{ON} state decreased exponentially with increasing turnover rate.
 With subunit exchange, however, residence time of the \texttt{ON} state remained
 roughly constant upto a $\sim$10 fold increase in turnover (\FIG{turnover}B),
 after which subunit exchange could not phosphorylate all inactive holoenzymes
-produced by turnover, and the switch started to show similar exponential decay
-of stability as before. As expected, turnover increased the number of switching
-events in the regime of bistability in both cases.
+produced by turnover. At this point the switch started to show a similar steep
+decay of stability as was seen without subunit exchange. As expected, turnover
+increased the number of switching events in the regime of bistability in both
+cases.
 
 \begin{figure}[th!]
     \includegraphics[width=114mm]{./PaperFigures/elifeFigure3/figure_turnover_tolerance_114.pdf}
@@ -286,7 +288,7 @@ events in the regime of bistability in both cases.
         of the \texttt{ON} state of the switch decreases.
         \textbf{(C, left)} Normalized residence time of the \texttt{ON} state v/s turnover
         rate for two switches of size 6 and 12. Without subunit exchange, switch
-        stability decreases exponentially with turnover rate (red), however when
+        stability decreases steeply with turnover rate (red), however when
         subunit exchange is enabled, switch stability is not affected by
         turnover rates as high as \SI{1}{\per \hour} (blue). \textbf{(C,right)} In
         the bistable regime (solid lines), the number of switching events
@@ -304,13 +306,13 @@ switch's \texttt{ON} state.
 \label{res:spread_activity}
 
 As suggested in \citep{stratton_activation-triggered_2014}, we found that
-subunit exchange facilitated spread of \gls{camkii} activation
+subunit exchange facilitated the spread of \gls{camkii} activation
 (\FIG{subunit_facilitates_spread}). When subunits were allowed to diffuse, an
 active subunit could be picked by a neighbouring inactive \gls{camkii}
-holoenzymes making it partially phosphorylated. This can effectively overcome
-the first slow step of \gls{camkii} phosphorylation (\EQ{phospho}) when many
-phosphorylated subunits are available, thereby facilitating the spread of
-activation.
+holoenzyme, making it partially phosphorylated. This process overcomes the first
+slow step of \gls{camkii} phosphorylation (\EQ{phospho}), especially when
+subunit exchange makes many phosphorylated subunits available, thereby
+facilitating the spread of activation.
 
 We simulated \SUB{N}{CaMKII}=18 inactive holoenzymes in a cylinderical arena
 with a volume of \SI{0.0275}{\cubic\micro\meter} and a length of
@@ -335,20 +337,20 @@ to make sure the system showed no significant \gls{camkii} activity
 (\FIG{subunit_facilitates_spread}A, red curve). This served as the baseline to
 quantify the effect of subunit exchange. When we enabled subunit exchange by
 setting \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, \gls{camkii}
-activity rose to maximum within \SI{4}{\hour} for even low value of
-\SUB{D}{sub}=\SI{0.001}{\micro\meter\squared\per\second}
+activity rose to a maximum within \SI{4}{\hour} even when we used a low value
+for \SUB{D}{sub}=\SI{0.001}{\micro\meter\squared\per\second}
 (\FIG{subunit_facilitates_spread}C, black and brown curves).
 
-Expectedly, at higher basal \gls{ca} level (\SI{120}{\nano M}), system showed
-higher \gls{camkii} activity for all values of \SUB{D}{sub}
+As expected, at higher basal \gls{ca} level (\SI{120}{\nano M}), the system
+showed higher \gls{camkii} activity for all values of \SUB{D}{sub}
 (\FIG{subunit_facilitates_spread}D). Increasing \SUB{D}{sub} increased the
-effect of subunit exchange (decreased rise time of \gls{camkii} activity from
-10\% to 90\%, \FIG{subunit_facilitates_spread}D). However the time of onset of
-\gls{camkii} activation as measured by rise time from 0\% to 10\% was only
-dependant only on basal \gls{ca} levels but not on \SUB{D}{sub}
-(\FIG{subunit_facilitates_spread}E).
+effect of subunit exchange, as measured by the decreased rise time of
+\gls{camkii} activity from 10\% to 90\% (\FIG{subunit_facilitates_spread}D).
+However the time of onset of \gls{camkii} activation as measured by rise time
+from 0\% to 10\% was dependent only on basal \gls{ca} levels but not on
+\SUB{D}{sub} (\FIG{subunit_facilitates_spread}E).
 
-Thus, subunit exchange facilitates the spread of kinase activity post
+Thus, subunit exchange facilitates the spread of kinase activity following
 \gls{camkii} activation but does not affect the onset of \gls{camkii}
 activation.
 
@@ -356,8 +358,8 @@ activation.
     \includegraphics[width=0.95\linewidth]{./PaperFigures/elifeFigure4/figure_camkii_activation_130mm.pdf}
     \caption{Subunit exchange facilitates the spread of kinase activity
         \citep{stratton_activation-triggered_2014}. \textbf{(A)} 18 \gls{camkii}
-        holoenzymes were simulated in a cylinder arena of volume
-        \SI{0.0275}{\cubic\micro\meter} discretized into 18 voxels, each
+        holoenzymes were simulated in a cylindrical arena of volume
+        \SI{0.0275}{\cubic\micro\meter}, discretized into 18 voxels, each
         separated by \SI{30}{\nano\meter}. Red and blue balls represent
         unphosphorylated and phosphorylated subunits respectively.
         %
@@ -368,28 +370,30 @@ activation.
         various values of \SUB{D}{sub} for basal \gls{ca}=\SI{80}{\nano
         M}+$\epsilon$. This serves as the baseline for comparisons.
         %
-        \textbf{(C)} At slightly higher level of basal \gls{ca} level
-        (\SI{120}{\nano M}+$\epsilon$), subunit exchange has stronger effect on
-        \gls{camkii} activation. When subunits diffused with zero or negligible
-        coefficient (\SUB{D}{sub}=0 and \SUB{D}{sub}=\SI{1e-8}{\micro\meter\squared\per\second}), 
-        the effect of subunit exchange is smaller than when subunit diffused with 
-        moderate to higher diffusion coefficient (\SUB{D}{sub}=0.001 and 0.1
+        \textbf{(C)} At a slightly higher level of basal \gls{ca}
+        (\SI{120}{\nano M}+$\epsilon$), subunit exchange has a stronger effect
+        on \gls{camkii} activation. When subunits were modeled with zero or very
+        small diffusion coefficients (\SUB{D}{sub}=0 and
+        \SUB{D}{sub}=\SI{1e-8}{\micro\meter\squared\per\second}), the effect of
+        subunit exchange was smaller than when subunits were tested with
+        moderate to high diffusion coefficients (\SUB{D}{sub}=0.001 and 0.1
         \si{\micro\meter\squared\per\second}), 
         %
         \textbf{(D)} Quantification of effect of subunit exchange seen in
         \textbf{A} and \textbf{B} v/s \SUB{D}{sub} and basal \gls{ca} levels.
         The time taken by \gls{camkii} to rise from 10\% to 90\% of its maximum
         value (rise time) in hours v/s \SUB{D}{sub} for different mean basal
-        calcium levels. The effect of subunit exchange is stronger at higher
-        calcium levels for all values of \SUB{D}{sub}, and stronger (decreasing
-        rise time) for larger \SUB{D}{sub} for all values of \gls{ca} level.
-        Error bars represents standard deviation (n=40 trajectories).
+        calcium levels. The effect of subunit exchange is greater (as measured
+        by shorter rise times) at higher calcium levels for all values of
+        \SUB{D}{sub}. Rise time is also shorter for larger \SUB{D}{sub} for all
+        values of [\gls{ca}].  Error bars represents standard deviation (n=40
+        trajectories).
         %
         \textbf{(E)} The time to onset of \gls{camkii} activity is independent
-        of \SUB{D}{sub} and depends only on \gls{ca}. The time to onset of
+        of \SUB{D}{sub} and depends only on [\gls{ca}]. The time to onset of
         activity is measured as the time taken by inactive \gls{camkii} to rise
         from zero to 10\% of its maximum value. Average time for the onset of
-        activity decreased with increasing basal \gls{ca} level but remained
+        activity decreased with increasing basal [\gls{ca}] levels but remained
         independent of \SUB{D}{sub} suggesting that subunit exchange does not
         play any significant role in the beginning of activation of \gls{camkii}
         by \gls{ca}. Error bar represents standard deviation (n=40 trajectories).
@@ -397,11 +401,11 @@ activation.
     }\label{fig:subunit_facilitates_spread} 
 % first suppl
 \figsupp[Sample trajectories of \gls{camkii} activation for basal \gls{ca}
-concentration of \SI{100}{\nano M}+$\epsilon$.]{In all simulations, \SUB{D}{PP1} was set
-    to \SI{0.5}{\micro\meter\squared\per\second} and \SUB{D}{sub} was varied.
-    Each plot contains 40 trajectories. Dark black trajectory in each plot shows
-    the average trajectory.
-    }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_camkii_activations_trajs.pdf}}
+concentration of \SI{100}{\nano M}+$\epsilon$.]{In all simulations, \SUB{D}{PP1}
+    was set to \SI{0.5}{\micro\meter\squared\per\second} and \SUB{D}{sub} was
+    varied.  Each plot contains 40 trajectories. Dark black trajectory in each
+    plot shows the average trajectory.
+}{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_camkii_activations_trajs.pdf}}
 \label{figsupp:camkii_activation_se_trajs} \figdata{Source and data are
 available at
 \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure4}}
@@ -421,25 +425,25 @@ available at
         %
         \textbf{(A)} 3 clusters, each of size 6 (i.e.,
         \SUB{N}{CaMKII}=6) separated by distance \(d\) were simulated in a
-        cylinderical arena of volume \SI{0.0275}{\micro\meter^3} discretized
+        cylindrical arena of volume \SI{0.0275}{\micro\meter^3} discretized
         into 3 voxels. \Gls{camkii} subunits are shown as red 
         (unphosphorylated) and blue (phosphorylated) balls. We used 
         %
         \textbf{(B)} (\textbf{left}) Without subunit exchange, all three
         switches flipped independently with low residence time resulting in a
-        binomial distribution of states (on right, red). (\textbf{right})
+        binomial distribution of states (Bar chart on right, in red). (\textbf{right})
         With subunit exchange, all switches synchronized their activity i.e.,
         they acted as a single bistable switch with larger residence time.
         %
         \textbf{(C)} Strength of synchronization (\SUB{k}{s})
-        v/s diffusion coefficient \SUB{D}{sub} for a system consisting 3 switches
+        vs. diffusion constant \SUB{D}{sub} for a system consisting of 3 switches
         each separated from each other by a distance of \SI{30}{\nano \meter}.
         Variable $k_s=1-t_i$ where $t_i$ is the fraction of total time spent by
         the switches in the intermediate states
         x\textsubscript{a}y\textsubscript{n-a}; 1\textless{}a\textless{}n.
         Synchronization is strong if k\textsubscript{s} \textgreater{} 0.4.
         %
-        \textbf{(D)} Phase plot of \SUB{k}{s} v/s \SUB{D}{sub} and d. The effect
+        \textbf{(D)} Phase plot of \SUB{k}{s} vs. \SUB{D}{sub} and d. The effect
         of synchronization \SUB{k}{s} due to subunit exchange is strong (red
         region) and robust to changes in \SUB{D}{sub}, and effective for
         inter-cluster distance ($d$) as large as \SI{100}{\nano\meter}. 
@@ -761,11 +765,11 @@ maintained the following ratio \(k_x^- \approx 10 k_x^+ N_{\text{CaMKII}}\) and
 To estimate reaction rates of \EQ{losegainx}, we modeled the "single molecule
 assay" used in \cite{stratton_activation-triggered_2014}. In this assay, two
 distinct populations of \gls{camkii} labelled by either green or red
-fluorophores were mixed together. The holoenzymes were not free to move but
-release subunits could move freely. A green holoenzyme may pick up a red subunit
-and vice versa thereby giving rise to a mixed colored population.  The readout
-from this assay is called ``cololocalization'' which is the fraction of total
-holoenzymes containing subunits of both colors.
+fluorophores were mixed together. The holoenzymes were not free to move but they
+could release subunits which could move freely. A green holoenzyme may pick up a
+red subunit and vice versa thereby giving rise to a mixed colored population.
+The readout from this assay is the ``colocalization'' which is the fraction of
+total holoenzymes containing subunits of both colors.
 
 In our model of this assay, a \gls{camkii} holoenzyme is represented by
 $R_aG_{n-a}$ where $R$ and $G$ represent a red and a green subunit in the
@@ -773,8 +777,8 @@ holoenzyme respectively, and $n=6\;\text{or}\;7$. The green population consists
 of holoenzymes with only green subunits (i.e., $R_0G_6$ and $R_0G_7$) and the
 red population has holoenzymes with all red subunits (i.e., $R_6G_0$ or
 $R_7G_0$). We assume that each color population has equal number of dodecameric
-(n=6) and tetradecameric (n=7) holoenzymes. Upon mixing red and green
-populations, following reactions take place.
+(n=6$\times$2) and tetradecameric (n=7$\times$2) holoenzymes. Upon mixing red and green
+populations, the following reactions take place.
 
 \begin{equation}\label{eq:mixing_assay}
     \begin{gathered}
@@ -796,14 +800,14 @@ well.
 First we explored the space of $r_l$ and $r_g$ for which the time constant of
 colocalization dynamics matched well with the experimental data for
 [\gls{camkii}]=\SI{8}{\nano M} (\FIG{estimate_of_exchange_rate}B, black dots)}.
-From these values, we choose a combination of $r_g$ and $r_l$ which best explain
-the concentration dependant changes in the rate of colocalization
+From these values, we chose a combination of $r_g$ and $r_l$ which best 
+explained the concentration dependant changes in the rate of colocalization
 (\FIG{estimate_of_exchange_rate}D).  When compared with the data from
 \cite{stratton_activation-triggered_2014}, the time scale of colocalization and
 the concentration dependant decrease in the rate of colocalization compared
-reasonably well for such a pair of $r_l$ and $r_g$. Note that we do not model
+reasonably well for $r_l$ and $r_g$. Note that we do not model
 effect of diffusion, labelling efficiency, and experimental errors in readout
-mechanism.  Our values of $k_x^+, k_y^+, k_x^-, k_y^-$ used in \EQ{losegainx}
+mechanism. Our values of $k_x^+, k_y^+, k_x^-, k_y^-$ used in \EQ{losegainx}
 are close to estimated values of $r_g$ and $r_l$ (red cross v/s black dots in
 \FIG{estimate_of_exchange_rate}B). Note that $r_g$ and $r_l$ are proxies for
 $k_x^+,k_y^+$ and $k_x^-, k_y^-$ respectively.
@@ -830,7 +834,7 @@ $k_x^+,k_y^+$ and $k_x^-, k_y^-$ respectively.
 \end{figure}
 
 Thus we are confident that rate parameters used in \EQ{losegainx} in our model
-are reasonably well within the physiologically relevant range.
+are likely to be within the physiologically relevant range.
 
 \subsection{PP1 deactivation}\label{subsec:pp1_deactivation} 
 
