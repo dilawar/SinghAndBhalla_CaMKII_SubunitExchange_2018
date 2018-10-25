@@ -167,10 +167,9 @@ properties, which we examine below.
         \textbf{(C)} Basal \gls{ca} profile in spine and \gls{psd}. Basal
         \gls{ca} level is \SI{80}{\nano M} with fluctuations every
         \SI{2}{\second}, lasting for \SI{2}{\second}. These fluctuations
-        ($\epsilon$) are sampled from a uniform distribution with median of
+        (represented by symbol $\epsilon$) are sampled from a uniform distribution with median of
         \SI{120}{\nano M} and range of \SI{40}{\nano M} (see
-        \nameref{sec:materials_and_methods}) (this fluctuation is represented by
-        $\epsilon$). \textbf{(D)} Without diffusion and subunit exchange,
+        \nameref{sec:materials_and_methods}). \textbf{(D)} Without diffusion and subunit exchange,
         CaMKII in our model is bistable. Two trajectories of \gls{camkii}
         activity (fraction of total \gls{camkii} holoenzymes with at least 2
         subunits phosphorylated) are shown for different system sizes
@@ -333,7 +332,8 @@ effect of varying the diffusion coefficient of subunits (\SUB{D}{sub}) and basal
 calcium levels. We used \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}
 which is the observed value of the diffusion coefficient of Ras, a similar sized
 protein \citep{harvey_spread_2008}. We ran simulations for 4 hours at basal
-calcium concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ and without subunit
+calcium concentration [\gls{ca}]=\SI{80}{\nano M}+$\epsilon$ (where $\epsilon$
+is fluctuation in basal calcium levels \FIG{validation}C) and without subunit
 exchange (i.e., \SUB{D}{sub}=0). We set \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII}
 to make sure the system showed no significant \gls{camkii} activity
 (\FIG{subunit_facilitates_spread}A, red curve). This served as the baseline to
@@ -366,7 +366,8 @@ activation.
         unphosphorylated and phosphorylated subunits respectively.
         %
         \textbf{(B)} Activation profile of \gls{camkii} at mean basal calcium
-        level of \SI{80}{\nano M}+$\epsilon$ for various values of \SUB{D}{sub}
+        level of \SI{80}{\nano M}+$\epsilon$ ($\epsilon$ is fluctuation in basal
+        \gls{ca} levels \FIG{validation}A) for various values of \SUB{D}{sub}
         with \SUB{N}{PP1}=15$\times$\SUB{N}{CaMKII}. For this value of
         \SUB{N}{PP1}, we see moderate or no mean activity of \gls{camkii} for
         various values of \SUB{D}{sub} for basal \gls{ca}=\SI{80}{\nano
