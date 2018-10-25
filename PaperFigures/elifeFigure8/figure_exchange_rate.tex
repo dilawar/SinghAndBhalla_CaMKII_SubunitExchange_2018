@@ -61,8 +61,10 @@
             , width=\PlotW cm
             , axis lines*=left
             ]
-            \addplot+ [only marks, mark=*, mark options={fill=blue!50}, opacity=0.8] 
-                table[x=time, y=colocalization, col sep=comma]{\DATAFILE};
+            \addplot+ [only marks, mark=*, mark options={fill=blue!50}, opacity=0.8
+                , error bars/.cd, y dir=both, y explicit 
+                ] 
+                table[x=time, y=colocalization, col sep=comma, y error=std]{\DATAFILE};
 
             % fit using gnuplot.
             \addplot+ [thick, no marks, blue] gnuplot[raw gnuplot] {
