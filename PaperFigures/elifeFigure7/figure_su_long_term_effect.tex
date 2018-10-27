@@ -19,7 +19,7 @@
 \pgfmathsetmacro{\figW}{13} 
 \pgfmathsetmacro{\colW}{\figW/2}
 \pgfmathsetmacro{\plotW}{\figW/2.2}
-\def\plotH{3}
+\def\plotH{2.5}
 
 \newcommand\SUB[2]{#1\textsubscript{#2}}
 \newcommand\SUP[2]{#1\textsuperscript{#2}}
@@ -41,6 +41,7 @@
     , axis line style={-}
     , legend cell align=left
     , ylabel near ticks
+    , xlabel near ticks
     , label style={font=\footnotesize}
 }
 
@@ -63,29 +64,45 @@
     \begin{tikzpicture}[baseline]
         \begin{axis}[
             , ylabel=Active CaMKII
+            , ylabel style={xshift=-8mm}
             , width=\plotW cm, height=\plotH cm
             , legend style={font=\tiny, at={(0,0.9)}, anchor=south west}
             , legend columns = 2
-            , title={\SUB{D}{PP}=\SI{\DPP}{\micro\meter\squared\per\second}}
-            , title style={font=\small, at={(0.5,1.4)}, anchor=south}
+            , title={\SUB{D}{PP1}=\SI{\DPP}{\micro\meter\squared\per\second}}
+            , title style={font=\footnotesize, at={(0.5,1.45)}, anchor=south}
             ]
 
             \pgfplotsforeachungrouped \D/\clr in {#2}
             {
                 \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++\D--'y'++\D--'PP1'++#1}+N-6.dat_processed.dat"}
                 \addplot+ [no marks] gnuplot[raw gnuplot] {
-                        plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
+                    plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
                 };
 
-                %\addplot+ [no marks, prefix=trajs, id=\D, color=\clr] shell {
-                %        python ./preprocess_data.py \FILENAME 
-                %    };
-
                 \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
-                \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{sub}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+                \edef\temp{\noexpand\addlegendentry{
+                    \noexpand\SUB{D}{sub}=\noexpand\SI{
+                        \DPP}{\micro\meter\squared\per\second}
+                }}\temp
             }
         \end{axis}
-        \node[yshift=0mm, xshift=-3mm] at  (current bounding box.north west) {\bf \normalsize #3};
+        \node[yshift=0mm, xshift=-3mm] at (current bounding box.north west) {\bf \normalsize #3};
+
+        % reference plot below it.
+        \begin{axis}[ 
+            xlabel=Time, x unit=h
+            , yshift=-16 mm
+            , width=\plotW cm, height=\plotH cm
+            , legend style={font=\tiny, at={(0,0.85)}, anchor=south west}
+        ]
+            \addplot [color=blue] gnuplot [ raw gnuplot ] {
+                plot "./ref_CaM-6+PP-80+N-1+L-180e-9+SU-ON+D-1e-13.dat_processed.dat" 
+                using (column("time")/3600):"CaMKII*" every 10;
+            };
+            \addlegendentry{(Ref) \SUB{D}{PP1}=\SUB{D}{sub}=
+                    \SI{0.5}{\micro\meter\squared\per\second}
+                };
+        \end{axis}
     \end{tikzpicture}
 }
 \newcommand\PlotTraceFixedDSub[3]{%Dsub, DPP1, label
@@ -127,6 +144,7 @@
 
 \begin{tikzpicture}[scale=1 , every node/.style={} ]
     \node (a) { \PlotTraceFixedDPP{5e-13}{5e-15/blue,5e-14/red,5e-13/black}{A} };
+
     \node[below=-1mm of a.south east, anchor=north east] (b) 
         {\PlotTraceFixedDSub{5e-13}{5e-15/blue,5e-14/red,5e-13/black}{B}};
     \node[right=0mm of a.north east, anchor=north west] (c) {
