@@ -1,0 +1,218 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[preview,crop=true,multi=false]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,arrows.meta}
+\usetikzlibrary{calc,positioning}
+\usepackage{pgfplots}
+\usepgfplotslibrary{units}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{pgfplotstable}
+\usepackage{xstring}
+\usepackage[sfdefault]{FiraSans}
+% \renewcommand{\familydefault}{\sfdefault}
+% \usepackage[small,euler-digits]{eulervm}
+%\usepgfplotslibrary{external}
+%\tikzexternalize[shell escape=-shell-escape]
+
+\edef\figW{11.4}
+\edef\plotH{3}
+\edef\colW{0.33*\figW}
+
+% Replace 1e with e.
+\def\ReplaceOneEWithE#1{
+ \IfSubStr{#1}{1e}{%
+    \StrSubstitute{#1}{1e}{e}}{#1}
+}
+
+% sample everyN line.
+\def\EveryN{5}
+
+\pgfplotsset{
+    , xtick align=center
+    , ytick align=center
+    , unit markings=parenthesis
+    , legend style={fill=none,draw=none,font=\footnotesize}
+    % , axis line style=-
+}
+
+
+\begin{document}
+
+\edef\Clr{red}
+
+\newcommand\SUB[2]{#1\textsubscript{#2}}
+
+\newcommand\PPTrajectory[6]{%name,position, compt_name, filename, dpp1, draw axis
+    \edef\MainFile{#4}
+    \ifnum #6>0
+        \begin{axis}[ name=#1, at={(#2)}, xshift = 4mm
+            , width=0.85*\colW cm
+            , height = 3 mm
+            , scale only axis
+            , ymax=1
+            , axis line style={draw=none}
+            , xtick=\empty
+            , ytick=\empty
+            , tick style={draw=none}
+            , enlarge x limits = false
+            , enlarge y limits = false
+            ]
+                \addplot+[no marks,] gnuplot [ raw gnuplot ] {
+                    set datafile separator ",";plot "\MainFile" using
+                    (column("time")/86400):"#5_pp1_compt#3" every \EveryN;
+                };
+        \end{axis}
+    \else
+        \begin{axis}[ name = #1, at = {(#2)}, xshift = 4mm
+            , width = 0.85*\colW cm
+            , height = 3 mm
+            , scale only axis
+            , ymax = 1
+            , xticklabel style = {font=\footnotesize}
+            , xlabel = Time, x unit=day
+            , axis y line* = right
+            , axis x line* = bottom
+            , axis line style = -
+            , enlarge y limits = false
+            , enlarge x limits = false
+            , ytick={0,1}
+            , yticklabel style = {font=\footnotesize,/pgf/number format/fixed}
+            , scaled y ticks = false
+            , ylabel near ticks
+        ]
+            \addplot+[no marks ] gnuplot [ raw gnuplot ] {
+                set datafile separator ","; plot "\MainFile" using
+                    (column("time")/86400):"#5_pp1_compt#3" every \EveryN;
+            };
+        \end{axis}
+    \fi
+}
+
+\newcommand\PlotPPProfileInCylinder[4]{ %label, filename, dpp1,dpp1 in um
+\begin{tikzpicture}[scale=1]
+    \foreach \i/\n in {0/a,1/b,2/c,3/d,4/e,5/f}
+    {
+        \node[cylinder, minimum width=5mm, minimum height=6mm, draw=\Clr!50
+            , label={\footnotesize \i}
+            , fill=\Clr!10, rotate=90] (cyl\n) at (0,0.5*\i cm) {};
+    }
+
+    \foreach \i/\j in {a/b,b/c,c/d,d/e,e/f}
+    {
+        \edef\offset{1pt}
+        \draw[\Clr, shorten >= 1pt, arrows={-Stealth[harpoon]}] ([xshift=-\offset]cyl\i.center) 
+            -- ([xshift=-\offset]cyl\j.center);
+        \draw[\Clr, shorten <= 1pt, arrows={-Stealth[harpoon]}] ([xshift=\offset]cyl\j.center) 
+            -- ([xshift=\offset]cyl\i.center);
+    }
+            
+
+    \foreach \i/\CylId in {0/a,1/b,2/c,3/d,4/e,5/f}
+    {
+        \PPTrajectory{p1}{cyl\CylId}{\i}{#2}{#3}{\i}
+    }
+
+    \node[above=of cylf, xshift=1mm, yshift=-5mm] (label){\bf #1};
+    \node[right=of label.west, text width=\colW cm, align=left]
+        (title){\footnotesize \SUB{D}{PP1}=\SI{#4}{\micro\meter\squared\per\second} 
+            \\ 
+            \SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}
+            };
+
+\end{tikzpicture} 
+}
+
+\newcommand\Imshow[2]{ %label, imgdata.
+    \begin{tikzpicture}[scale=1 , every node/.style={} ]
+        \begin{axis}[view={0}{90} 
+            , width=0.75*\colW cm, scale only axis
+            % , colorbar horizontal
+            , colorbar
+            % , colorbar sampled
+            , colorbar style={
+                    % height=4pt
+                    % , at={(0,1.15)}, anchor=south west
+                    % , xticklabel pos=upper
+                    % , xtick={0,0.5,1}
+                    , width = 4pt
+                    , tick label style={font=\footnotesize}
+                    , ytick={0,0.5,1}
+                }
+            , enlargelimits=true
+            , xmin=-0.5, xmax=5.5
+            , ymin=-0.5, ymax=5.5
+            , xtick={0,1,2,3,4,5}
+            , ytick={0,1,2,3,4,5}
+            , tick label style={font=\footnotesize}
+            ]
+            \addplot [matrix plot*, mesh/cols=6, point meta=explicit] table [meta index=2] {#2};
+        \end{axis}
+    \end{tikzpicture}	
+}
+
+\pgfmathsetmacro\FigW{1.5*\figW}
+\begin{tabularx}{\FigW cm}{X X X}
+% \begin{tabular}{l l l}
+    % Plot trajectory for fixed Dsub. Vary Dpp1.
+    \PlotPPProfileInCylinder{A}{./analyze_pp1_detailed.py_1e-13_summary.dat}{0.0}{0}
+    &
+    \PlotPPProfileInCylinder{B}{./analyze_pp1_detailed.py_1e-13_summary.dat}{1e-15}{e-3}
+    &
+    \PlotPPProfileInCylinder{C}{./analyze_pp1_detailed.py_1e-13_summary.dat}{1e-13}{0.1}
+    \\
+    % \Imshow{E}{pp1_correlation_matrix_0.0.csv}
+    \Imshow{E}{./corr_mat/CaM-6+PP-420+D-{'x'++1e-13--'y'++1e-13--'PP1'++0e0}+N-6.dat.csv}
+    &
+    % \Imshow{E}{pp1_correlation_matrix_1e-15.csv}
+    \Imshow{E}{./corr_mat/CaM-6+PP-420+D-{'x'++1e-13--'y'++1e-13--'PP1'++1e-15}+N-6.dat.csv}
+    &
+    % \Imshow{E}{pp1_correlation_matrix_1e-13.csv}
+    \Imshow{E}{./corr_mat/CaM-6+PP-420+D-{'x'++1e-13--'y'++1e-13--'PP1'++1e-13}+N-6.dat.csv}
+% \end{tabular}
+\\
+
+% Read one of the summary file . First two rows contain values for two cases. In
+% first case, whole system is in one voxel. In second line, there are six voxels
+% but D=0.
+\pgfplotstableread{./mean_pp1_vs_Dxy0.dat}\TableA
+\pgfplotstablegetelem{0}{[index]1}\of{\TableA}
+\pgfmathsetmacro{\OneVoxelCaseVal}{\pgfplotsretval}
+\pgfplotstablegetelem{1}{[index]1}\of{\TableA}
+\pgfmathsetmacro{\ZeroDiffCaseVal}{\pgfplotsretval}
+
+
+\begin{tikzpicture}[scale=1]
+    \begin{semilogxaxis}[ 
+        xlabel=\SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
+        , ylabel=PP1 Activity, y unit = \si{\per \hour}
+        , width = 1.3*\colW cm, height = 1.3*\plotH cm
+        % , legend columns = 2
+        , legend style={at={(1.05,0.85)}, anchor=north west, font=\footnotesize}
+        % , legend pos=outer north east
+        , legend style={font=\footnotesize}
+        , axis lines*=box
+        , ymax = 6.3
+        , enlargelimits = true
+        , extra y ticks={\OneVoxelCaseVal,\ZeroDiffCaseVal}
+        , extra y tick labels={1-voxel, \SUB{D}{PP1}=0}
+        , extra y tick style={grid=major, color=blue
+            , font=\footnotesize, ticklabel pos=top}
+        , grid style={draw=blue,dotted}
+        , xtick = {1e-15,1e-14,1e-13,1e-12}
+        , xticklabels={0.001,0.01,0.1,1}
+        ]
+        \pgfplotsforeachungrouped \DXY/\DxyInUM in {0/0,1e-15/e-3,1e-13/0.1,5e-12/5}
+        {
+            \pgfplotstableread{./mean_pp1_vs_Dxy\DXY.dat}\TableA;
+            \addplot+ [ thick] table [unbounded coords=jump,opacity=0.1]{\TableA};
+            \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{sub}=\SI{\DxyInUM}{\micro\meter\squared\per\second}}} \temp
+        }
+    \end{semilogxaxis}
+    \node[above left=of current bounding box, xshift=20mm, yshift=-8mm] {\bf D};
+\end{tikzpicture} 
+
+\end{tabularx}
+
+\end{document}
+

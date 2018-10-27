@@ -1,4 +1,4 @@
-all : ./figure_exchange_rate.pdf
+all : ./figure_su_long_term_effect.pdf
 
 %.pdf : %.tex
-	lualatex --shell-escape %
+	lualatex --shell-escape $<
