@@ -2,16 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 project(CaMKII_PP1_Switch LANGUAGES NONE)
 find_package(PythonInterp REQUIRED)
 
-## Parameters
-# Set these parameters run the model
+# Parameters. See ./reference_system_in_1_voxel.sh for paramters used in
+# reference system which is well mixed i.e. only 1 voxel.
+set( NUMBER_OF_CAMKII 8 )
+set( NUM_VOXELS 4 )
+set( NUMBER_OF_PP1 100 )
 
-set( NUMBER_OF_CAMKII 15 )
-set( NUMBER_OF_PP1 180 )
 # Run time in days.
 set( RUN_TIME 10 )
-set( VOXEL_LENGTH 125e-9 )
-set( NUM_VOXELS 3 )
-set( DIFFUSION_DICT "{ 'x' : 1e-13, 'y' : 1e-13 }" )
 
 # Move all python files into current directory.
 file( GLOB MY_PYTHON_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/*.py" )
@@ -21,7 +19,7 @@ file( COPY ${MY_PYTHON_SCRIPTS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
 set( ARCHIVE_DIR ${CMAKE_BINARY_DIR}/_data_archive )
 file( MAKE_DIRECTORY ${ARCHIVE_DIR} )
 
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/camkii_pp1_scheme.py" 
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../camkii_pp1_scheme.py" 
     DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}
     )
 set( PYSCRIPT_MODEL ${CMAKE_CURRENT_BINARY_DIR}/camkii_pp1_scheme.py)
@@ -43,15 +41,12 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_tikz)
 add_custom_target( exp )
 
 # NOTE: 1e-11 is very high value of simulation to show any progress.
-foreach( _diff_const 1e-12 1e-13 1e-14 1e-15 1e-16)
+foreach( _diff_const_pp1 1e-12 3e-13 1e-13 3e-14 1e-14 3e-15 1e-15 3e-16 1e-16)
+foreach( _diff_const 1e-12 3e-13 1e-13 3e-14 1e-14 3e-15 1e-15 3e-16 1e-16)
     # EXPERIMENT 1: Cause LTP by a calcium pulse and wait for CaMKII activity to go
     # down. See what subunit exchange does to this.
-    set( DIFFUSION_DICT "{ 'x':${_diff_const}, 'y':${_diff_const}, 'PP1':1e-13 }")
-    set(EXPERIMENT_NAME 
-        "CaMKII-${NUMBER_OF_CAMKII}+PP1-${NUMBER_OF_PP1}+L-${VOXEL_LENGTH}+N-${NUM_VOXELS}"
-        )
-    set(EXPERIMENT_NAME  "${EXPERIMENT_NAME}+diff-${_diff_const}" )
-
+    set( DIFFUSION_DICT "{ 'x':${_diff_const}, 'y':${_diff_const}, 'PP1':${_diff_const_pp1} }")
+    set(EXPERIMENT_NAME "Dsub-${_diff_const}+Dpp-${_diff_const_pp1}")
     set(DATAFILE "${EXPERIMENT_NAME}.dat")
     set(DATAFILE_SUMMARY "${DATAFILE}_processed.dat")
     set(PLOTFILE "${EXPERIMENT_NAME}.png")
@@ -86,15 +81,11 @@ foreach( _diff_const 1e-12 1e-13 1e-14 1e-15 1e-16)
         )
     add_dependencies( ${EXPERIMENT_NAME}.plot ${EXPERIMENT_NAME} )
     add_dependencies( exp ${EXPERIMENT_NAME}.plot )
-
-endforeach( )
-
-set( EXP_SUMMARY_FILE
-    ${CMAKE_CURRENT_SOURCE_DIR}/decay_of_intermediate_states.png.dat
-    )
+endforeach()
+endforeach()
 
 add_custom_target( exp_summary ALL
-    DEPENDS exp ${EXP_SUMMARY_FILE}
+    DEPENDS exp 
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/experiment_summary.py
     COMMENT "Generate experimental summary"
     VERBATIM

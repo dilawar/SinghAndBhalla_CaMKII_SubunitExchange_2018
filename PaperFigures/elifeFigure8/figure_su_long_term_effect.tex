@@ -145,48 +145,48 @@
 
     \node[below=-1mm of a.south east, anchor=north east] (b) 
         {\PlotTraceFixedDSub{5e-13}{5e-15/blue,5e-14/red,5e-13/black}{B}};
+
     \node[right=0mm of a.north east, anchor=north west] (c) {
             \begin{tikzpicture}[]
                 \pgfplotsset{axis lines*=box}
                 \begin{loglogaxis}[ name=c2
-                    % , at={(c1.south east)}, anchor=south west, xshift=12mm
                     , view={0}{90}
                     , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
                     , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
-                    , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
+                    , title={Avg Active CaMKII (\SUB{N}{CaMKII}=8)}
                     , title style={at={(0,1.25)}, anchor=south west
                         , text width=\plotW cm}, font=\footnotesize
                     , width=\plotW cm
                     , enlargelimits=true
                     , unbounded coords=jump
-                    , ytick={0.01,1}
+                    % , ytick={0.01,1}
                     , yticklabel style={rotate=90}
                     , label style={font=\footnotesize}
                     , colorbar horizontal
                     , colorbar style={
                             % samples=5
                             ,height=1.8mm, anchor=north west
-                            , xtick={0,2,4,6}
+                            % , xtick={0,2,4,6,8}
                             , at={(0,1.25)}
                         }
                     ]
-                    \addplot3 [surf, mesh/cols=6] table 
+                    \addplot3 [surf, mesh/cols=10] table
                         [col sep=comma
-                        , x expr=10^(\thisrow{Dpp1}+12)
-                        , y expr=10^(\thisrow{Dxy}+12)
-                        , z expr={\thisrow{Mean CaMKII}}
-                        ]{./data_fig_sync_camkii_6.csv};
+                        , x expr=(\thisrow{Dpp1}*1e12)
+                        , y expr=(\thisrow{Dsub}*1e12)
+                        , z expr={\thisrow{Avg CaMKII}}
+                        ]{./data_fig_sync_camkii_8.csv};
 
                     \addplot3 [ only marks, mark=*
                         ] table [ col sep=comma
-                        , x expr={10^(\thisrow{Dpp1}+12)}
-                        , y expr={10^(\thisrow{Dxy}+12)}
+                        , x expr={\thisrow{Dpp1}*1e12}
+                        , y expr={\thisrow{Dsub}*1e12}
                         , z expr={\thisrow{is_bistable}==0?nan:1}
-                        ]{./data_fig_sync_camkii_6.csv};
+                        ]{./data_fig_sync_camkii_8.csv};
 
                 \end{loglogaxis}
-                \node[xshift=-3mm, yshift=0mm] at (current bounding box.north
-                    west) {\bf \normalsize C};
+                \node[xshift=-3mm, yshift=0mm] at (current bounding box.north west) 
+                    {\bf \normalsize C};
             \end{tikzpicture}
         };
 \end{tikzpicture}	

@@ -23,55 +23,75 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import helper
 import glob
-import ajgar                # pip install git+https://github.com/dilawar/ajgar
 from collections import defaultdict
+
+def is_bistable( hist, bins ):
+    # assumes that binsize is 1.
+    #  print( hist, hist[1:-1] )
+    if hist[0] > 5e-3 and hist[1] < hist[0]:
+        return 1
+    return 0
+
+def find_diff_vals( f ):
+    f  = os.path.basename(f)
+    f = f.split('.')[0]
+    fs = f.split( '+' )
+    keys, vals = zip(*[ x.split('-', 1) for x in fs ])
+    vals = map(float, vals)
+    return dict(zip(keys, vals))
 
 def main( ):
     print( '[INFO] Processing state distribution' )
-    fs = glob.glob( './_data_archive/*_processed*' )
+    fs = glob.glob( './Dsub*_processed.dat' )
     files = [ ]
     for f in fs:
-        diffVal = f.split( 'diff' )[1]
-        nums = ajgar.find_all_floats( diffVal )
-        files.append( (-nums[0], f) )
+        d = find_diff_vals( f )
+        files.append( (d, f) )
 
     if len( files ) == 0:
         print( '[WARN] No file found' )
         quit( )
 
     # Some data files had same seed so same values. Need to discard them.
-    diffDict = defaultdict( set )
+    diffDict = {}
     offset = 2
-    for d, f in sorted( files ):
+    for d, f in sorted( files, key=lambda x: x[0]['Dpp']):
         print( 'Processing %s' % f )
         data = pd.read_csv( f, sep = ' ', comment = '#' )
         camkii = data[ 'CaMKII*' ].values
         nBins = camkii.max( )
-        freq, bins = np.histogram( camkii, bins = nBins, normed = True )
-        diffDict[d].add( np.sum( freq[ offset:nBins-offset ] ) )
+        avg = camkii.mean()
+        freq, bins = np.histogram( camkii, bins = nBins, density = True )
+        t = is_bistable(freq, bins)
+        diffDict[(d['Dpp'],d['Dsub'])] = (np.sum(freq[offset:nBins-offset]),avg,t)
 
-    xvec, yvec, errvec = [ ], [ ], [ ]
-    for x in sorted( diffDict.keys( ) ):
-        vals = list( diffDict[x] )
-        xvec.append( x )
-        yvec.append( np.mean( vals ) )
-        errvec.append( np.std( vals ) )
+    X, Y, Z, M, B = [], [], [], [], []
+    for Dpp, Dsub in sorted( diffDict.keys( ) ):
+        val, avg, isBis = diffDict[(Dpp,Dsub)]
+        print(val, isBis)
+        X.append( Dpp )
+        Y.append( Dsub )
+        Z.append( val )
+        M.append( avg )
+        B.append( isBis )
 
     plt.xscale( 'log' )
-    plt.errorbar( xvec, yvec, yerr = errvec )
-    plt.xlabel( 'Diffusion coefficient of subunit' )
-    plt.ylabel( 'Intermediate state distributions' )
-    plt.legend( )
-    outfile = 'decay_of_intermediate_states.png'
-    plt.savefig( outfile )
-    # Save image into a data-file as well.
-    ajgar.arrays2csv( '%s.dat' % outfile
-            , diff_const = xvec, intermediate_states_mean = yvec
-            , intermediate_states_std = errvec
-            )
-
-
+    plt.yscale( 'log' )
+    plt.tricontourf(X, Y, M )
+    plt.colorbar()
+    plt.scatter( X, Y, s=[x*10 for x in B], marker='o', color='black')
+    plt.xlabel( r'$D_{PP1}$' )
+    plt.ylabel( r'$D_{sub}$' )
+    df = pd.DataFrame()
+    df['Dpp1'] = X
+    df['Dsub'] = Y
+    df['Avg CaMKII'] = M
+    df['intermediate_state'] = Z
+    df['is_bistable'] = B
+    df.to_csv( 'result.csv', index = False )
+    plt.savefig( 'test.png' )
 
 if __name__ == '__main__':
     main( )

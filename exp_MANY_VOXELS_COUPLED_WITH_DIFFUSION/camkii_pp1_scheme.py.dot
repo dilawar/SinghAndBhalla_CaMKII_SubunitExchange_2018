@@ -2,13 +2,13 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.I1P_[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sync" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.I1P[0]" [label="sw0.I1P",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "reac_inactivate_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.I1PPP1[0]" [label="sw0.I1PPP1",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "reac_0to1_6" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y5[0]" [label="sw0.x1y5",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y7[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y7[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "reac_0to1_7" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y6[0]" [label="sw0.x1y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -44,7 +44,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "phospho_x6y1_x7y0" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x7y0[0]" [label="sw0.x7y0",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw0.x0y6.gainx" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y6[0]" [label="sw0.x1y6",shape=circle,diffConst="0"]; 	
@@ -61,7 +61,7 @@ digraph system {
 "sw0.x5y1.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y2[0]" [label="sw0.x5y2",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x1y5.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y5[0]/sw0.pp1_sw0.x1y5_cplx[0]" [label="sw0.pp1_sw0.x1y5_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y5[0]/sw0.pp1_sw0.x1y5_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -77,7 +77,7 @@ digraph system {
 "sw0.x4y2.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y3[0]" [label="sw0.x4y3",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y4[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x2y4.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y4[0]/sw0.pp1_sw0.x2y4_cplx[0]" [label="sw0.pp1_sw0.x2y4_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y4[0]/sw0.pp1_sw0.x2y4_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -93,7 +93,7 @@ digraph system {
 "sw0.x3y3.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y4[0]" [label="sw0.x3y4",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y3[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x3y3.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y3[0]/sw0.pp1_sw0.x3y3_cplx[0]" [label="sw0.pp1_sw0.x3y3_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y3[0]/sw0.pp1_sw0.x3y3_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -109,7 +109,7 @@ digraph system {
 "sw0.x2y4.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y5[0]" [label="sw0.x2y5",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y2[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x4y2.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y2[0]/sw0.pp1_sw0.x4y2_cplx[0]" [label="sw0.pp1_sw0.x4y2_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y2[0]/sw0.pp1_sw0.x4y2_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -125,7 +125,7 @@ digraph system {
 "sw0.x1y5.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y6[0]" [label="sw0.x1y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x5y1.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y1[0]/sw0.pp1_sw0.x5y1_cplx[0]" [label="sw0.pp1_sw0.x5y1_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y1[0]/sw0.pp1_sw0.x5y1_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -136,12 +136,12 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw0.x6y0.gainx" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x7y0[0]" [label="sw0.x7y0",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw0.x0y6.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y7[0]" [label="sw0.x0y7",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y0[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x6y0.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y0[0]/sw0.pp1_sw0.x6y0_cplx[0]" [label="sw0.pp1_sw0.x6y0_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y0[0]/sw0.pp1_sw0.x6y0_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -157,7 +157,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y0[0]" [label="sw0.x6y0",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y6[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x1y6.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y6[0]/sw0.pp1_sw0.x1y6_cplx[0]" [label="sw0.pp1_sw0.x1y6_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y6[0]/sw0.pp1_sw0.x1y6_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -173,7 +173,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y1[0]" [label="sw0.x5y1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x2y5.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y5[0]/sw0.pp1_sw0.x2y5_cplx[0]" [label="sw0.pp1_sw0.x2y5_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y5[0]/sw0.pp1_sw0.x2y5_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -189,7 +189,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y2[0]" [label="sw0.x4y2",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y4[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x3y4.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y4[0]/sw0.pp1_sw0.x3y4_cplx[0]" [label="sw0.pp1_sw0.x3y4_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y4[0]/sw0.pp1_sw0.x3y4_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -205,7 +205,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x3y3[0]" [label="sw0.x3y3",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y3[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x4y3.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y3[0]/sw0.pp1_sw0.x4y3_cplx[0]" [label="sw0.pp1_sw0.x4y3_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x4y3[0]/sw0.pp1_sw0.x4y3_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -221,7 +221,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x2y4[0]" [label="sw0.x2y4",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y2[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x5y2.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y2[0]/sw0.pp1_sw0.x5y2_cplx[0]" [label="sw0.pp1_sw0.x5y2_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x5y2[0]/sw0.pp1_sw0.x5y2_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -237,7 +237,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x1y5[0]" [label="sw0.x1y5",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x6y1.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y1[0]/sw0.pp1_sw0.x6y1_cplx[0]" [label="sw0.pp1_sw0.x6y1_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y1[0]/sw0.pp1_sw0.x6y1_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -248,12 +248,12 @@ digraph system {
 "sw0.x7y0.loose_x" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y0[0]" [label="sw0.x6y0",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x[0]" [label="sw0.x",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y7[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y7[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "sw0.x0y7.loose_y" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x0y6[0]" [label="sw0.x0y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x7y0[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x7y0.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x7y0[0]/sw0.pp1_sw0.x7y0_cplx[0]" [label="sw0.pp1_sw0.x7y0_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x7y0[0]/sw0.pp1_sw0.x7y0_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -261,7 +261,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="sw0.PP1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x6y1[0]" [label="sw0.x6y1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw0.x.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x[0]/sw0.pp1_sw0.x_cplx[0]" [label="sw0.pp1_sw0.x_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.x[0]/sw0.pp1_sw0.x_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -277,13 +277,13 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.I1P_[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sync" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.I1P[0]" [label="sw1.I1P",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "reac_inactivate_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.I1PPP1[0]" [label="sw1.I1PPP1",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "reac_0to1_6" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y5[0]" [label="sw1.x1y5",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y7[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y7[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "reac_0to1_7" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y6[0]" [label="sw1.x1y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -319,7 +319,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "phospho_x6y1_x7y0" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x7y0[0]" [label="sw1.x7y0",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw1.x0y6.gainx" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y6[0]" [label="sw1.x1y6",shape=circle,diffConst="0"]; 	
@@ -336,7 +336,7 @@ digraph system {
 "sw1.x5y1.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y2[0]" [label="sw1.x5y2",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x1y5.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y5[0]/sw1.pp1_sw1.x1y5_cplx[0]" [label="sw1.pp1_sw1.x1y5_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y5[0]/sw1.pp1_sw1.x1y5_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -352,7 +352,7 @@ digraph system {
 "sw1.x4y2.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y3[0]" [label="sw1.x4y3",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y4[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x2y4.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y4[0]/sw1.pp1_sw1.x2y4_cplx[0]" [label="sw1.pp1_sw1.x2y4_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y4[0]/sw1.pp1_sw1.x2y4_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -368,7 +368,7 @@ digraph system {
 "sw1.x3y3.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y4[0]" [label="sw1.x3y4",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y3[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x3y3.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y3[0]/sw1.pp1_sw1.x3y3_cplx[0]" [label="sw1.pp1_sw1.x3y3_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y3[0]/sw1.pp1_sw1.x3y3_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -384,7 +384,7 @@ digraph system {
 "sw1.x2y4.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y5[0]" [label="sw1.x2y5",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y2[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x4y2.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y2[0]/sw1.pp1_sw1.x4y2_cplx[0]" [label="sw1.pp1_sw1.x4y2_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y2[0]/sw1.pp1_sw1.x4y2_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -400,7 +400,7 @@ digraph system {
 "sw1.x1y5.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y6[0]" [label="sw1.x1y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x5y1.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y1[0]/sw1.pp1_sw1.x5y1_cplx[0]" [label="sw1.pp1_sw1.x5y1_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y1[0]/sw1.pp1_sw1.x5y1_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -411,12 +411,12 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw1.x6y0.gainx" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x7y0[0]" [label="sw1.x7y0",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw1.x0y6.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y7[0]" [label="sw1.x0y7",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y0[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x6y0.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y0[0]/sw1.pp1_sw1.x6y0_cplx[0]" [label="sw1.pp1_sw1.x6y0_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y0[0]/sw1.pp1_sw1.x6y0_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -432,7 +432,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y0[0]" [label="sw1.x6y0",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y6[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x1y6.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y6[0]/sw1.pp1_sw1.x1y6_cplx[0]" [label="sw1.pp1_sw1.x1y6_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y6[0]/sw1.pp1_sw1.x1y6_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -448,7 +448,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y1[0]" [label="sw1.x5y1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x2y5.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y5[0]/sw1.pp1_sw1.x2y5_cplx[0]" [label="sw1.pp1_sw1.x2y5_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y5[0]/sw1.pp1_sw1.x2y5_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -464,7 +464,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y2[0]" [label="sw1.x4y2",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y4[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x3y4.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y4[0]/sw1.pp1_sw1.x3y4_cplx[0]" [label="sw1.pp1_sw1.x3y4_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y4[0]/sw1.pp1_sw1.x3y4_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -480,7 +480,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x3y3[0]" [label="sw1.x3y3",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y3[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x4y3.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y3[0]/sw1.pp1_sw1.x4y3_cplx[0]" [label="sw1.pp1_sw1.x4y3_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x4y3[0]/sw1.pp1_sw1.x4y3_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -496,7 +496,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x2y4[0]" [label="sw1.x2y4",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y2[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x5y2.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y2[0]/sw1.pp1_sw1.x5y2_cplx[0]" [label="sw1.pp1_sw1.x5y2_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x5y2[0]/sw1.pp1_sw1.x5y2_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -512,7 +512,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x1y5[0]" [label="sw1.x1y5",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x6y1.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y1[0]/sw1.pp1_sw1.x6y1_cplx[0]" [label="sw1.pp1_sw1.x6y1_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y1[0]/sw1.pp1_sw1.x6y1_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -523,12 +523,12 @@ digraph system {
 "sw1.x7y0.loose_x" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y0[0]" [label="sw1.x6y0",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x[0]" [label="sw1.x",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y7[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y7[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "sw1.x0y7.loose_y" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x0y6[0]" [label="sw1.x0y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.y[0]" [label="sw1.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x7y0[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x7y0.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x7y0[0]/sw1.pp1_sw1.x7y0_cplx[0]" [label="sw1.pp1_sw1.x7y0_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x7y0[0]/sw1.pp1_sw1.x7y0_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -536,7 +536,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="sw1.PP1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x6y1[0]" [label="sw1.x6y1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw1.x.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x[0]/sw1.pp1_sw1.x_cplx[0]" [label="sw1.pp1_sw1.x_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.x[0]/sw1.pp1_sw1.x_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -552,13 +552,13 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.I1P_[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sync" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.I1P[0]" [label="sw2.I1P",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "reac_inactivate_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.I1PPP1[0]" [label="sw2.I1PPP1",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "reac_0to1_6" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y5[0]" [label="sw2.x1y5",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y7[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y7[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "reac_0to1_7" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y6[0]" [label="sw2.x1y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -594,7 +594,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "phospho_x6y1_x7y0" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x7y0[0]" [label="sw2.x7y0",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw2.x0y6.gainx" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y6[0]" [label="sw2.x1y6",shape=circle,diffConst="0"]; 	
@@ -611,7 +611,7 @@ digraph system {
 "sw2.x5y1.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y2[0]" [label="sw2.x5y2",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x1y5.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y5[0]/sw2.pp1_sw2.x1y5_cplx[0]" [label="sw2.pp1_sw2.x1y5_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y5[0]/sw2.pp1_sw2.x1y5_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -627,7 +627,7 @@ digraph system {
 "sw2.x4y2.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y3[0]" [label="sw2.x4y3",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y4[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x2y4.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y4[0]/sw2.pp1_sw2.x2y4_cplx[0]" [label="sw2.pp1_sw2.x2y4_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y4[0]/sw2.pp1_sw2.x2y4_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -643,7 +643,7 @@ digraph system {
 "sw2.x3y3.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y4[0]" [label="sw2.x3y4",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y3[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x3y3.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y3[0]/sw2.pp1_sw2.x3y3_cplx[0]" [label="sw2.pp1_sw2.x3y3_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y3[0]/sw2.pp1_sw2.x3y3_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -659,7 +659,7 @@ digraph system {
 "sw2.x2y4.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y5[0]" [label="sw2.x2y5",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y2[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x4y2.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y2[0]/sw2.pp1_sw2.x4y2_cplx[0]" [label="sw2.pp1_sw2.x4y2_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y2[0]/sw2.pp1_sw2.x4y2_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -675,7 +675,7 @@ digraph system {
 "sw2.x1y5.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y6[0]" [label="sw2.x1y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x5y1.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y1[0]/sw2.pp1_sw2.x5y1_cplx[0]" [label="sw2.pp1_sw2.x5y1_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y1[0]/sw2.pp1_sw2.x5y1_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -686,12 +686,12 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw2.x6y0.gainx" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x7y0[0]" [label="sw2.x7y0",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "sw2.x0y6.gainy" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y7[0]" [label="sw2.x0y7",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y0[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x6y0.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y0[0]/sw2.pp1_sw2.x6y0_cplx[0]" [label="sw2.pp1_sw2.x6y0_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y0[0]/sw2.pp1_sw2.x6y0_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -707,7 +707,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y0[0]" [label="sw2.x6y0",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y6[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x1y6.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y6[0]/sw2.pp1_sw2.x1y6_cplx[0]" [label="sw2.pp1_sw2.x1y6_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y6[0]/sw2.pp1_sw2.x1y6_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -723,7 +723,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y1[0]" [label="sw2.x5y1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y5[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x2y5.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y5[0]/sw2.pp1_sw2.x2y5_cplx[0]" [label="sw2.pp1_sw2.x2y5_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y5[0]/sw2.pp1_sw2.x2y5_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -739,7 +739,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y2[0]" [label="sw2.x4y2",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y4[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x3y4.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y4[0]/sw2.pp1_sw2.x3y4_cplx[0]" [label="sw2.pp1_sw2.x3y4_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y4[0]/sw2.pp1_sw2.x3y4_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -755,7 +755,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x3y3[0]" [label="sw2.x3y3",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y3[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x4y3.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y3[0]/sw2.pp1_sw2.x4y3_cplx[0]" [label="sw2.pp1_sw2.x4y3_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x4y3[0]/sw2.pp1_sw2.x4y3_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -771,7 +771,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x2y4[0]" [label="sw2.x2y4",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y2[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x5y2.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y2[0]/sw2.pp1_sw2.x5y2_cplx[0]" [label="sw2.pp1_sw2.x5y2_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x5y2[0]/sw2.pp1_sw2.x5y2_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -787,7 +787,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x1y5[0]" [label="sw2.x1y5",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y1[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x6y1.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y1[0]/sw2.pp1_sw2.x6y1_cplx[0]" [label="sw2.pp1_sw2.x6y1_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y1[0]/sw2.pp1_sw2.x6y1_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -798,12 +798,12 @@ digraph system {
 "sw2.x7y0.loose_x" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y0[0]" [label="sw2.x6y0",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x[0]" [label="sw2.x",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y7[0]" [label="",shape=circle,diffConst="0",init="2.500000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y7[0]" [label="",shape=circle,diffConst="0",init="1.333333"]; 	
 "sw2.x0y7.loose_y" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x0y6[0]" [label="sw2.x0y6",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="sw2.y",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x7y0[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x7y0.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x7y0[0]/sw2.pp1_sw2.x7y0_cplx[0]" [label="sw2.pp1_sw2.x7y0_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x7y0[0]/sw2.pp1_sw2.x7y0_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -811,7 +811,7 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="sw2.PP1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x6y1[0]" [label="sw2.x6y1",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "sw2.x.add_pp1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x[0]/sw2.pp1_sw2.x_cplx[0]" [label="sw2.pp1_sw2.x_cplx",shape=circle,diffConst="0"]; 	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.x[0]/sw2.pp1_sw2.x_cplx[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
@@ -842,13 +842,13 @@ digraph system {
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.y[0]" [label="",shape=circle,diffConst="0",init="0.000000"]; 	
 "diff_y" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.y[0]" [label="sw0.y",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "diff_PP1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="sw1.PP1",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw1[0]/sw1.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "diff_PP1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="sw2.PP1",shape=circle,diffConst="0"]; 	
-"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="60.000000"]; 	
+"/model[0]/camkii_pp1_0[0]/sw2[0]/sw2.PP1[0]" [label="",shape=circle,diffConst="0",init="33.333333"]; 	
 "diff_PP1" [label="", shape=rect];	
 "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.PP1[0]" [label="sw0.PP1",shape=circle,diffConst="0"]; 
 	"/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.I1P_[0]" -> "sync" -> "/model[0]/camkii_pp1_0[0]/sw0[0]/sw0.I1P[0]"
