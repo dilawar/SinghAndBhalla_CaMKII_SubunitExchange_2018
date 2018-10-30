@@ -1,6 +1,7 @@
 language: c
+sudo : enabled
 
-before-script:
+before_install:
     - sudo apt install textlive-full
     - sudo apt install gnuplot lualatex
     - sudo apt install python-pandas python-scipy python-scipy 
