@@ -44,7 +44,7 @@ def find_diff_vals( f ):
 
 def main( ):
     print( '[INFO] Processing state distribution' )
-    fs = glob.glob( './Dsub*_processed*.dat' )
+    fs = glob.glob( './Dsub*_processed.dat' )
     files = [ ]
     for f in fs:
         d = find_diff_vals( f )

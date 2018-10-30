@@ -7,9 +7,10 @@ find_package(PythonInterp REQUIRED)
 set( NUMBER_OF_CAMKII 8 )
 set( NUM_VOXELS 4 )
 set( NUMBER_OF_PP1 100 )
+set( VOXEL_LENGTH 125e-9 )
 
 # Run time in days.
-set( RUN_TIME 10 )
+set( RUN_TIME 5 )
 
 # Move all python files into current directory.
 file( GLOB MY_PYTHON_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/*.py" )
@@ -60,6 +61,8 @@ foreach( _diff_const 1e-12 3e-13 1e-13 3e-14 1e-14 3e-15 1e-15 3e-16 1e-16)
                 --camkii ${NUMBER_OF_CAMKII} 
                 --pp1 ${NUMBER_OF_PP1}
                 --diff-dict "${DIFFUSION_DICT}"
+                --num-voxels ${NUM_VOXELS}
+                --voxel-length ${VOXEL_LENGTH}
                 --enable-subunit-exchange
                 --outfile ${DATAFILE}
                 --simtime ${RUN_TIME}

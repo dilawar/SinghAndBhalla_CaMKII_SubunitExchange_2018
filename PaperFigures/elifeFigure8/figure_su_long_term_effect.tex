@@ -119,18 +119,9 @@
             {
                 \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++#1--'y'++#1--'PP1'++\D}+N-6.dat_processed.dat"}
 
-                % \addplot+ [no marks, color=\clr, opacity=0.4, forget plot ]
-                    % gnuplot[raw gnuplot] {
-                        % plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
-                % };
-
                 \addplot+ [no marks] gnuplot[raw gnuplot] {
                         plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
                 };
-
-                % \addplot+ [no marks, prefix=trajs, id=\D, very thick] shell {
-                        % python ./preprocess_data.py \FILENAME
-                    % };
                 \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
                 \edef\temp{\noexpand\addlegendentry{ 
                     \noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
@@ -153,7 +144,7 @@
                     , view={0}{90}
                     , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
                     , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
-                    , title={Avg Active CaMKII (\SUB{N}{CaMKII}=8)}
+                    , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
                     , title style={at={(0,1.25)}, anchor=south west
                         , text width=\plotW cm}, font=\footnotesize
                     , width=\plotW cm
@@ -170,19 +161,20 @@
                             , at={(0,1.25)}
                         }
                     ]
-                    \addplot3 [surf, mesh/cols=10] table
+                    \addplot3 [surf, mesh/cols=9] table
                         [col sep=comma
                         , x expr=(\thisrow{Dpp1}*1e12)
                         , y expr=(\thisrow{Dsub}*1e12)
                         , z expr={\thisrow{Avg CaMKII}}
-                        ]{./data_fig_sync_camkii_8.csv};
+                        ]{./data_fig_sync_camkii_6.csv};
 
                     \addplot3 [ only marks, mark=*
+                        , mesh/cols=9
                         ] table [ col sep=comma
                         , x expr={\thisrow{Dpp1}*1e12}
                         , y expr={\thisrow{Dsub}*1e12}
                         , z expr={\thisrow{is_bistable}==0?nan:1}
-                        ]{./data_fig_sync_camkii_8.csv};
+                        ]{./data_fig_sync_camkii_6.csv};
 
                 \end{loglogaxis}
                 \node[xshift=-3mm, yshift=0mm] at (current bounding box.north west) 
