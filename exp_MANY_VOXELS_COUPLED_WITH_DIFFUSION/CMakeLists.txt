@@ -3,11 +3,13 @@ project(CaMKII_PP1_Switch LANGUAGES NONE)
 find_package(PythonInterp REQUIRED)
 
 # Parameters. See ./reference_system_in_1_voxel.sh for paramters used in
-# reference system which is well mixed i.e. only 1 voxel.
-set( NUMBER_OF_CAMKII 8 )
-set( NUM_VOXELS 4 )
-set( NUMBER_OF_PP1 100 )
-set( VOXEL_LENGTH 125e-9 )
+# reference system which is well mixed.
+set( NUMBER_OF_CAMKII 6 )
+set( NUM_VOXELS 3 )
+set( NUMBER_OF_PP1 160 )
+
+# Each camkii is 30nm away. 2 CaMKII in 1 voxels means length is 60nm.
+set( VOXEL_LENGTH 180e-9 )
 
 # Run time in days.
 set( RUN_TIME 5 )
