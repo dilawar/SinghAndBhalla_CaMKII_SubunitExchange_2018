@@ -1,0 +1,10 @@
+language: c
+
+before-script:
+    - sudo apt install textlive-full
+    - sudo apt install gnuplot lualatex
+    - sudo apt install python-pandas python-scipy python-scipy 
+    - sudo apt install latexmk
+
+script:
+    - make
