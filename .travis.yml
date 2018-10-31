@@ -1,5 +1,8 @@
 language: c
 sudo : enabled
+addons:
+    apt:
+        update : true
 
 before_install:
     - sudo apt install texlive-full
