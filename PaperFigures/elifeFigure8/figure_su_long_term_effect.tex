@@ -74,7 +74,7 @@
 
             \pgfplotsforeachungrouped \D/\clr in {#2}
             {
-                \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++\D--'y'++\D--'PP1'++#1}+N-6.dat_processed.dat"}
+                \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/test-Dsub-\D+Dpp-#1.single.dat_processed.dat"}
                 \addplot+ [no marks] gnuplot[raw gnuplot] {
                     plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
                 };
@@ -117,7 +117,7 @@
             ]
             \pgfplotsforeachungrouped \D/\clr in {#2}
             {
-                \edef\FILENAME{"./DATA_CaMKII_SIZE6/CaM-6+PP-420+D-{'x'++#1--'y'++#1--'PP1'++\D}+N-6.dat_processed.dat"}
+                \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/test-Dsub-#1+Dpp-\D.single.dat_processed.dat"}
 
                 \addplot+ [no marks] gnuplot[raw gnuplot] {
                         plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
@@ -132,10 +132,10 @@
 }
 
 \begin{tikzpicture}[scale=1 , every node/.style={} ]
-    \node (a) { \PlotTraceFixedDPP{5e-13}{5e-15/blue,5e-14/red,5e-13/black}{A} };
+    \node (a) { \PlotTraceFixedDPP{5e-13}{1e-15/blue,1e-14/red,1e-13/black}{A} };
 
     \node[below=-1mm of a.south east, anchor=north east] (b) 
-        {\PlotTraceFixedDSub{5e-13}{5e-15/blue,5e-14/red,5e-13/black}{B}};
+        {\PlotTraceFixedDSub{5e-13}{1e-16/blue,5e-14/red,5e-13/black}{B}};
 
     \node[right=0mm of a.north east, anchor=north west] (c) {
             \begin{tikzpicture}[]
