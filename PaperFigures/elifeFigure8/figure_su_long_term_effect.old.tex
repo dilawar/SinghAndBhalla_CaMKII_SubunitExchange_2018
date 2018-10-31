@@ -3,7 +3,7 @@
 % CaMKII activation spread due to SU.
 \RequirePackage{luatex85,shellesc}
 \RequirePackage{etex}
-\documentclass[10pt,varwidth=140mm,class=../elife]{standalone}
+\documentclass[10pt,varwidth=130mm,class=../elife]{standalone}
 \usepackage{tikz}
 \usetikzlibrary{arrows,arrows.meta}
 \usepackage{siunitx}
@@ -16,7 +16,7 @@
 \usepackage{etextools}
 
 % dimensions
-\pgfmathsetmacro{\figW}{14} 
+\pgfmathsetmacro{\figW}{13} 
 \pgfmathsetmacro{\colW}{\figW/2}
 \pgfmathsetmacro{\plotW}{\figW/2.2}
 \def\plotH{2.5}
@@ -103,64 +103,41 @@
         \end{axis}
     \end{tikzpicture}
 }
-\newcommand\PlotTrace[5]{%Dsub, DPP1, index, extra, clr
-    % \def\plotH{2.2}
-    \pgfmathsetmacro\YS{18*#3}
-    \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/test-Dsub-#1+Dpp-#2.single.dat_processed.dat"}
-    \begin{axis}[name=plot#3
-        , yshift=-\YS mm
-        , width=0.85*\plotW cm, height=\plotH cm
-        , legend style={font=\tiny, at={(1,0.9)}, anchor=south east}
-        , ymax=6
-        , xtick=\empty
-        , #4
-        ]
-        \addplot [no marks, color=#5] gnuplot[raw gnuplot] {
-                plot \FILENAME using (column("time")/3600):"CaMKII*" every 1;
-        };
-        \edef\DPP{\directlua{tex.sprint(#2*1e12)}}
-        \edef\DSUB{\directlua{tex.sprint(#1*1e12)}}
-        \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{sub}=\DSUB,
-            \noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
-    \end{axis}
-    \begin{axis}[
-        at={(plot#3.north east)}, anchor=north west, xshift=1mm
-        , rotate = 90
-        , height=2.5 cm, width=\plotH cm
-        , xtick=\empty
-        , ytick=\empty
-        , axis x line*=top
-        , axis y line*=none
-        , y dir=reverse
-        ]
+\newcommand\PlotTraceFixedDSub[3]{%Dsub, DPP1, label
+    \edef\DSUB{\directlua{tex.sprint(#1*1e12)}}
+    \begin{tikzpicture}[baseline]
+        \begin{axis}[
+            xlabel=Time, x unit=\si{\hour}
+            , ylabel=Active CaMKII
+            , width=\plotW cm, height=\plotH cm
+            , legend style={font=\tiny, at={(0,0.9)}, anchor=south west}
+            , legend columns = 2
+            , title={\SUB{D}{sub}=\SI{\DSUB}{\micro\meter\squared\per\second}}
+            , title style={font=\small, at={(0.5,1.4)}, anchor=south}
+            ]
+            \pgfplotsforeachungrouped \D/\clr in {#2}
+            {
+                \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/test-Dsub-#1+Dpp-\D.single.dat_processed.dat"}
 
-        \addplot [ybar, bar width=2pt, draw=none, fill=#5, no marks 
-        ] gnuplot[raw gnuplot] {
-            stats \FILENAME using "CaMKII*" prefix "A";
-            bin(x,width)=width*floor(x/width);
-            plot \FILENAME using (bin(column("CaMKII*"),1)):(1.0) smooth freq with boxes;
-        };
-
-    \end{axis}
+                \addplot+ [no marks] gnuplot[raw gnuplot] {
+                        plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
+                };
+                \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
+                \edef\temp{\noexpand\addlegendentry{ 
+                    \noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+            }
+        \end{axis}
+        \node[yshift=0mm, xshift=-3mm] at  (current bounding box.north west) {\bf \normalsize #3};
+    \end{tikzpicture}
 }
 
 \begin{tikzpicture}[scale=1 , every node/.style={} ]
     \node (a) { \PlotTraceFixedDPP{5e-13}{1e-15/blue,1e-14/red,1e-13/black}{A} };
-    \node[right=-3mm of a.north east, anchor=north west] (b) {
-        \begin{tikzpicture}
-            \edef\DSUB{5e-13}
-            \PlotTrace{\DSUB}{1e-14}{0}{}{red}
-            \PlotTrace{\DSUB}{5e-13}{1}{}{black}
-            \PlotTrace{\DSUB}{1e-13}{2}{}{blue}
-            \PlotTrace{1e-13}{1e-13}{3}{xtick={0,100,200}
-                , xlabel=Time, x unit=h
-                , ylabel=Active CaMKII
-                , ylabel style={xshift=2cm}
-            }{blue}
-            \node[above=-3mm of current bounding box.north west] {\bf B};
-        \end{tikzpicture}
-    };
-    \node[right=0mm of a.south west, anchor=north west] (c) {
+
+    \node[below=-1mm of a.south east, anchor=north east] (b) 
+        {\PlotTraceFixedDSub{5e-13}{1e-16/blue,5e-14/red,5e-13/black}{B}};
+
+    \node[right=0mm of a.north east, anchor=north west] (c) {
             \begin{tikzpicture}[]
                 \pgfplotsset{axis lines*=box}
                 \begin{loglogaxis}[ name=c2
@@ -170,7 +147,7 @@
                     , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
                     , title style={at={(0,1.25)}, anchor=south west
                         , text width=\plotW cm}, font=\footnotesize
-                    , width=0.75*\plotW cm
+                    , width=\plotW cm
                     , enlargelimits=true
                     , unbounded coords=jump
                     % , ytick={0.01,1}
@@ -202,7 +179,8 @@
                     {\bf \normalsize C};
             \end{tikzpicture}
         };
-\end{tikzpicture}
+\end{tikzpicture}	
+
 
 \end{document}
 
