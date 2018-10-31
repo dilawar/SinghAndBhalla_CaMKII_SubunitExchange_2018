@@ -182,7 +182,7 @@
                             , at={(0,1.25)}
                         }
                     ]
-                    \addplot3 [surf, mesh/cols=9] table
+                    \addplot3 [surf, mesh/cols=10] table
                         [col sep=comma
                         , x expr=(\thisrow{Dpp1}*1e12)
                         , y expr=(\thisrow{Dsub}*1e12)
@@ -190,7 +190,7 @@
                         ]{./data_fig_sync_camkii_6.csv};
 
                     \addplot3 [ only marks, mark=*
-                        , mesh/cols=9
+                        , mesh/cols=10
                         ] table [ col sep=comma
                         , x expr={\thisrow{Dpp1}*1e12}
                         , y expr={\thisrow{Dsub}*1e12}
