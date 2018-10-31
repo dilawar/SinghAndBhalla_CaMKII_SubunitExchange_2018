@@ -2,7 +2,7 @@ language: c
 sudo : enabled
 
 before_install:
-    - sudo apt install textlive-full
+    - sudo apt install texlive-full
     - sudo apt install gnuplot lualatex
     - sudo apt install python-pandas python-scipy python-scipy 
     - sudo apt install latexmk

@@ -929,15 +929,15 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
     \includegraphics[width=12cm]{./PaperFigures/elifeFigure8/figure_su_long_term_effect.pdf}
     \caption{Method validation. \SUB{N}{CaMKII}=6 holoenzymes as described in
         \FIG{subunit_facilitates_spread} were simulated in a cylindrical arena 
-        divided into 6 voxels separated by \SI{30}{\nano\meter}. Basal \gls{ca} 
-        was fixed to \SI{100}{\nano M}+$\epsilon$.  
+        with volume \SI{1e-21}{\cubic\meter}, divided into 3 equal voxels separated by 
+        \SI{30}{\nano\meter}. Basal \gls{ca} was fixed to \SI{100}{\nano M}+$\epsilon$.  
         %
         \textbf{(A, above)} For fixed 
-        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, varying
+        \SUB{D}{PP1}=\SI{0.1}{\micro\meter\squared\per\second}, varying
         \SUB{D}{sub} did not affect average \gls{camkii} activity. 
         \textbf{(A, below)} Reference system for comparison. 6 holoenzyme 
-        were simulated in a single well-mixed cylinder of same length 
-        and volume, and with same parameter values as above.
+        were simulated in a single well-mixed cylinder of same volume, and 
+        with same parameter values as above.
         %
         \textbf{(B)} On the other hand, for fixed
         \SUB{D}{sub}=\SI{0.5}{\micro\meter\squared\per\second} , increased
@@ -953,7 +953,9 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
         Black dots represent bistable configurations with at least 4 transitions 
         observed in a simulation lasting 5 days. Thus the spatially extended, 
         discretized system converged to the behaviour of the reference bistable
-        system (A, below). 
+        system (A, below). This convergence is lost for smaller volumes due to
+        increased stochastic effect e.g. when cylinder was
+        divided into 6 or 12 equal voxels (data not shown).
     }\label{fig:method_validation} 
 
     % suppl
