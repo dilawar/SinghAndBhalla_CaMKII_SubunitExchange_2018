@@ -1,14 +1,17 @@
 language: c
 sudo : enabled
+dist: xenial
+group: travis_latest
+
 addons:
     apt:
         update : true
 
 before_install:
-    - sudo apt install texlive-full
-    - sudo apt install gnuplot lualatex
+    - sudo apt install --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-latex-recommended dvipng
+    - sudo apt install gnuplot texlive-luatex
     - sudo apt install python-pandas python-scipy python-scipy 
     - sudo apt install latexmk
 
 script:
-    - make
+    - make -B

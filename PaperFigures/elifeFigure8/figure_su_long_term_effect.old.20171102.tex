@@ -1,0 +1,208 @@
+% IMP NOTE: Monday 09 July 2018 05:34:36 PM IST.
+% - In data, what I call Dxy has been replaced by Dsub in text.
+% CaMKII activation spread due to SU.
+\RequirePackage{luatex85,shellesc}
+\RequirePackage{etex}
+\documentclass[10pt,varwidth=140mm,class=../elife]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,arrows.meta}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\usepgfplotslibrary{units}
+\usetikzlibrary{calc,positioning,fit,shapes}
+\usepackage{xstring}
+
+% For indexing color list.
+\usepackage{etextools}
+
+% dimensions
+\pgfmathsetmacro{\figW}{14} 
+\pgfmathsetmacro{\colW}{\figW/2}
+\pgfmathsetmacro{\plotW}{\figW/2.2}
+\def\plotH{2.5}
+
+\newcommand\SUB[2]{#1\textsubscript{#2}}
+\newcommand\SUP[2]{#1\textsuperscript{#2}}
+
+\begin{document}
+
+\pgfplotsset{
+    % , compat=1.15
+    , xtick align=center
+    , ytick align=center
+    , unit markings=parenthesis
+    , legend style={fill=none,draw=none, align=left}
+    , tick label style={font=\scriptsize}
+    , axis lines=left
+    , enlargelimits=true
+    , unbounded coords=discard   % silently ignore points
+    , filter discard warning=false
+    , error bars/error bar style={opacity=0.3,}
+    , axis line style={-}
+    , legend cell align=left
+    , ylabel near ticks
+    , xlabel near ticks
+    , label style={font=\footnotesize}
+}
+
+% This is from here https://tex.stackexchange.com/a/210259/8087
+\pgfplotsset{
+    legend image code/.code={
+    \draw[mark repeat=2,mark phase=2]
+        plot coordinates {(0cm,0cm) (0.15cm,0cm) (0.3cm,0cm)};
+    }
+}
+
+% Controls the stretch in which free subunits are drawn.
+% Controls the size of subunits.
+\edef\SUSIZE{0.12}
+\edef\CylWidth{15}
+
+% reduce the size of legend line.
+\newcommand\PlotTraceFixedDPP[3]{%DPP1, Dsubs, label
+    \edef\DPP{\directlua{tex.sprint(#1*1e12)}}
+    \begin{tikzpicture}[baseline]
+        \begin{axis}[
+            , ylabel=Active CaMKII
+            , ylabel style={xshift=-8mm}
+            , width=\plotW cm, height=\plotH cm
+            , legend style={font=\tiny, at={(0,0.9)}, anchor=south west}
+            , legend columns = 2
+            , title={\SUB{D}{PP1}=\SI{\DPP}{\micro\meter\squared\per\second}}
+            , title style={font=\footnotesize, at={(0.5,1.45)}, anchor=south}
+            ]
+
+            \pgfplotsforeachungrouped \D/\clr in {#2}
+            {
+                \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/test-Dsub-\D+Dpp-#1.single.dat_processed.dat"}
+                \addplot+ [no marks] gnuplot[raw gnuplot] {
+                    plot \FILENAME using (column("time")/3600):"CaMKII*" every 10;
+                };
+
+                \edef\DPP{\directlua{tex.sprint(\D*1e12)}}
+                \edef\temp{\noexpand\addlegendentry{
+                    \noexpand\SUB{D}{sub}=\noexpand\SI{
+                        \DPP}{\micro\meter\squared\per\second}
+                }}\temp
+            }
+        \end{axis}
+        \node[yshift=0mm, xshift=-3mm] at (current bounding box.north west) {\bf \normalsize #3};
+
+        % reference plot below it.
+        \begin{axis}[ 
+            xlabel=Time, x unit=h
+            , yshift=-16 mm
+            , width=\plotW cm, height=\plotH cm
+            , legend style={font=\tiny, at={(0,0.85)}, anchor=south west}
+        ]
+            \addplot [color=blue] gnuplot [ raw gnuplot ] {
+                plot "./ref_CaM-6+PP-80+N-1+L-180e-9+SU-ON+D-1e-13.dat_processed.dat" 
+                using (column("time")/3600):"CaMKII*" every 10;
+            };
+        \addlegendentry{(Ref), \SUB{N}{voxel}=1};
+        \end{axis}
+    \end{tikzpicture}
+}
+\newcommand\PlotTrace[5]{%Dsub, DPP1, index, extra, clr
+    % \def\plotH{2.2}
+    \pgfmathsetmacro\YS{18*#3}
+    \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/test-Dsub-#1+Dpp-#2.single.dat_processed.dat"}
+    \begin{axis}[name=plot#3
+        , yshift=-\YS mm
+        , width=0.85*\plotW cm, height=\plotH cm
+        , legend style={font=\tiny, at={(1,0.9)}, anchor=south east}
+        , ymax=6
+        , xtick=\empty
+        , #4
+        ]
+        \addplot [no marks, color=#5] gnuplot[raw gnuplot] {
+                plot \FILENAME using (column("time")/3600):"CaMKII*" every 1;
+        };
+        \edef\DPP{\directlua{tex.sprint(#2*1e12)}}
+        \edef\DSUB{\directlua{tex.sprint(#1*1e12)}}
+        \edef\temp{\noexpand\addlegendentry{\noexpand\SUB{D}{sub}=\DSUB,
+            \noexpand\SUB{D}{PP1}=\noexpand\SI{\DPP}{\micro\meter\squared\per\second}}}\temp
+    \end{axis}
+    \begin{axis}[
+        at={(plot#3.north east)}, anchor=north west, xshift=1mm
+        , rotate = 90
+        , height=2.5 cm, width=\plotH cm
+        , xtick=\empty
+        , ytick=\empty
+        , axis x line*=top
+        , axis y line*=none
+        , y dir=reverse
+        ]
+
+        \addplot [ybar, bar width=2pt, draw=none, fill=#5, no marks 
+        ] gnuplot[raw gnuplot] {
+            stats \FILENAME using "CaMKII*" prefix "A";
+            bin(x,width)=width*floor(x/width);
+            plot \FILENAME using (bin(column("CaMKII*"),1)):(1.0) smooth freq with boxes;
+        };
+
+    \end{axis}
+}
+
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+    \node (a) { \PlotTraceFixedDPP{5e-13}{1e-15/blue,1e-14/red,1e-13/black}{A} };
+    \node[right=-3mm of a.north east, anchor=north west] (b) {
+        \begin{tikzpicture}
+            \edef\DSUB{5e-13}
+            \PlotTrace{\DSUB}{1e-14}{0}{}{red}
+            \PlotTrace{\DSUB}{5e-13}{1}{}{black}
+            \PlotTrace{\DSUB}{1e-13}{2}{}{blue}
+            \PlotTrace{1e-13}{1e-13}{3}{xtick={0,100,200}
+                , xlabel=Time, x unit=h
+                , ylabel=Active CaMKII
+                , ylabel style={xshift=2cm}
+            }{blue}
+            \node[above=-3mm of current bounding box.north west] {\bf B};
+        \end{tikzpicture}
+    };
+    \node[right=0mm of a.south west, anchor=north west] (c) {
+            \begin{tikzpicture}[]
+                \pgfplotsset{axis lines*=box}
+                \begin{loglogaxis}[ name=c2
+                    , view={0}{90}
+                    , xlabel= \SUB{D}{PP1}, x unit=\si{\micro\meter\squared\per\second}
+                    , ylabel = \SUB{D}{sub}, y unit=\si{\micro\meter\squared\per\second}
+                    , title={Avg Active CaMKII (\SUB{N}{CaMKII}=6)}
+                    , title style={at={(0,1.25)}, anchor=south west
+                        , text width=\plotW cm}, font=\footnotesize
+                    , width=0.75*\plotW cm
+                    , enlargelimits=true
+                    , unbounded coords=jump
+                    % , ytick={0.01,1}
+                    , yticklabel style={rotate=90}
+                    , label style={font=\footnotesize}
+                    , colorbar horizontal
+                    , colorbar style={
+                            ,height=1.8mm, anchor=north west
+                            , at={(0,1.25)}
+                        }
+                    ]
+                    \addplot3 [surf, mesh/cols=10] table
+                        [col sep=comma
+                        , x expr=(\thisrow{Dpp1}*1e12)
+                        , y expr=(\thisrow{Dsub}*1e12)
+                        , z expr={\thisrow{Avg CaMKII}}
+                        ]{./data_fig_sync_camkii_6.csv};
+
+                    \addplot3 [ only marks, mark=*
+                        , mesh/cols=10
+                        ] table [ col sep=comma
+                        , x expr={\thisrow{Dpp1}*1e12}
+                        , y expr={\thisrow{Dsub}*1e12}
+                        , z expr={\thisrow{is_bistable}==0?nan:1}
+                        ]{./data_fig_sync_camkii_6.csv};
+
+                \end{loglogaxis}
+                \node[xshift=-3mm, yshift=0mm] at (current bounding box.north west) 
+                    {\bf \normalsize C};
+            \end{tikzpicture}
+        };
+\end{tikzpicture}
+
+\end{document}
+
