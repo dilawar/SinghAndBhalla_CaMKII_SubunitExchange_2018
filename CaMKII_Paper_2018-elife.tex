@@ -917,13 +917,14 @@ discretized into 6 voxels, separated by a distance of \SI{30}{\nano\meter}. The
 long-term behaviour of discretized system was most sensitive to \SUB{D}{PP1}
 (\FIG{method_validation}B) and almost independent of \SUB{D}{sub}
 (\FIG{method_validation}A). The discretized system converges to reference
-bistable (\FIG{method_validation}C, black dots). The sensitivity of \SUB{D}{PP1}
-is due to the fact that long-time average potency of \gls{pp1} reduced with
+bistable for \SUB{D}{PP1} $\gt$ \SI{0.5}{\micro\meter\squared\per\second}
+(\FIG{method_validation}C). For very high values of \SUB{D}{PP1}, the system
+diverged from well-mixed system again because potency of \gls{pp1} reduced with
 increased \SUB{D}{PP1}
 (\FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}) which led to
 decreased average \gls{pp1} activity and hence increased average \gls{camkii}
-activity (\FIG{method_validation}C, red region). This effect is not entirely due
-to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}. 
+activity. This effect is not entirely due to numerical errors as shown in
+\FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}. 
 
 \begin{figure}[ht!]
     \includegraphics[width=12cm]{./PaperFigures/elifeFigure8/figure_su_long_term_effect.pdf}
@@ -932,28 +933,36 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
         divided into 6 voxels separated by \SI{30}{\nano\meter}. Basal \gls{ca} 
         was fixed to \SI{100}{\nano M}+$\epsilon$.  
         %
-        \textbf{(A, above)} For fixed 
-        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, varying
-        \SUB{D}{sub} did not affect average \gls{camkii} activity. 
-        \textbf{(A, below)} Reference system for comparison. 6 holoenzyme 
+        \textbf{(A, above)} For a typical value of \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} 
+        used in our model, varying \SUB{D}{sub} did not result in lost of
+        bistability of \gls{camkii} activity.
+        \textbf{(A, below)} Reference well-mixed system for comparison. 6 holoenzyme 
         were simulated in a single well-mixed cylinder of same length 
         and volume, and with same parameter values as above.
         %
-        \textbf{(B)} On the other hand, for fixed
-        \SUB{D}{sub}=\SI{0.5}{\micro\meter\squared\per\second} , increased
-        \SUB{D}{PP1}, increased the average \gls{camkii} activity. We obtained 
-        a bistable trajectory (red, switching between high and low levels of 
-        active CaMKII) which was similar to the behaviour of the reference bistable
-        system. 
+        \textbf{(B)} Cumulative histograms of \gls{camkii} activity for
+        various of values of \SUB{D}{PP1} and \SUB{D}{sub}
+        (unit \si{\micro\meter\squared\per\second}). The red and blue lines
+        represent spatially discretized and well-mixed reference system (shown
+        in A, black) respectively. Spatially discretized system (red) converges to
+        well-mixed system (blue) for higher \SUB{D}{PP1} values.
+        For fixed value of \SUB{D}{PP1}, changing \SUB{D}{sub} has little or no
+        effect on convergence. The convergence is sensitive to \SUB{D}{PP1}
+        because \gls{pp1} is involved in bimolecular reactions and bimolecular
+        reaction does not converge to well-mixed case
+        \citep{isaacson_reaction-diffusion_2009}. For a typical value of
+        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, the system shows
+        reasonable convergence (second row, also see \textbf{A}).
         %
-        \textbf{(C)} Phase plot shows that the activity of the spatially extended 
-        system converges to the that of the reference bistable system (black dots). 
-        The long time average of \Gls{camkii} activity (simulation time=10 days) 
-        was independent of \SUB{D}{sub}, and only depended on \SUB{D}{PP1}.
-        Black dots represent bistable configurations with at least 4 transitions 
-        observed in a simulation lasting 10 days. Thus the spatially extended, 
-        discretized system converged to the behaviour of the reference bistable
-        system (A, below).
+        \textbf{(C)} Quantification of convergence to well-mixed case. We used
+        Kullback-Leibler divergence (relative entropy) to quantify the
+        similarity between two histogram. Two identical histograms will have
+        zero Kullback-Leibler divergence. Phase plot shows Kullback-Leibler
+        divergence of two histograms -- the spatially extended system and the
+        reference bistable system. Black dots represent bistable configurations
+        with at least 4 transitions observed in a simulation lasting 20 days. 
+        Thus the spatially extended, discretized system converged to the behaviour
+        of the reference bistable system.
     }\label{fig:method_validation} 
 
     % suppl

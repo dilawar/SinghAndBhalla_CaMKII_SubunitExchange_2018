@@ -124,15 +124,15 @@
                     % , colorbar horizontal
                     % , colorbar style={height=1.8mm, anchor=north west, at={(0,1.25)}}
                     ]
-                    \addplot3 [surf, mesh/cols=7] table
+                    \addplot3 [surf, mesh/cols=9] table
                         [col sep=comma
                         , x expr=(\thisrow{Dpp}*1e12)
                         , y expr=(\thisrow{Dsub}*1e12)
                         , z expr={\thisrow{KL_divergence}}
-                        ]{./data_fig_sync_camkii_6.csv};
+                        ]{./summary_camkii6.csv};
 
                     \addplot3 [ only marks, mark=*
-                        , mesh/cols=7
+                        , mesh/cols=9
                         ] table [ col sep=comma
                         , x expr={\thisrow{Dpp}*1e12}
                         , y expr={\thisrow{Dsub}*1e12}
