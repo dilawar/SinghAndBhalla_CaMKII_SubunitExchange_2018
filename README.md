@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018.svg?branch=master)](https://travis-ci.org/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018)
-
 # Subunit exchange enhances information retention by CaMKII in dendritic spines
 
 This repository contains model file, instructions to generate data, and some small 

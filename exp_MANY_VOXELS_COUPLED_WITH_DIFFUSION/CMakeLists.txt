@@ -9,24 +9,16 @@ set( NUM_VOXELS 3 )
 set( NUMBER_OF_PP1 160 )
 
 # Each camkii is 30nm away. 2 CaMKII in 1 voxels means length is 60nm.
-set( VOXEL_LENGTH 180e-9 )
+set( VOXEL_LENGTH 60e-9 )
 
 # Run time in days.
-set( RUN_TIME 5 )
-
-# Move all python files into current directory.
-file( GLOB MY_PYTHON_SCRIPTS "${CMAKE_CURRENT_SOURCE_DIR}/*.py" )
-file( COPY ${MY_PYTHON_SCRIPTS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
+set( RUN_TIME 20 )
 
 # ARCHIVAL: Move only valid data to this directory.
 set( ARCHIVE_DIR ${CMAKE_BINARY_DIR}/_data_archive )
 file( MAKE_DIRECTORY ${ARCHIVE_DIR} )
 
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/../camkii_pp1_scheme.py" 
-    DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-set( PYSCRIPT_MODEL ${CMAKE_CURRENT_BINARY_DIR}/camkii_pp1_scheme.py)
-set( PYSCRIPT_PARAMS ${CMAKE_CURRENT_BINARY_DIR}/params.py)
+set( PYSCRIPT_MODEL ${CMAKE_CURRENT_BINARY_DIR}/../camkii_pp1_scheme.py)
 set( PYSCRIPT_ANALYZE ${CMAKE_CURRENT_BINARY_DIR}/analyze.py)
 
 message( STATUS "Timestamp ${TIMESTAMP}" )
@@ -44,8 +36,8 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/_tikz)
 add_custom_target( exp )
 
 # NOTE: 1e-11 is very high value of simulation to show any progress.
-foreach( _diff_const_pp1 1e-12 3e-13 1e-13 3e-14 1e-14 3e-15 1e-15 3e-16 1e-16)
-foreach( _diff_const 1e-12 3e-13 1e-13 3e-14 1e-14 3e-15 1e-15 3e-16 1e-16)
+foreach( _diff_const_pp1 1e-14 2e-14 5e-14 1e-13 2e-13 5e-13 1e-12)
+foreach( _diff_const 1e-15 3e-15 1e-14 3e-14 1e-13 3e-13 1e-12)
     # EXPERIMENT 1: Cause LTP by a calcium pulse and wait for CaMKII activity to go
     # down. See what subunit exchange does to this.
     set( DIFFUSION_DICT "{ 'x':${_diff_const}, 'y':${_diff_const}, 'PP1':${_diff_const_pp1} }")

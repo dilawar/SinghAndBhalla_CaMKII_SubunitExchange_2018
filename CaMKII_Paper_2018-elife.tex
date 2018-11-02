@@ -929,34 +929,31 @@ to numerical errors as shown in \FIGSUPP[method_validation]{diffusion_reduces_pp
     \includegraphics[width=12cm]{./PaperFigures/elifeFigure8/figure_su_long_term_effect.pdf}
     \caption{Method validation. \SUB{N}{CaMKII}=6 holoenzymes as described in
         \FIG{subunit_facilitates_spread} were simulated in a cylindrical arena 
-        with volume \SI{1e-21}{\cubic\meter}, divided into 3 equal voxels separated by 
-        \SI{30}{\nano\meter}. Basal \gls{ca} was fixed to \SI{100}{\nano M}+$\epsilon$.  
+        divided into 6 voxels separated by \SI{30}{\nano\meter}. Basal \gls{ca} 
+        was fixed to \SI{100}{\nano M}+$\epsilon$.  
         %
         \textbf{(A, above)} For fixed 
-        \SUB{D}{PP1}=\SI{0.1}{\micro\meter\squared\per\second}, varying
+        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, varying
         \SUB{D}{sub} did not affect average \gls{camkii} activity. 
         \textbf{(A, below)} Reference system for comparison. 6 holoenzyme 
-        were simulated in a single well-mixed cylinder of same volume, and 
-        with same parameter values as above.
+        were simulated in a single well-mixed cylinder of same length 
+        and volume, and with same parameter values as above.
         %
         \textbf{(B)} On the other hand, for fixed
         \SUB{D}{sub}=\SI{0.5}{\micro\meter\squared\per\second} , increased
-        \SUB{D}{PP1}, increased the average \gls{camkii} activity (red and
-        black). We obtained bistable trajectories (blue) which were switching 
-        between high and low levels of active CaMKII) which was similar to 
-        the behaviour of the reference bistable system for
-        \SUB{D}{PP1}=\SI{0.1}{\micro\meter\squared\per\second}.
+        \SUB{D}{PP1}, increased the average \gls{camkii} activity. We obtained 
+        a bistable trajectory (red, switching between high and low levels of 
+        active CaMKII) which was similar to the behaviour of the reference bistable
+        system. 
         %
         \textbf{(C)} Phase plot shows that the activity of the spatially extended 
         system converges to the that of the reference bistable system (black dots). 
         The long time average of \Gls{camkii} activity (simulation time=10 days) 
         was independent of \SUB{D}{sub}, and only depended on \SUB{D}{PP1}.
-        Black dots represent bistable configurations (histogram of these
-        trajectories has two distinguishable peaks). Thus the spatially extended, 
+        Black dots represent bistable configurations with at least 4 transitions 
+        observed in a simulation lasting 10 days. Thus the spatially extended, 
         discretized system converged to the behaviour of the reference bistable
-        system (A, below). This convergence is lost for smaller volumes due to
-        increased stochastic effect e.g. when cylinder was
-        divided into 6 or 12 equal voxels (data not shown).
+        system (A, below).
     }\label{fig:method_validation} 
 
     % suppl
