@@ -917,14 +917,8 @@ discretized into 6 voxels, separated by a distance of \SI{30}{\nano\meter}. The
 long-term behaviour of discretized system was most sensitive to \SUB{D}{PP1}
 (\FIG{method_validation}B) and almost independent of \SUB{D}{sub}
 (\FIG{method_validation}A). The discretized system converges to reference
-bistable for \SUB{D}{PP1} $\gt$ \SI{0.5}{\micro\meter\squared\per\second}
-(\FIG{method_validation}C). For very high values of \SUB{D}{PP1}, the system
-diverged from well-mixed system again because potency of \gls{pp1} reduced with
-increased \SUB{D}{PP1}
-(\FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}) which led to
-decreased average \gls{pp1} activity and hence increased average \gls{camkii}
-activity. This effect is not entirely due to numerical errors as shown in
-\FIGSUPP[method_validation]{diffusion_reduces_pp1_potency}. 
+bistable for \SUB{D}{PP1} $\ge$ \SI{0.5}{\micro\meter\squared\per\second}
+(\FIG{method_validation}C). 
 
 \begin{figure}[ht!]
     \includegraphics[width=12cm]{./PaperFigures/elifeFigure8/figure_su_long_term_effect.pdf}
@@ -947,10 +941,7 @@ activity. This effect is not entirely due to numerical errors as shown in
         in A, black) respectively. Spatially discretized system (red) converges to
         well-mixed system (blue) for higher \SUB{D}{PP1} values.
         For fixed value of \SUB{D}{PP1}, changing \SUB{D}{sub} has little or no
-        effect on convergence. The convergence is sensitive to \SUB{D}{PP1}
-        because \gls{pp1} is involved in bimolecular reactions and bimolecular
-        reaction does not converge to well-mixed case
-        \citep{isaacson_reaction-diffusion_2009}. For a typical value of
+        effect on convergence. For a typical value of
         \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}, the system shows
         reasonable convergence (second row, also see \textbf{A}).
         %
