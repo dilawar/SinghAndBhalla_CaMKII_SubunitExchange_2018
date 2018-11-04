@@ -197,9 +197,11 @@ and to turnover}\label{subsec:result_tolerance}
         %
         \textbf{(A)} Two representative bistable trajectories (\SUB{N}{CaMKII}=12) are
         shown with subunit exchange (+SE, blue) and without subunit exchange
-        (-SE, red) respectively (\SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}
-        , \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second}; and 
-            \SUB{N}{PP1}=72 (red, -SE) \SUB{N}{PP1}=168 (blue,+SE)
+        (-SE, red) respectively
+        (\SUB{D}{sub}=\SI{0.1}{\micro\meter\squared\per\second}, and
+        \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} for both blue
+        (+SE) and red (-SE); and \SUB{N}{PP1}=168 for blue (+SE) and 72 for red
+        (-SE) respectively.
         ).
         %
         \textbf{(B)} Blue and red solid lines represent the fraction of total 
@@ -210,10 +212,11 @@ and to turnover}\label{subsec:result_tolerance}
         spends in intermediate states (\SUB{x}{a}\SUB{y}{n-a}, 2<a<n-2) with
         and without subunit exchange respectively. Due to subunit exchange,
         the switch tolerated a larger amount of \gls{pp1} 
-        (\SUB{x}{0} value 5.83  vs 13.35 i.e., a change of 7.52$\times$\SUB{N}{CaMKII}).
-        Note that the range of \gls{pp1} for which switch remains bistable is roughly the 
-        same ($k$, 1.3 vs. 1.84). The fraction of time in intermediate states (dotted lines)
-	is much smaller when subunit exchange is enabled (blue dotted line),
+        (\SUB{x}{0} value 6.35  vs 13.46 i.e., a change of 7.11$\times$\SUB{N}{CaMKII}).
+        The range of \gls{pp1} for which switch remained bistable saw a moderate
+        change ($k$, 1.32 vs. 2.3). The fraction of time spent in intermediate states
+        (dashed lines) is much smaller when subunit exchange is enabled (blue
+        dashed line),
         i.e., the switching time is shorter. 
         %
         \textbf{(C)} Due to subunit exchange, relaxation 
@@ -247,10 +250,10 @@ exchange, and for \SUB{N}{PP1}=12$\times$ to 16$\times$\SUB{N}{CaMKII} with
 subunit exchange for \SUB{D}{sub}=0.1, and
 \SUB{D}{PP1}=\SI{0.5}{\micro\meter\squared\per\second} (\FIG{tolerance_pp1}B).
 Thus, subunit exchange shifted the middle of the bistable range to higher values
-of \gls{pp1}. Nevertheless, the width of the range of \gls{pp1} over which
-bistability was present, remained the same in both cases (blue and red sigmoidal
-fit in \FIG{tolerance_pp1}B).  Similar trend was observed for  different
-values of \SUB{D}{PP1} and \SUB{D}{sub} (data not shown).
+of \gls{pp1}. The width of the range of \gls{pp1} over which bistability was
+present saw a moderate increase in the presence of subunit exchange (blue and
+red sigmoidal fit in \FIG{tolerance_pp1}B).  Similar trend was observed for
+other values of \SUB{D}{PP1} and \SUB{D}{sub} (data not shown).
 
 In the presence of subunit exchange, the \texttt{ON} state of the switch has a
 tighter distribution (blue vs. red histogram, \FIG{tolerance_pp1}A), i.e., there
@@ -258,16 +261,16 @@ are fewer holoenzymes that are completely de-phosphorylated by \gls{pp1}. We
 interpret this as follows: In the presence of subunit exchange, any subunit in a
 holoenzyme de-phosphorylated by the \gls{pp1} is likely to be rapidly
 re-phosphorylated. This is because, when the switch is in \texttt{ON} state,
-most diffusing subunits present in the \gls{psd} are in the phosphorylated state. Hence,
-in addition to auto-phosphorylation, the exchange reactions (\EQ{losegainx})
-turn unphosphorylated holoenzymes to phosphorylated holoenzymes with a
-significant rate. Taken together, subunit exchange acts as a
-compensatory mechanism for dephosphorylation by \gls{pp1} in the \texttt{ON}
-state of the switch.
+most diffusing subunits present in the \gls{psd} are in the phosphorylated
+state. Hence, in addition to auto-phosphorylation, the exchange reactions
+(\EQ{losegainx}) turn unphosphorylated holoenzymes to phosphorylated holoenzymes
+with a significant rate. Taken together, subunit exchange acts as a compensatory
+mechanism for dephosphorylation by \gls{pp1} in the \texttt{ON} state of the
+switch.
 
 Subunit exchange also had a strong effect on time spent by the switch in
 transition from one stable state to another (relaxation time). When subunit
-exchange was enabled, the relaxation time was reduced (red vs. blue dotted line
+exchange was enabled, the relaxation time was reduced (red vs. blue dashed line
 in \FIG{tolerance_pp1}B) and also became independent of \SUB{N}{PP1}. As
 mentioned previously, due to subunit exchange, the \texttt{ON} state has a
 tighter distribution (blue vs. red histogram in \FIG{tolerance_pp1}A). This
@@ -278,19 +281,18 @@ curve, \FIG{tolerance_pp1}C). Thus subunit exchange makes the switch's
 \texttt{ON} state less noisy and more robust to dephosphorylation by \gls{pp1}.
 
 Parallel results were obtained for the effect of subunit exchange on
-\gls{camkii} switch robustness in the context of protein turnover. Turnover
-acts at a constant rate to replace any active \gls{camkii} holoenzyme with
-an inactive holoenzyme
-(\EQ{turnover}), thus decreasing the stability of the \texttt{ON}
-state. Without subunit exchange, switch stability as measured by residence time
-of the \texttt{ON} state decreased exponentially with increasing turnover rate.
-With subunit exchange, however, residence time of the \texttt{ON} state remained
-roughly constant upto a $\sim$10 fold increase in turnover (\FIG{turnover}B),
-after which subunit exchange could not phosphorylate all the inactive holoenzymes
-produced by turnover. At this point the switch started to show a similar steep
-decay of stability as was seen without subunit exchange. As expected, turnover
-increased the number of switching events in the regime of bistability in both
-cases.
+\gls{camkii} switch robustness in the context of protein turnover. Turnover acts
+at a constant rate to replace any active \gls{camkii} holoenzyme with an
+inactive holoenzyme (\EQ{turnover}), thus decreasing the stability of the
+\texttt{ON} state. Without subunit exchange, switch stability as measured by
+residence time of the \texttt{ON} state decreased exponentially with increasing
+turnover rate.  With subunit exchange, however, residence time of the
+\texttt{ON} state remained roughly constant upto a $\sim$10 fold increase in
+turnover (\FIG{turnover}B), after which subunit exchange could not phosphorylate
+all the inactive holoenzymes produced by turnover. At this point the switch
+started to show a similar steep decay of stability as was seen without subunit
+exchange. As expected, turnover increased the number of switching events in the
+regime of bistability in both cases.
 
 \begin{figure}[th!]
     \includegraphics[width=114mm]{./PaperFigures/elifeFigure3/figure_turnover_tolerance_114.pdf}
@@ -1016,9 +1018,9 @@ bistable for \SUB{D}{PP1} $\ge$ \SI{0.5}{\micro\meter\squared\per\second}
         but remained independent of diffusion coefficient of subunit
         (\SUB{D}{sub}). On the y-axis, \gls{pp1} activity is measured as ratio
         of sum of number of all active \gls{pp1} in all voxels during the
-        simulation divided by the simulation time in hours. On top, dotted blue
+        simulation divided by the simulation time in hours. On top, dashed blue
         line (labeled \textcolor{blue}{\SUB{D}{PP1}=0}) represents the case
-        where \gls{pp1} was not allowed to diffuse. At bottom, dotted blue line
+        where \gls{pp1} was not allowed to diffuse. At bottom, dashed blue line
         (labeled \textcolor{blue}{1-voxel}) shows the case where the cylinder
         consists only of 1 voxel and diffusion is instantaneous i.e., it is a
         well-mixed system. As expected, as \SUB{D}{PP1} increased, the 6 voxels
