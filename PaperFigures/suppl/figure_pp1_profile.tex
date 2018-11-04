@@ -142,6 +142,9 @@
             , xtick={0,1,2,3,4,5}
             , ytick={0,1,2,3,4,5}
             , tick label style={font=\footnotesize}
+            , xlabel={\footnotesize \# Voxel}, ylabel={\footnotesize \# Voxel}
+            , xlabel near ticks
+            , ylabel near ticks
             ]
             \addplot [matrix plot*, mesh/cols=6, point meta=explicit] table [meta index=2] {#2};
         \end{axis}
@@ -195,7 +198,7 @@
         , extra y tick labels={1-voxel, \SUB{D}{PP1}=0}
         , extra y tick style={grid=major, color=blue
             , font=\footnotesize, ticklabel pos=top}
-        , grid style={draw=blue,dotted}
+        , grid style={draw=blue,dashed}
         , xtick = {1e-15,1e-14,1e-13,1e-12}
         , xticklabels={0.001,0.01,0.1,1}
         ]

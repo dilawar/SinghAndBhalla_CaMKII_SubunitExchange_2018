@@ -59,19 +59,25 @@
 \edef\SUSIZE{0.12}
 \edef\CylWidth{15}
 
+\newcommand\PlotTrace[3]{%
+}
+
+
 % reduce the size of legend line.
 \newcommand\PlotTraceFixedDPP[3]{%DPP1, Dsubs, label
     \edef\DPP{\directlua{tex.sprint(#1*1e12)}}
     \begin{tikzpicture}[baseline]
-        \begin{axis}[
+        \begin{axis}[ name=a
             , ylabel=Active CaMKII
             , ylabel style={xshift=-8mm}
-            , width=1.2*\plotW cm, height=\plotH cm
+            , width=\plotW cm, height=\plotH cm
             , legend style={font=\footnotesize, at={(0,0.9)}, anchor=south west}
             , legend columns = 2
             , title={\SUB{D}{PP1}=\SI{\DPP}{\micro\meter\squared\per\second}}
             , title style={font=\small, at={(0.5,1.3)}, anchor=south}
-            ]
+            , xmin=0, xmax=480
+            , enlarge x limits={abs=20}
+        ]
 
             \pgfplotsforeachungrouped \D/\clr in {#2}
             {
@@ -87,24 +93,63 @@
                 }}\temp
             }
         \end{axis}
+        \begin{axis}[ rotate=-90, at={(a.east)}, anchor=west
+            , width=\plotH cm, height=2.2cm, yshift=2mm
+            , xticklabels=\emtpy, ytick={0.25}
+            , axis y line*=right
+            , yticklabel style={font=\tiny, yshift=-1mm}
+            % , xtick align=outside
+        ]
+
+            \pgfplotsforeachungrouped \D/\clr in {#2}
+            {
+                \edef\FILENAME{"./DATA_CaMKII_SIZE6_OCT31/Dsub-\D+Dpp-#1.dat_processed.dat"}
+                \addplot+ [ ybar, bar width=2pt, fill, no marks] gnuplot[raw gnuplot] {
+                    stats \FILENAME using "CaMKII*" prefix "A";
+                    bin(x,width)=width*floor(x/width);
+                    plot \FILENAME using (bin(6-column("CaMKII*"),1)):(1.0/A_sum) smooth freq;
+                };
+                % one is enough
+                \breakforeach
+            }
+        \end{axis}
+
+
         % reference plot below it.
-        \begin{axis}[ 
-            xlabel=Time, x unit=h
+        \begin{axis}[name=ref
+            , xlabel=Time, x unit=h
             , yshift=-18 mm
-            , width=1.2*\plotW cm, height=\plotH cm
+            , width=\plotW cm, height=\plotH cm
             , legend style={font=\scriptsize, at={(0,0.85)}, anchor=south west}
+            , enlarge x limits={abs=20}
         ]
             \addplot [color=black] gnuplot [ raw gnuplot ] {
                 plot "./ref.dat_processed.dat" using (column("time")/3600):"CaMKII*" every 10;
             };
         \addlegendentry{Well-mixed system (Ref), \SUB{N}{voxel}=1};
         \end{axis}
+
+        \begin{axis}[ rotate=-90, at={(ref.east)}, anchor=west
+            , width=\plotH cm, height=2.2cm, yshift=2mm
+            , xticklabels=\emtpy, ytick={0.1}
+            , axis y line*=right
+            , yticklabel style={font=\tiny, yshift=-1mm}
+            % , xtick align=outside
+        ]
+            \edef\FILENAME{"./ref.dat_processed.dat"}
+            \addplot+ [black, ybar, bar width=2pt, fill, no marks] gnuplot[raw gnuplot] {
+                stats \FILENAME using "CaMKII*" prefix "A";
+                bin(x,width)=width*floor(x/width);
+                plot \FILENAME using (bin(6-column("CaMKII*"),1)):(1.0/A_sum) smooth freq;
+            };
+        \end{axis}
+
         \node[above=-5mm of current bounding box.north west] {\bf \normalsize #3};
     \end{tikzpicture}
 }
 
 \begin{tikzpicture}[scale=1 , every node/.style={} ]
-    \node (a) { \PlotTraceFixedDPP{5e-13}{1e-15/red,1e-13/black}{A} };
+    \node (a) { \PlotTraceFixedDPP{5e-13}{1e-13/red,1e-15/black}{A} };
     \node[right=-3mm of a.north east, anchor=north west] (b) {
             \begin{tikzpicture}[]
                 \pgfplotsset{axis lines*=box}
@@ -149,11 +194,15 @@
         \begin{tikzpicture}
             \foreach \Dpp [count=\i] in {1e-12,5e-13,2e-13}
             {
-                \ifthenelse{\i>1}{\def\extrax{xticklabel=\noexpand\empty}}{\def\extrax{}}
+                \ifthenelse{\i>1}{\def\extrax{xticklabel=\noexpand\empty}}{
+                    \edef\extrax{xlabel={≤ Active CaMKII}}
+                }
 
                 \foreach \Dsub [count=\j] in {1e-15,1e-14,3e-14,1e-13,3e-13,1e-12}
                 {
-                    \ifthenelse{\j>1}{\def\extray{yticklabel=\noexpand\empty}}{\def\extray{}}
+                    \ifthenelse{\j>1}{\def\extray{yticklabel=\noexpand\empty}}{
+                        \def\extray{ylabel=Count, y unit=frac}
+                    }
                     \edef\Dppa{\directlua{tex.sprint(\Dpp*1e12)}}
                     \edef\Dsuba{\directlua{tex.sprint(\Dsub*1e12)}}
                     \begin{axis}[ name=ax\i\j, at={(2*\j cm,1.65*\i cm)}
@@ -164,6 +213,8 @@
                         , title={\SUB{D}{PP1}=\Dppa,\SUB{D}{sub}=\Dsuba}
                         , title style={font=\tiny, at={(0.5,1.15)}, anchor=north}
                         , mark size=1pt
+                        , ylabel style={font=\tiny}
+                        , xlabel style={font=\tiny}
                         , \extrax, \extray
                         ]
                         \addplot+[red, thick] table[col sep=comma

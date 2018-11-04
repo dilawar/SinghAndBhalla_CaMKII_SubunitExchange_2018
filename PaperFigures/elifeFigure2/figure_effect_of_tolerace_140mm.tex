@@ -8,16 +8,19 @@
 %=====================================================================================
 
 \RequirePackage{luatex85,shellesc}
-\documentclass[10pt,multi=false,class=../elife,varwidth=140mm]{standalone}
+\documentclass[10pt,multi=false,varwidth=140mm]{standalone}
 \usepackage{pgfplots}
 \usepgfplotslibrary{units}
 \usepgfplotslibrary{fillbetween}
 \pgfplotsset{compat=1.15}
-\renewcommand\familydefault{\sfdefault}
+\usepackage[sfdefault,scale=0.9]{FiraSans}
+\usepackage{newtxsf}
 \usetikzlibrary{calc,positioning}
 \usepackage{tabularx}
 \usepackage{siunitx}
 \usepackage{pgfplotstable}
+
+\pgfplotsset{compat=1.15}
 
 \begin{document}
 
@@ -53,7 +56,7 @@
         , width=0.75*\plotW cm, height=\tempH cm
         , enlarge y limits={abs=1}
         , enlarge x limits={abs=0.8}
-        , xtick ={0,5,10,15,20,25,30}
+        % , xtick ={0,5,10,15,20,25,30}
         , legend style={fill=none,draw=none,at={(1.0, 1.2)}}
         , legend columns=-1
         , title style={font=\small, align=right, at={(1,0.8)}, anchor=south east}
@@ -75,6 +78,8 @@
         , ticklabel style={font=\scriptsize}
         , scaled y ticks=false
         , axis y line*=right
+        , ytick={0.05}
+        , yticklabel style={font=\tiny, yshift=-1mm}
         ]
         \addplot+ [#3, ybar, bar width=0.75mm, fill=#3, draw=none, no marks] gnuplot [ raw gnuplot ] {
             stats #2 using "CaMKII*" prefix "A";
@@ -87,24 +92,29 @@
 \begin{tikzpicture}[baseline, every node/.style={}]
     \node[label={[yshift=-5mm]north west:{\bf A}}] (a) {
         \begin{tikzpicture}[ scale=1 ]
-            \PlotTrajectoriesWithHist{A}{"./CaM12_PP192_voxels1_suON.dat_processed.dat"}{blue}{
+            \PlotTrajectoriesWithHist{A}{"./CaM12_PP168_voxels1_suON.dat_processed.dat"}{blue}{
                 xticklabels=\empty
                 , title={+SE}
             }
-            \PlotTrajectoriesWithHist{A1}{"./CaM12_PP120_voxels1_suOFF.dat_processed.dat"}{red}{
+            \PlotTrajectoriesWithHist{A1}{"./CaM12_PP72_voxels1_suOFF.dat_processed.dat"}{red}{
                 at=(A.south), anchor=north, yshift=-5mm
-                , ylabel={Active CaMKII}, ylabel style={xshift=5mm}
+                , ylabel={Active CaMKII}, ylabel style={xshift=8mm}
                 , xlabel=Time, x unit=day
                 , title={-SE}
             }
         \end{tikzpicture}
     };
 
+    % Figure B
+    \edef\SummaryFileOFF{"./12suOFF-summary.csv"}
+    \edef\SummaryFileON{"./12suON-summary.csv"}
+
     \node[label={[yshift=-5mm]north west:{\bf B}}
-            , below=0mm of a.south west, anchor=north west
-        ] (b) {
+        , below=0mm of a.south west, anchor=north west] (b) 
+    {
         \begin{tikzpicture}[baseline]
             % Second subplot.
+            \pgfmathsetmacro\colW{0.85*\colW}
             \begin{axis}[ name=B,
                 , xlabel={N\textsubscript{PP1}/N\textsubscript{CaMKII}}
                 , width = \colW cm , height=0.85*\plotH cm
@@ -112,18 +122,19 @@
                 , legend columns=1
                 , grid = none
                 , enlargelimits
-                , ylabel={Fraction of time \\ spent in stable states}
-                , ylabel style={align=center}
+                , ylabel={Time spent in \texttt{ON} state}
+                , ylabel style={font=\footnotesize, align=center, xshift=5mm}
+                , y unit=frac
                 , ytick={0,1.0}
                 , title={fit: $a\left(1+e^{k(x-x_0)}\right)^{-1}$}
                 , title style={at={(0,1.55)}, anchor=south west}
+                , xmax=20
                 ]
 
                 % With subunit-exchange
                 \addplot+ [mark=o,only marks]  gnuplot [ raw gnuplot ] {
                     set datafile separator ",";
-                    plot "./summary_CaM8.png.csv"
-                    using 1:2;
+                    plot \SummaryFileON using "pp_camkii_ration":"residence_time_ON_state";
                 };
 
                 \addplot+ [blue,no marks,smooth,very thick ] gnuplot [ raw gnuplot ] {
@@ -131,7 +142,7 @@
                     FIT_LIMIT=1.e-14;
                     k=0.6; x0=15;
                     f(x)=a/(1.0+exp(k*(x-x0)));
-                    fit f(x) "./summary_CaM8.png.csv" using 1:2 via k,a,x0;
+                    fit f(x) \SummaryFileON using "pp_camkii_ration":"residence_time_ON_state" via k,a,x0;
                     plot [x=5:30] f(x);
                 };
 
@@ -139,90 +150,80 @@
                 % Without subunit-exchange
                 \addplot+ [mark=x,only marks,red] gnuplot [ raw gnuplot ] {
                     set datafile separator ",";
-                    plot "./summary_CaM8.png.csv"
-                    using 4:5;
+                    plot \SummaryFileOFF using "pp_camkii_ration":"residence_time_ON_state";
                 };
 
                 \addplot+ [red,no marks,smooth,very thick] gnuplot [ raw gnuplot ] {
                     set datafile separator ",";
                     f(x)=a/(1.0+exp(k*(x-x0)));
-                    fit f(x) "./summary_CaM8.png.csv" using 4:5 via k,a,x0;
+                    fit f(x) \SummaryFileOFF using "pp_camkii_ration":"residence_time_ON_state" via k,a,x0;
                     plot [x=3:30] f(x);
                 };
-                \legend{,{+SE ($a$=1,$k$=0.58,$x_0$=17.77)},,{-SE ($a$=0.95,$k$=0.6,$x_0$=11.2)}} 
+                \legend{,{+SE ($a$=1,$k$=1.3,$x_0$=13.35)},
+                        ,{-SE ($a$=0.89,$k$=1.84,$x_0$=5.83)}} 
             \end{axis} 
             \begin{axis}[name=dashed, at={(B.center)}, anchor=center
                 , width = \colW cm , height=0.85*\plotH cm
                 , axis y line*=right
                 , ymax = 1.0
                 , enlargelimits
-                , ylabel={Fraction of time \\ spent in transition}
+                , ylabel={\footnotesize Time spent in transition}
+                , ylabel style={xshift=5mm}
+                , y unit=frac
                 , ytick = {0,1}
                 , legend columns=2
                 , legend style={font=\footnotesize,at={(0,1)},anchor=south west}
-                ]
+                , xmax=20
+                , xtick=\empty
+            ]
                 \addplot+ [thick,blue,no marks,dashed]  gnuplot [ raw gnuplot ] {
                     set datafile separator ",";
-                    plot "./summary_CaM8.png.csv"
-                    using 1:3;
+                    plot \SummaryFileON using "pp_camkii_ration":"time_spend_in_transitions";
                 };
                 \addplot+ [thick,red,no marks,dashed]  gnuplot [ raw gnuplot ] {
                     set datafile separator ",";
-                    plot "./summary_CaM8.png.csv"
-                    using 4:6;
+                    plot \SummaryFileOFF using "pp_camkii_ration":"time_spend_in_transitions";
                 };
                 \legend{+SE,-SE}
             \end{axis}
         \end{tikzpicture}
     };
-    \node[label=north west:{\bf C}, right=0mm of b.south east, anchor=south west] (c) {
+    \node[label=north west:{\bf C}, right=5mm of b.south east, anchor=south west] (c) {
         \begin{tikzpicture}[baseline]
             \begin{axis}[ name=C,
                 , xlabel={N\textsubscript{PP1}/N\textsubscript{CaMKII}}
                 , width=\colW cm, height=\plotH cm
-                , unbounded coords=jump
-                , ylabel=Relaxation Time
+                % , unbounded coords=discard
+                , ylabel={\footnotesize Relaxation time}
                 , y unit={\si{\second}}
                 , title style={at={(0.5,1.3)}}
                 , legend style={at={(1,1.2)}}
-                , scaled y ticks=base 10:-3
-                , enlargelimits
+                    , xmax=20
                 ]
-                \addplot [blue, smooth, very thick, mark=.
-                % , error bars/.cd, y dir=both, y explicit % Use shaded area for % std.
-                ] table [ col sep=comma
-                , y=suON_relaxation_time_mean
-                , y error=suON_relaxation_time_std
-                ]{summary_CaM8.png.csv};
+                \addplot [blue, thick] table
+                [ col sep=comma, x=pp_camkii_ration, y=relax_time_mean]{12suON-summary.csv};
 
-                \addplot [blue!20, thin, name path=A] table [ col sep=comma
-                , y expr={\thisrow{suON_relaxation_time_mean}+\thisrow{suON_relaxation_time_std}}
-                ]{summary_CaM8.png.csv};
+                \addplot [forget plot, blue!20, name path=A] table
+                [ col sep=comma, x=pp_camkii_ration
+                    , y expr=\thisrow{relax_time_mean}+\thisrow{relax_time_std}]{12suON-summary.csv};
+                \addplot [blue!20, forget plot, name path=B] table
+                [ col sep=comma, x=pp_camkii_ration
+                    , y expr=\thisrow{relax_time_mean}-\thisrow{relax_time_std}]{12suON-summary.csv};
 
-                \addplot [blue!20, thin, name path=B] table [ col sep=comma
-                , y expr={\thisrow{suON_relaxation_time_mean}-\thisrow{suON_relaxation_time_std}}
-                ]{summary_CaM8.png.csv};
+                \addplot[forget plot, blue!20] fill between[of=A and B];
 
-                \addplot[blue!20] fill between[of=A and B];
 
-                \addplot [ red, smooth, very thick
-                %, mark=., error bars/.cd, y dir=both, y explicit
-                ] table [ col sep=comma
-                , y=suOFF_relaxation_time_mean
-                , y error=suOFF_relaxation_time_std
-                ]{summary_CaM8.png.csv};
+                \addplot [red, thick] table [col sep=comma, y=relax_time_mean]{12suOFF-summary.csv};
+                \addplot [forget plot, red!20, name path=A] table
+                [ col sep=comma, x=pp_camkii_ration
+                    , y expr=\thisrow{relax_time_mean}+\thisrow{relax_time_std}]{12suOFF-summary.csv};
+                \addplot [red!20, forget plot, name path=B] table
+                [ col sep=comma, x=pp_camkii_ration
+                    , y expr=\thisrow{relax_time_mean}-\thisrow{relax_time_std}]{12suOFF-summary.csv};
 
-                \addplot [ red!20, smooth, name path=A] table [ col sep=comma
-                , y expr=\thisrow{suOFF_relaxation_time_mean}+\thisrow{suOFF_relaxation_time_std}
-                ]{summary_CaM8.png.csv};
+                \addplot[forget plot, red!20] fill between[of=A and B];
 
-                \addplot [ red!20, smooth, name path=B] table [ col sep=comma
-                , y expr=\thisrow{suOFF_relaxation_time_mean}-\thisrow{suOFF_relaxation_time_std}
-                ]{summary_CaM8.png.csv};
-
-                \addplot[red!20] fill between[of=A and B];
-
-                \legend{+SE,,,,-SE}
+                \legend{+SE,-SE}
             \end{axis} 
         \end{tikzpicture}
     };
