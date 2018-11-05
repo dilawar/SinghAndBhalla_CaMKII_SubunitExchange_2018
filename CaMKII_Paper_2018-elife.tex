@@ -219,9 +219,8 @@ and to turnover}\label{subsec:result_tolerance}
         dashed line),
         i.e., the switching time is shorter. 
         %
-        \textbf{(C)} Due to subunit exchange, relaxation 
-        time becomes constant and independent of \SUB{N}{PP1} (blue vs red). 
-        Shaded area represents standard deviation.
+        \textbf{(C)} Due to subunit exchange, relaxation time becomes independent 
+        of \SUB{N}{PP1} (blue vs red). Shaded area represents standard deviation.
     }\label{fig:tolerance_pp1}
     \figdata{Source and data are available at
     \url{http://github.com/dilawar/SinghAndBhalla_CaMKII_SubunitExchange_2018/tree/master/PaperFigures/elifeFigure2}}
@@ -624,15 +623,14 @@ functions in these microdomains. Furthermore, we observed that the clustering of
 
 Subunit exchange is unlikely to have any impact on neighbouring spines. The mean
 escape time of a single \gls{camkii} subunit from a typical spine is between
-\SI{8}{\second} to \SI{33}{\second} \citep{holcman_diffusion_2011}. This time
-would be even larger given that \gls{camkii} interacts with many other
-molecules. Any phosphorylated subunit is almost certain to be de-phosphorylated
-by \gls{pp1} during this time. We therefore predict that the effects of
-synchronization are local to each \gls{psd}, where \gls{pp1} is known to be
-tightly controlled. Subunit exchange loses its potency in the phosphatase rich
-region of the bulk spine head or dendrite. We therefore consider it unlikely
-that \gls{camkii} subunit exchange plays any role in intra-spine information
-exchange such as synaptic tagging.
+\SI{8}{\second} to \SI{33}{\second} \citep{holcman_diffusion_2011}. Any
+phosphorylated subunit is almost certain to be de-phosphorylated by \gls{pp1}
+during this time. We therefore predict that the effects of synchronization are
+local to each \gls{psd}, where \gls{pp1} is known to be tightly controlled.
+Subunit exchange loses its potency in the phosphatase rich region of the bulk
+spine head or dendrite. We therefore consider it unlikely that \gls{camkii}
+subunit exchange plays any role in intra-spine information exchange such as
+synaptic tagging.
 
 \Gls{camkii} is non-uniformly distributed in the \gls{psd} where it is mostly
 concentrated in a small region of \SI{16}{\nano \meter} to \SI{36}{\nano \meter}
@@ -924,7 +922,7 @@ and other studies
 that \( h \ge 10h_{crit}\) where \(h_{crit}=\frac{k^+}{D_{PP1}+D_{sub}}\) is a
 good value. We have \( h_{crit} \le \SI{3.2}{\nano\meter} \) whenever
 $D_{PP1}+D_{sub}\ge\SI{0.5}{\micro\meter\squared\per\second}$. For all
-simulations presented in main text, we maintained $h\ge h_{crit}$. For few
+simulations presented in main text, we maintained $h\ge h_{crit}$. For a few
 illustrative examples where $h$ is smaller than $h_{crit}$, see
 \FIGSUPP[subunit_facilitates_spread]{diffusion_reduces_pp1_potency}D,E. 
 
@@ -1010,7 +1008,7 @@ bistable for \SUB{D}{PP1} $\ge$ \SI{0.5}{\micro\meter\squared\per\second}
         \SI{0.1}{\micro\meter\squared\per\second} respectively. \gls{pp1}
         activity reduced in all voxels with increased \SUB{D}{PP1}. The
         correlation of \gls{pp1} activity among voxels did not improve with
-        increased \SUB{D}{PP1} therefore non-linear distribution of \gls{pp1} in
+        increased \SUB{D}{PP1} therefore non-uniform distribution of \gls{pp1} in
         voxels is unlikely to be a significant contributor to the observed loss
         of \gls{pp1} potency. 
         %
@@ -1032,8 +1030,7 @@ bistable for \SUB{D}{PP1} $\ge$ \SI{0.5}{\micro\meter\squared\per\second}
         \citep{isaacson_reaction-diffusion_2009,erban_stochastic_2009} (also
         see Appendix 1, \autoref{fig:suppl_reac_rdme}) Thus we do not expect 
         that this is a numerical artifact due to our use of cross-voxel jump 
-        reactions to approximate diffusion i.e., loss of bimolecular reactions
-        involving \gls{pp1} \citep{isaacson_reaction-diffusion_2009}.
+        reactions to approximate diffusion \citep{isaacson_reaction-diffusion_2009}.
 }{\includegraphics[width=\linewidth]{./PaperFigures/suppl/figure_pp1_profile.pdf}}
 \label{figsupp:diffusion_reduces_pp1_potency} 
 \end{figure}
