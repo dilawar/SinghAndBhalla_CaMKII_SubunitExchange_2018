@@ -194,15 +194,21 @@
         \begin{tikzpicture}
             \foreach \Dpp [count=\i] in {1e-12,5e-13,2e-13}
             {
-                \ifthenelse{\i>1}{\def\extrax{xticklabel=\noexpand\empty}}{
-                    \edef\extrax{xlabel={≤ Active CaMKII}}
-                }
-
                 \foreach \Dsub [count=\j] in {1e-15,1e-14,3e-14,1e-13,3e-13,1e-12}
                 {
                     \ifthenelse{\j>1}{\def\extray{yticklabel=\noexpand\empty}}{
-                        \def\extray{ylabel=Count, y unit=frac}
+                        \ifthenelse{\i=2}{\def\extray{ylabel=Count, y
+                        unit=frac}}{\edef\extray{}}
                     }
+
+                    \ifthenelse{\i>1}
+                    {\def\extrax{xticklabel=\noexpand\empty}}
+                    {
+                        \ifthenelse{\j=3}
+                        {\edef\extrax{xlabel={≤ Active CaMKII}}}
+                        {\edef\extrax{}}
+                    }
+
                     \edef\Dppa{\directlua{tex.sprint(\Dpp*1e12)}}
                     \edef\Dsuba{\directlua{tex.sprint(\Dsub*1e12)}}
                     \begin{axis}[ name=ax\i\j, at={(2*\j cm,1.65*\i cm)}
@@ -213,8 +219,8 @@
                         , title={\SUB{D}{PP1}=\Dppa,\SUB{D}{sub}=\Dsuba}
                         , title style={font=\tiny, at={(0.5,1.15)}, anchor=north}
                         , mark size=1pt
-                        , ylabel style={font=\tiny}
-                        , xlabel style={font=\tiny}
+                        % , ylabel style={font=\tiny}
+                        % , xlabel style={font=\tiny}
                         , \extrax, \extray
                         ]
                         \addplot+[red, thick] table[col sep=comma
