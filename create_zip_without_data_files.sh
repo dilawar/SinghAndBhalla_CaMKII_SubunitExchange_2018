@@ -18,6 +18,7 @@ zip -r $OUTFILE \
     ./PaperFigures/elifeFigure6/figure_two_timecourses_114mm.pdf \
     ./PaperFigures/elifeFigure7/figure_exchange_rate.pdf \
     ./PaperFigures/elifeFigure8/figure_su_long_term_effect.pdf \
-    ./PaperFigures/suppl/*.pdf 
+    ./PaperFigures/suppl/*.pdf  \
+    ./PaperFigures/Makefile
     
 ls -lh $OUTFILE
