@@ -1,0 +1,114 @@
+% \CAMKIIRING{label}{x}{y}{list_of_phosphorylated_subunits}{radius_of_subunit}{no_of_subunits}
+
+
+
+\newcommand{\tstar}[5]{% x, y, inner radius, outer radius, tips,
+    \pgfmathsetmacro{\starangle}{360/#5}
+    \draw[draw=none,fill=blue!40] [xshift=#1cm,yshift=#2cm](0:#3)
+    \foreach \x in {1,...,#5}
+    { -- (\starangle/2+\x*\starangle-\starangle/2:#4) -- (#4+\x*\starangle:#3)
+    }
+    -- cycle;
+}
+
+\newcommand{\TSTAR}[3]{% pos, radius, tips,
+    \node[star,star points=#3,star point ratio=0.3,fill=blue!40,minimum
+    size=#2cm,] (inner#3) at (#1) {};
+}
+
+
+\newcommand{\CAMKIIRING}[6] { % name, x, y, indices_of_red_balls, size, tips 
+    % get the theta for given number of subunits.
+    \begin{scope}[ ]
+        \pgfmathsetmacro{\theta}{360/#6};
+        \pgfmathsetmacro{\r}{0.5*#5/sin(\theta/2)};
+        \def\fitlist{};
+        \foreach \i in {1,...,#6}
+        {
+            \IfSubStr {#4} {\i}
+            {
+                \node[ball color=red,circle,shading=ball,minimum size=#5cm] (r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3)$) {};
+            }
+            {
+                \node[draw=none,ball color=blue,circle,minimum size=#5cm](r\i) at
+                ($(\i*\theta:\r cm)+(#2,#3)$) {}; 
+            }
+            \xdef\fitlist{\fitlist(r\i)};
+        };
+        % inner subunit.
+
+        \tstar{#2}{#3}{\r/5}{\r}{#6};
+        \node[circle,fit=\fitlist,] (#1) {};
+        %\node[] at (#2,#3) {#1};
+    \end{scope}
+}
+
+\newcommand{\CAMKII}[5] { % name, position, indices_of_red_balls, size, tips 
+    % get the theta for given number of subunits.
+    \begin{scope}[ ]
+        \pgfmathsetmacro{\theta}{360/#5};
+        \pgfmathsetmacro{\r}{0.5*#4/sin(\theta/2)};
+        \def\fitlist{};
+
+        \node[draw=none,#2] (#1_root) {};
+
+        \foreach \i in {1,...,#5}
+        {
+            \IfSubStr {#3} {\i}
+            {
+                \node[draw=none,inner sep=0,ball color=red,circle,minimum size=#4cm] (r\i) at
+                ($(\i*\theta:\r cm)+(#1_root)$) {};
+            }
+            {
+                \node[draw=none,ball color=blue,inner sep=0,circle,minimum size=#4cm](r\i) at
+                ($(\i*\theta:\r cm)+(#1_root)$) {}; 
+            }
+            \xdef\fitlist{\fitlist(r\i)};
+        };
+        % inner subunit.
+        \TSTAR{#1_root.center}{0.5*\r}{#5};
+        \node[fit=\fitlist,circle,inner sep=0] (#1) {};
+    \end{scope}
+}
+
+\newcommand{\CACAM}[3] { % name, (x, y), size 
+    \begin{scope}[]
+        \pgfmathsetmacro{\car}{#3/2}
+        \node[ball color=green,circle,minimum size=#3 cm,inner sep=0pt] 
+            (rcam) at #2 {};
+
+        \foreach \x in {1,...,4} 
+        {
+            \pgfmathsetmacro{\theta}{360/4*\x};
+            \node[inner sep=0pt,ball color=yellow,circle,minimum size=\car cm] 
+            (ca\x) at ($#2+(\theta:\car cm)$) {};
+        }
+        \node[circle,fit=(ca1) (ca2) (ca3) (ca4) (rcam)] (#1)  {};
+    \end{scope}
+
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chemical equilibrium arrow 
+
+\newdimen\arrowsize
+\newdimen\mylw
+\pgfkeys{/my arrows/chemeq/.style={draw,thick,double distance=3pt,onearc-onearc}}
+\pgfkeys{/my arrows/size/.code={\pgfsetarrowoptions{onearc}{#1}}}
+\def\myalw{1pt}
+\pgfarrowsdeclare{onearc}{onearc}{%
+  \mylw=\myalw
+  \pgfarrowsleftextend{-\pgfgetarrowoptions{onearc}-.5\mylw}
+  \pgfarrowsrightextend{1pt}
+}{%
+  \pgfsetdash{}{0pt}
+  \mylw=\pgflinewidth
+  \pgfsetlinewidth{\myalw}
+  \advance\arrowsize by.5\pgflinewidth
+  \pgfpathmoveto{\pgfpoint{-\pgfgetarrowoptions{onearc}}{-\pgfgetarrowoptions{onearc}-.5\mylw}}%
+  \pgfpatharc{180}{90}{\pgfgetarrowoptions{onearc}}
+  \pgfusepathqstroke
+}

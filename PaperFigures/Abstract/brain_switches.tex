@@ -1,0 +1,29 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[crop,tikz]{standalone}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+\usetikzlibrary{calc,arrows,arrows.meta}
+\begin{document}
+
+\newcommand\SWITCH[6]{ % name, x, y, width, rotation, on-off
+    \edef\y{0.2}
+    \ifthenelse{#6=1}{\edef\y{0.1}}{}
+    \begin{scope}[xshift=-#2, yshift=-#3, rotate=#5]
+        \draw[-Circle,line width=#4] (0,0) node (#1_a) {} -- (0.3,0);
+        \draw[Circle-,line width=#4] (0.5,0) -- (0.8,0) node (#1_b) {};
+        \draw[line width=#4] (0.2,\y) -- (0.6,\y);
+        \draw[line width=#4] (0.4,\y) -- ++(0,0.2);
+    \end{scope}
+}
+
+\begin{tikzpicture}[scale=1 , every node/.style={} ]
+    
+    \SWITCH{a1}{ 0}{4}{1}{0}{0}
+    \SWITCH{a2}{100}{10}{1.2}{90}{1}
+    \draw (a1_a.center) |- (a2_b.center);
+
+\end{tikzpicture}	
+
+
+\end{document}
+
