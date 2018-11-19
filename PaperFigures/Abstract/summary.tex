@@ -314,8 +314,9 @@
     \AMPA{a2}{(2.8,1)}{1}{0.1}{45};
     \draw[-*] (camkiiCyt2) edge[bend right] (a1);
     
-    \draw[->,very thick
-            ,decorate, decoration={footprints,foot length=10 pt,stride length=15pt}
+    \draw[->,
+            % ,decorate
+            , decoration={footprints,foot length=10 pt,stride length=15pt}
             ] ($(a0)+(0.5,.5)$)  to[bend right] node[below,sloped,midway,yshift=-5 mm] (transport) 
             {\small MAPK} ([xshift=3mm]a2);
 
