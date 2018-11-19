@@ -19,9 +19,9 @@
     \end{scope}
 }
 
-\begin{tikzpicture}[scale=1 , every node/.style={} ]
+\begin{tikzpicture}[scale=1, rotate=-45, every node/.style={} ]
     
-    % Draw synapse.
+    % Draw synapse. Pre synaptic side.
     \begin{scope}[rotate=-90]
         \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
             (-3,-8) (-3,-4) (-7,-2) (-7,1) 
@@ -29,11 +29,15 @@
         };
     \end{scope}
 
+    % Post synaptic side.
     \begin{scope}[yshift=4.3cm, xshift=2.75cm, rotate=90]
         \draw[color=red!40, very thick, fill=red!15] plot[smooth] coordinates { 
             (-3,-8) (-3,-4) (-7,-2) (-7,1) 
             (0,1) (2,1) (3,1) (2.5,-3.1) 
             (-1,-3.5) (-1,-8) 
+        };
+        \draw[draw=none, fill=red!30] plot[smooth] coordinates { 
+            (-6.5,0) (-6.3,1.1) (0,1.05) (2,1) (2.5,1) (2,0) (-4,0.5) (-6.5,0)
         };
     \end{scope}
 
@@ -43,13 +47,13 @@
     {
         \pgfmathsetmacro{\LW}{2}
         \pgfmathsetmacro{\AA}{rnd}
-        \ifdim\AA pt<0.5pt
+        \ifdim\AA pt<0.4pt
             \ctikzset{bipoles/pushbutton/height=1}
-            \draw[line width=\LW pt, \CLR, smooth] (2,\y) -- (2.5,\y) to[short, push button,
+            \draw[line width=\LW pt, \CLR, smooth] (2,\y) -- (2.5,\y) to[push button,
                 color=blue] (4,\y);
         \else
             \ctikzset{bipoles/pushbutton/height=0.5}
-            \draw[line width=\LW pt, \CLR, smooth] (2,\y) -- (2.5,\y) to[short, push button,
+            \draw[line width=\LW pt, \CLR, smooth] (2,\y) -- (2.5,\y) to[push button,
                 color=blue] (4,\y);
         \fi
 
@@ -74,7 +78,7 @@
 
     % Add all
     \node[fill=blue!10,circle,draw=blue] (int) at (6.25,2.25) {\Huge $\sum$};
-    \draw[-latex, line width=4pt, blue] (int) -- ++(3,0);
+    % \draw[-latex, line width=4pt, blue] (int) -- ++(3,0);
 
     % Pre synaptic side fill-in.
     \tikzset{every path/.style={line width=3pt,dashed}}
