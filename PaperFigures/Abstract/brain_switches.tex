@@ -53,42 +53,44 @@
   \pgfusepathqstroke
 }
 
+\newcommand\PreSynSide[1]{%name
+    % Draw pre synaptic side.
+    % Draw synapse. Pre synaptic side.
+    \begin{scope}[rotate=180, local bounding box=#1]
+        \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
+            (-3,-5) (-3,-4) (-6,-2) (-7,1) 
+            (0,1) (3,1) (2.5,-2) (-1,-4) 
+            (-1,-5) 
+        };
+    \end{scope}
+
+    \begin{scope}[rotate=-90]
+        % Pre synaptic side fill-in.
+        \tikzset{every path/.style={line width=3pt,dashed}}
+        \tikzset{pre/.style={-{o[width=5pt]},very thick}}
+
+        \foreach[count=\i] \j in {-5,-4,...,5}
+        {
+            \draw[pre,color=blue!20] plot[smooth] coordinates { 
+                (-5+0.1*rnd,1.4+0.1*\i) 
+                (-4+0.1*rnd,1.15+0.15*\i)
+                (-3+0.1*rnd,-1.5+0.5*\i)
+                (-2+0.1*rnd,-2.5+0.75*\i)
+                (-1+0.1*rnd,-3+0.85*\i)
+                (0+0.1*rnd,-3.3+0.9*\i)
+                (1+0.1*rnd,-3.4+0.9*\i)
+            };
+        }
+    \end{scope}
+}
+
 
 \begin{tikzpicture}[scale=1]
 
-    \node[rotate=45, scale=0.75] (rawSyn) at (-12,0) 
+    \node[rotate=0, scale=1] (rawSyn) at (-12,0) 
     {
         \begin{tikzpicture}[scale=1, rotate=0]
-
-            % Draw pre synaptic side.
-            % Draw synapse. Pre synaptic side.
-            \begin{scope}[rotate=180]
-                \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
-                    (-3,-5) (-3,-4) (-6,-2) (-7,1) 
-                    (0,1) (3,1) (2.5,-2) (-1,-4) 
-                    (-1,-5) 
-                };
-            \end{scope}
-
-            \begin{scope}[rotate=-90]
-                % Pre synaptic side fill-in.
-                \tikzset{every path/.style={line width=3pt,dashed}}
-                \tikzset{pre/.style={-{o[width=5pt]},very thick}}
-
-                \foreach[count=\i] \j in {-5,-4,...,5}
-                {
-                    \draw[pre,color=blue!20] plot[smooth] coordinates { 
-                        (-5+0.1*rnd,1.4+0.1*\i) 
-                        (-4+0.1*rnd,1.15+0.15*\i)
-                        (-3+0.1*rnd,-1.5+0.5*\i)
-                        (-2+0.1*rnd,-2.5+0.75*\i)
-                        (-1+0.1*rnd,-3+0.85*\i)
-                        (0+0.1*rnd,-3.3+0.9*\i)
-                        (1+0.1*rnd,-3.4+0.9*\i)
-                    };
-                }
-            \end{scope}
-
+        \PreSynSide{a1}
         \begin{scope}[xshift=4cm, yshift=-2.8cm]
 
             % Draw synapse.
@@ -122,7 +124,7 @@
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             \coordinate (vdcc) at (-6,1);
             \node[draw=blue,rotate=110,cylinder,fill=white,label=VDCC,minimum height=7 mm] 
-            at (vdcc) {};
+                at (vdcc) {};
 
             \NMDAOLD{n0}{(-5,1)}{1}{0.05}{-10};
 
@@ -213,93 +215,81 @@
         \end{tikzpicture}    
     };
 
-    \node (synapse)  at (0,0)
+    \node (synapse) at (0,0)
     {
-        \begin{tikzpicture}[scale=0.75, rotate=-45, every node/.style={} ]
-            % Draw synapse. Pre synaptic side.
-            \begin{scope}[rotate=-90]
-                \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
-                    (-3,-5) (-3,-4) (-6,-2) (-7,1) 
-                    (0,1) (3,1) (2.5,-2) (-1,-4) 
-                    (-1,-5) 
-                };
-            \end{scope}
+        \begin{tikzpicture}[scale=1, rotate=0, every node/.style={} ]
+            \PreSynSide{b1}
 
             % Post synaptic side.
-            \begin{scope}[yshift=4.3cm, xshift=2.75cm, rotate=90]
+            \begin{scope}[ local bounding box=c1
+                    , anchor=north east
+                    , at={(b1.south)}
+                    , xshift=4cm, yshift=-2.8cm
+                    , rotate=0
+                ]
                 \draw[color=red!40, very thick, fill=red!15] plot[smooth] coordinates { 
                     (-3,-8) (-3,-4) (-7,-2) (-7,1) 
                     (0,1) (2,1) (3,1) (2.5,-3.1) 
                     (-1,-3.5) (-1,-8) 
                 };
-                % PSD
-                \draw[draw=black, dashed, fill=red!30] plot[smooth] coordinates { 
-                    (-6.5,0) (-6.3,1.1) (0,1.05) (2,1) (2.5,1) (2,0) (-4,0.5) (-6.5,0)
-                };
+
+                %% PSD
+                %\draw[draw=black, dashed, fill=red!30] plot[smooth] coordinates { 
+                %    (-6.5,0) (-6.3,1.1) (0,1.05) (2,1) (2.5,1) (2,0) (-4,0.5) (-6.5,0)
+                %};
             \end{scope}
+
+            % Add all
+            \node[fill=blue!10,circle,draw=blue] (int) at (2,-6.25) {};
 
             % switches
             \edef\CLR{blue!80}
-            \foreach[count=\i] \y in {-1.5,2.25,6}
-            {
-                \pgfmathsetmacro{\LW}{1+rnd}
-                \pgfmathsetmacro{\AA}{rnd}
-                \ifdim\AA pt<0.4pt
-                    \ctikzset{bipoles/pushbutton/height=1}
-                    \draw[line width=\LW pt, \CLR, smooth] (2,\y) -- (2.5,\y) 
-                        to[push button, color=blue] (4,\y);
-                \else
-                    \ctikzset{bipoles/pushbutton/height=0.5}
-                    \draw[line width=\LW pt, \CLR, smooth] (2,\y) -- (2.5,\y) 
-                        to[push button, color=blue] (4,\y);
-                \fi
+            \begin{scope}[rotate=0]
+                \foreach[count=\i] \x in {-1.5, 2.25, 6}
+                {
+                    \pgfmathsetmacro{\LW}{0.5+rnd}
+                    \pgfmathsetmacro{\AA}{rnd}
+                    \ifdim\AA pt<0.4pt
+                        \ctikzset{bipoles/pushbutton/height=1}
+                        \draw[line width=\LW pt, \CLR, smooth] (\x,-2) -- (\x,-2.5) 
+                            to[push button, color=blue] (\x,-4);
+                    \else
+                        \ctikzset{bipoles/pushbutton/height=0.5}
+                        \draw[line width=\LW pt, \CLR, smooth] (\x,-2) -- (\x,-2.5) 
+                            to[push button, color=blue] (\x,-4);
+                    \fi
 
-                \draw[{Arc Barb[reversed,width=5mm,length=1mm]}-,line width=\LW pt, \CLR] (1.8,\y) -- (2,\y);
+                    \draw[{Arc Barb[reversed,width=5mm,length=1mm]}-,line width=\LW pt, \CLR] 
+                        (\x, -1.8) -- (\x,-2);
 
-                % path.
-                \pgfmathsetmacro\ynew{2.25+(\i-2)}
-                \draw[color=\CLR, thick ] plot[smooth] coordinates {
-                    (4,\y) (5,\ynew) (6,2+0.1*\y) 
-                };
-            }
-
-            \edef\y{0}
-            \draw[color=\CLR, very thick,dashed] (4,\y) node[ circle, draw, left, dotted]
-            {$\int$} to[bend left] (6,2+0.1*\y);
-
-            \edef\y{4.5}
-            \draw[color=\CLR, very thick,dashed] (4,\y) node[circle,draw,left,dotted]
-                {$\int$} to[bend right] (6,2+0.1*\y);
+                    % path.
+                    \pgfmathsetmacro\xnew{2.25+(\i-2)}
+                    \draw[color=\CLR, thick ] plot[smooth] coordinates {
+                        (\x,-4) (\xnew,-5) (int)
+                    };
+                }
 
 
-            % Add all
-            \node[fill=blue!10,circle,draw=blue] (int) at (6.25,2.25) {\Huge $\sum$};
+                % integrators
+                \edef\x{0.5}
+                \draw[color=\CLR,] (\x,-4) node[circle, inner sep=2mm] {$\int$} to[bend left] (int);
 
-            % Pre synaptic side fill-in.
-            \tikzset{every path/.style={line width=3pt,dashed}}
-            \tikzset{pre/.style={-{o[width=5pt]},very thick}}
+                \edef\x{3.5}
+                \draw[color=\CLR] (\x,-4) node[circle, inner sep=2mm] {$\int$} to[bend right] (int);
 
-            \foreach[count=\i] \j in {-5,-4,...,5}
-            {
-                \draw[pre,color=blue!20] plot[smooth] coordinates { 
-                    (-5+0.1*rnd,1.4+0.1*\i) 
-                    (-4+0.1*rnd,1.15+0.15*\i)
-                    (-3+0.1*rnd,-1.5+0.5*\i)
-                    (-2+0.1*rnd,-2.5+0.75*\i)
-                    (-1+0.1*rnd,-3+0.85*\i)
-                    (0+0.1*rnd,-3.3+0.9*\i)
-                    (1+0.1*rnd,-3.4+0.9*\i)
-                };
-            }
+                % Redraw to hide the overlap.
+                \node[fill=blue!10,circle,draw=blue] (int) at (2,-6.25) {\Huge $\sum$};
+            \end{scope}
+
         \end{tikzpicture}	
     };
 
-    \edef\CylWidth{2}
+    \edef\CylWidth{1.5}
     \edef\SUSIZE{0.15}
-    \edef\figW{12}
-    \edef\fW{12}
+    \edef\figW{10}
+    \edef\fW{\figW}
 
-    \node (psd) [xshift=10cm, yshift=3cm]
+    \node (psd) [xshift=0cm, yshift=0.4cm]
     {
         % PSD in cylinder with diffusion.
         \begin{tikzpicture}[baseline]
@@ -347,36 +337,30 @@
         \end{tikzpicture} 
     };
 
-    % Bistable trajectory.
-    \node[below=2cm of psd, xshift=0cm, yshift=0cm] (bistable) 
-    {
-        \begin{tikzpicture}[scale=1]
-            \begin{axis}[
-                xlabel=Time (year), ylabel={$\Sigma$}
-                , ylabel style={font=\Large}
-                , width=0.75*\figW cm, height=\CylWidth cm, scale only axis
-                , ytick={0,18}
-                , yticklabels={\texttt{OFF},\texttt{ON}}
-                , axis lines*=left
-                , xmin=0, xmax=6
-                ]
-                \addplot [color=blue] gnuplot [ raw gnuplot ] {
-                    plot
-                    "../elifeFigure5/CaMKII-6+PP1-27+L-125e-9+N-3+diff-1e-12.dat_processed.dat"
-                    using (column("time")/3600/365):"CaMKII*" every 10;
-                };
-            \end{axis}
-
-            %\ctikzset{bipoles/pushbutton/height=1}
-            %\path[very thick] (-1.5,0.5) to[push button] ++(0.5,0);
-
-            %\ctikzset{bipoles/pushbutton/height=0.5}
-            %\path[very thick] (-1.5,2) to[push button] ++(0.5,0);
-        \end{tikzpicture}
-    };
+    %% Bistable trajectory.
+    %\node[below=2cm of psd, xshift=0cm, yshift=0cm] (bistable) 
+    %{
+    %    \begin{tikzpicture}[scale=1]
+    %        \begin{axis}[
+    %            xlabel=Time (year), ylabel={$\Sigma$}
+    %            , ylabel style={font=\Large}
+    %            , width=0.75*\figW cm, height=\CylWidth cm, scale only axis
+    %            , ytick={0,18}
+    %            , yticklabels={\texttt{OFF},\texttt{ON}}
+    %            , axis lines*=left
+    %            , xmin=0, xmax=6
+    %            ]
+    %            \addplot [color=blue] gnuplot [ raw gnuplot ] {
+    %                plot
+    %                "../elifeFigure5/CaMKII-6+PP1-27+L-125e-9+N-3+diff-1e-12.dat_processed.dat"
+    %                using (column("time")/3600/365):"CaMKII*" every 10;
+    %            };
+    %        \end{axis}
+    %    \end{tikzpicture}
+    %};
 
     % draw arrow from synapse to PSD.
-    \draw[-latex, red, very thick] ($(synapse.center)+(2.5,2.5)$) to[bend left] (psd.west);
+    % \draw[-latex, red, very thick] ($(synapse.center)+(2.5,2.5)$) to[bend left] (psd.west);
 
 \end{tikzpicture}	
 \end{document}
