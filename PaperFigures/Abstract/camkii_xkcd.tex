@@ -1,0 +1,128 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[crop,tikz]{standalone}
+\usepackage{pgfplots}
+\usepackage[sfdefault]{FiraSans}
+\usetikzlibrary{hobby}
+\usetikzlibrary{fit,calc,positioning,arrows,arrows.meta,shapes}
+\usetikzlibrary{decorations,decorations.markings}
+\usepackage{xstring}
+\input{../macros}
+
+\begin{document}
+
+\newcommand\CaMKIIXKCD[7]{%name, pos, righthand, lefthand, rightfoot, leftfoot, rotate
+    \begin{scope}[local bounding box=#1, rotate=#7]
+        \edef\W{2}
+        \edef\CLR{blue!50}
+
+        \coordinate (temp) at #2;
+        \draw[\CLR, line cap=round,line width=\W pt] (temp) -- ++(0,-0.4) node[]
+            (#1_chest) { };
+
+        % hands
+        \draw[\CLR, line cap=round, line width=\W pt] (#1_chest.center) 
+            \foreach \theta/\l in {#3}{ -- ++(\theta:\l) }
+        node[] (#1_hand_right) {};
+
+        \draw[\CLR, line cap=round, line width=\W pt] (#1_chest.center) 
+    \foreach \theta/\l in {#4}{ -- ++(\theta:\l) }
+        node[] (#1_hand_left) {};
+
+        \draw[\CLR, line cap=round,line width=\W pt] (#1_chest.center) 
+            -- ++(0,-0.3) node[] (#1_groin) {};
+
+        % to legs
+        \draw[\CLR, line cap=round, line width=\W pt] (#1_groin.center) 
+            \foreach \theta/\l in {#5}{ -- ++(\theta:\l)} 
+        node[] (#1_foot_left) {};
+
+        \draw[\CLR, line cap=round, line width=\W pt] (#1_groin.center) 
+            \foreach \theta/\l in {#6}{ -- ++(\theta:\l) } 
+        node[] (#1_foot_right) {};
+
+        % CaMKII as head
+        \CAMKII{#1_head}{at={#2}}{1,2,3,4,5,6}{0.16}{6}
+    \end{scope}
+}
+
+\pgfplotsset{
+    , xtick align=center
+    , ytick align=center
+    , legend style={fill=none,draw=none,font=\footnotesize}
+}
+
+% Define decoration
+\pgfdeclaredecoration{lipidleaflet}{initial}
+{
+  % Place as many segments as possible along the path to decorate
+  % the minimum distance between two segments is set to 7 pt.
+  \state{initial}[width=\pgfdecoratedpathlength/floor(\pgfdecoratedpathlength/5pt)]
+  {
+    % Draw the two acyl chains
+    \pgfpathmoveto{\pgfpoint{-0.5pt}{0pt}}
+    \pgfpathlineto{\pgfpoint{-0.5pt}{-5pt}}
+    \pgfpathmoveto{\pgfpoint{0.5pt}{0pt}}
+    \pgfpathlineto{\pgfpoint{0.5pt}{-5pt}}
+    % Draw the head group
+    \pgfpathmoveto{\pgfpoint{0.5pt}{0pt}}
+    \pgfpathcircle{\pgfpoint{0pt}{1.5pt}}{1.5pt}
+  }
+  \state{final}
+  {
+    \pgfpathmoveto{\pgfpointdecoratedpathlast}
+  }
+}
+
+\begin{tikzpicture}[]
+
+    % Axis
+    \draw[ thick,-stealth] (0,0) -- (15,0) node[midway, yshift=-5mm] {Time};
+    \draw[ thick,-stealth] (0,0) -- (0, 5) node[midway, rotate=90, yshift=1cm] {Memory};
+
+    % Without CaMKII, memory goes down like foosh
+    \draw[very thick, red] plot[smooth] coordinates { (0.1,4) (1,2) (2,1)
+        (3,0.2) (5,0.15) (7,0.1) 
+    };
+    \CaMKIIXKCD{c1}{(5,1.5)}
+        {45/0.4,80/0.45}{135/0.4,110/0.45}
+        {-75/0.4,-80/0.45}{-110/0.4,-100/0.45}
+        {0}
+    \CaMKIIXKCD{c2}{([xshift=0.5mm, yshift=-6.5mm]c1_head)}
+        {45/0.4,80/0.45}{135/0.4,110/0.45}
+        {-85/0.4,-86/0.45}{-95/0.4,-96/0.45}
+        {-180}
+
+    % handing camkii.
+    \CaMKIIXKCD{c3}{(-10,-3.5)}
+        {45/0.4,80/0.45}{135/0.4,110/0.45} % hands
+        {-80/0.5,30/0.15}{-100/0.5,330/0.2} % legs
+        {-180}
+    \CaMKIIXKCD{c4}{(-13,-3.5)}
+        {45/0.4,80/0.45}{135/0.4,110/0.45} % hands
+        {-80/0.5,30/0.15}{-100/0.5,-30/0.2} % legs
+        {-180}
+
+
+    % With CaMKII, the story id different.
+    \draw[very thick, red, hobby] 
+        let 
+            \p1=(c2_foot_left), \p2=(c2_foot_right),
+            \p3=(c3_hand_left), \p4=(c4_hand_right) 
+        in 
+        plot[] coordinates { 
+            (0.1,4) (1,3.8) (2,3.5) (3,3.2) (\x1,\y1) (\x2,\y2) (7,3) (\x3,\y3)
+            (\x4,\y4) (14,3)
+        };
+
+    % make c3 and c4 hands in PSD.
+    \draw[red!50, decorate, decoration={lipidleaflet,mirror}] 
+        (c3_foot_left.west) -- ++(1,-0.1) -- (c4_foot_left.east) -- ++(1,0.2);
+    \draw[red!50,decorate, decoration={lipidleaflet}] 
+    ([yshift=4.5mm]c3_foot_left.west) -- ++(1,-0.1) -- ([yshift=4.5mm]c4_foot_left.east) --
+        ++(1,0.2);
+
+
+
+\end{tikzpicture}	
+
+\end{document}

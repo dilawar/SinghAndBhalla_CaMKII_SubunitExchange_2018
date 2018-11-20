@@ -272,10 +272,12 @@
 
                 % integrators
                 \edef\x{0.5}
-                \draw[color=\CLR,] (\x,-4) node[circle, inner sep=2mm] {$\int$} to[bend left] (int);
+                \draw[color=\CLR,] (\x,-4) node[circle, above, inner sep=2mm,
+                    draw] {\large $\int$} to[bend left] (int.south);
 
-                \edef\x{3.5}
-                \draw[color=\CLR] (\x,-4) node[circle, inner sep=2mm] {$\int$} to[bend right] (int);
+                \edef\x{4}
+                \draw[color=\CLR] (\x,-4) node[circle, above, inner sep=2mm,
+                    draw] {\large $\int$} to[bend right] (int.south);
 
                 % Redraw to hide the overlap.
                 \node[fill=blue!10,circle,draw=blue] (int) at (2,-6.25) {\Huge $\sum$};
@@ -289,53 +291,53 @@
     \edef\figW{10}
     \edef\fW{\figW}
 
-    \node (psd) [xshift=0cm, yshift=0.4cm]
-    {
-        % PSD in cylinder with diffusion.
-        \begin{tikzpicture}[baseline]
-            % Draw camkii rings.
-            \foreach \i/\x in {-4/1, 0/2, 4/3}
-            {
-                \node[ draw=red, dotted, thick, circle
-                    , minimum size=\CylWidth cm] (switch\x)  at (\i,0) { };
+    %\node (psd) [xshift=0cm, yshift=0.4cm]
+    %{
+    %    % PSD in cylinder with diffusion.
+    %    \begin{tikzpicture}[baseline]
+    %        % Draw camkii rings.
+    %        \foreach \i/\x in {-4/1, 0/2, 4/3}
+    %        {
+    %            \node[ draw=red, dotted, thick, circle
+    %                , minimum size=\CylWidth cm] (switch\x)  at (\i,0) { };
 
-                \foreach \j in {1,...,6}
-                {
-                    \edef\activeSE{random(1,7),random(1,7),random(1,7)
-                    ,random(1,7),random(1,7),random(1,7),random(1,7)}
-                    % Each switch has some camkii here.
-                    \coordinate (camkii0) at (\i+0.4*rand,0.3*\CylWidth*rand);
-                    \begin{scope}[rotate=30*rand]
-                        \pgfmathsetmacro{\NumberOfSuInRing}{random(6,7)}
-                        \CAMKIIWithoutHub{c0}{camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
-                    \end{scope}
-                }
-            }
+    %            \foreach \j in {1,...,6}
+    %            {
+    %                \edef\activeSE{random(1,7),random(1,7),random(1,7)
+    %                ,random(1,7),random(1,7),random(1,7),random(1,7)}
+    %                % Each switch has some camkii here.
+    %                \coordinate (camkii0) at (\i+0.4*rand,0.3*\CylWidth*rand);
+    %                \begin{scope}[rotate=30*rand]
+    %                    \pgfmathsetmacro{\NumberOfSuInRing}{random(6,7)}
+    %                    \CAMKIIWithoutHub{c0}{camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
+    %                \end{scope}
+    %            }
+    %        }
 
-            % Draw PSD over switches.
-            \node[cylinder, minimum width=\CylWidth cm, minimum height=\figW cm
-            , draw=black, dashed, fill=red, opacity=0.2, inner sep=1mm
-            ] (psd) at (switch2) {};
+    %        % Draw PSD over switches.
+    %        \node[cylinder, minimum width=\CylWidth cm, minimum height=\figW cm
+    %        , draw=black, dashed, fill=red, opacity=0.2, inner sep=1mm
+    %        ] (psd) at (switch2) {};
 
-            \foreach \j in {1,2,...,9}
-            {
-                \node[shade,ball color=red, fill=red, circle
-                    , minimum size=\SUSIZE cm ,inner sep=1pt] (su\j) 
-                    at (\fW/2.1*rand,0.4*\CylWidth*rand) {};
-                \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
-                \draw[-latex,color=red,very thin] (su\j) -- ++(\Ang:3mm);
-            }
+    %        \foreach \j in {1,2,...,9}
+    %        {
+    %            \node[shade,ball color=red, fill=red, circle
+    %                , minimum size=\SUSIZE cm ,inner sep=1pt] (su\j) 
+    %                at (\fW/2.1*rand,0.4*\CylWidth*rand) {};
+    %            \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
+    %            \draw[-latex,color=red,very thin] (su\j) -- ++(\Ang:3mm);
+    %        }
 
-            \foreach \j in {1,2,...,9}
-            {
-                \node[shade, ball color=blue, fill=blue, circle, minimum size=\SUSIZE cm, inner sep=1pt] 
-                    (su\j) at (\fW/2.1*rand,0.4*\CylWidth*rand) { };
-                \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
-                \draw[-latex,color=blue,very thin] (su\j) -- ++(\Ang:3mm);
-            }
+    %        \foreach \j in {1,2,...,9}
+    %        {
+    %            \node[shade, ball color=blue, fill=blue, circle, minimum size=\SUSIZE cm, inner sep=1pt] 
+    %                (su\j) at (\fW/2.1*rand,0.4*\CylWidth*rand) { };
+    %            \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
+    %            \draw[-latex,color=blue,very thin] (su\j) -- ++(\Ang:3mm);
+    %        }
 
-        \end{tikzpicture} 
-    };
+    %    \end{tikzpicture} 
+    %};
 
     %% Bistable trajectory.
     %\node[below=2cm of psd, xshift=0cm, yshift=0cm] (bistable) 
