@@ -6,11 +6,31 @@
 \usetikzlibrary{fit,calc,positioning,arrows,arrows.meta,shapes}
 \usetikzlibrary{decorations,decorations.markings}
 \usepackage{xstring}
+\usepackage[first=6, last=8]{lcg}
+
 \input{../macros}
 
 \begin{document}
 
-\newcommand\CaMKIIXKCD[7]{%name, pos, righthand, lefthand, rightfoot, leftfoot, rotate
+% Pacman: From  https://tex.stackexchange.com/a/428971/8087
+\tikzset{Pacman/.pic={
+        \fill (0,0)  to[out={1.75*#1},in={180-0.25*#1}] 
+            ({0.92*#1}:2) to[out={-180+0.25*#1},in={1.75*#1},looseness=0.5] 
+            (1,0) to[out={-1.75*#1},in={180-0.25*#1},looseness=0.5] 
+            ({-0.92*#1}:2) to [out={-180+0.25*#1},in={-1.75*#1}] cycle;
+
+        \shadedraw[ball color=yellow,thin,draw=black!80] 
+            (0,0)  to[out={1.75*#1},in={180-0.25*#1}] ({0.92*#1}:2)
+            arc({0.92*#1}:{360-0.92*#1}:2) to [out={-180+0.25*#1},in={-1.75*#1}]
+            cycle;
+
+        \fill ({0.3-0.01*#1},1) circle (0.3);
+    }
+}
+
+
+\newcommand\CaMKIIXKCD[8]{
+    %name, pos, righthand, lefthand, rightfoot, leftfoot, rotate, numPhospho
     \begin{scope}[local bounding box=#1, rotate=#7]
         \edef\W{2}
         \edef\CLR{blue!50}
@@ -22,11 +42,11 @@
         % hands
         \draw[\CLR, line cap=round, line width=\W pt] (#1_chest.center) 
             \foreach \theta/\l in {#3}{ -- ++(\theta:\l) }
-        node[] (#1_hand_right) {};
+            node[] (#1_hand_right) {};
 
         \draw[\CLR, line cap=round, line width=\W pt] (#1_chest.center) 
-    \foreach \theta/\l in {#4}{ -- ++(\theta:\l) }
-        node[] (#1_hand_left) {};
+            \foreach \theta/\l in {#4}{ -- ++(\theta:\l) }
+            node[] (#1_hand_left) {};
 
         \draw[\CLR, line cap=round,line width=\W pt] (#1_chest.center) 
             -- ++(0,-0.3) node[] (#1_groin) {};
@@ -34,14 +54,20 @@
         % to legs
         \draw[\CLR, line cap=round, line width=\W pt] (#1_groin.center) 
             \foreach \theta/\l in {#5}{ -- ++(\theta:\l)} 
-        node[] (#1_foot_left) {};
+            node[] (#1_foot_left) {};
 
         \draw[\CLR, line cap=round, line width=\W pt] (#1_groin.center) 
             \foreach \theta/\l in {#6}{ -- ++(\theta:\l) } 
-        node[] (#1_foot_right) {};
+            node[] (#1_foot_right) {};
 
         % CaMKII as head
-        \CAMKII{#1_head}{at={#2}}{1,2,3,4,5,6}{0.16}{6}
+        \def\Phospho{}
+        \foreach \i in {1,...,#8}
+        {
+            \xdef\Phospho{\Phospho,\i}
+        }
+        \pgfmathsetmacro\numS{random(6,7)}
+        \CAMKII{#1_head}{at={#2}}{\Phospho}{0.16}{\numS}
     \end{scope}
 }
 
@@ -73,54 +99,122 @@
   }
 }
 
-\begin{tikzpicture}[]
+% declare axis decoration as xkcd.
+% https://tex.stackexchange.com/a/49961/8087 
+\pgfdeclaredecoration{penciline}{initial}{
+    \state{initial}[width=+\pgfdecoratedinputsegmentremainingdistance,auto corner on length=1mm,]{
+        \pgfpathcurveto%
+        {% From
+            \pgfqpoint{\pgfdecoratedinputsegmentremainingdistance}
+                            {\pgfdecorationsegmentamplitude}
+        }
+        {%  Control 1
+        \pgfmathrand
+        \pgfpointadd{\pgfqpoint{\pgfdecoratedinputsegmentremainingdistance}{0pt}}
+                        {\pgfqpoint{-\pgfdecorationsegmentaspect\pgfdecoratedinputsegmentremainingdistance}%
+                                        {\pgfmathresult\pgfdecorationsegmentamplitude}
+                        }
+        }
+        {%TO 
+        \pgfpointadd{\pgfpointdecoratedinputsegmentlast}{\pgfpoint{1pt}{1pt}}
+        }
+    }
+    \state{final}{}
+}
 
+\begin{tikzpicture}[scale=1]
     % Axis
-    \draw[ thick,-stealth] (0,0) -- (15,0) node[midway, yshift=-5mm] {Time};
-    \draw[ thick,-stealth] (0,0) -- (0, 5) node[midway, rotate=90, yshift=1cm] {Memory};
+    \draw[ gray, very thick,-stealth
+        , line width=1.5mm
+        , decorate
+        , decoration={random steps, segment length=20pt, amplitude=1pt}
+        , rounded corners=3pt
+        ] (0,0) -- (15,0) node[midway, yshift=-5mm] {\textcolor{black}{Time}};
+
+    \draw[ gray, very thick,-stealth
+        , line width=1.5mm
+        , decorate
+        , decoration={random steps, segment length=20pt, amplitude=1pt}
+        , rounded corners=3pt
+    ] (0,0) -- (0, 5) node[midway, rotate=90, yshift=1cm] {\textcolor{black}{}};
+
+
+    % poor camkii.
+    \CaMKIIXKCD{c01}{(2,1)}
+        {45/0.4,20/0.2}{135/0.4,110/0.45}
+        {-75/0.2,-20/0.1}{-110/0.2,-30/0.1}
+        {0}{5}
 
     % Without CaMKII, memory goes down like foosh
-    \draw[very thick, red] plot[smooth] coordinates { (0.1,4) (1,2) (2,1)
-        (3,0.2) (5,0.15) (7,0.1) 
-    };
+    \draw[very thick, red] 
+    let \p1=(c01_hand_left), \p2=(c01_hand_right) 
+    in
+    plot[smooth] coordinates { 
+        (0.1,4) (1,2) (\x1,\y1) (\x2,\y2) 
+        (5,0.2) (7,0.1) 
+    } node[above] {\footnotesize Decayed Memory};
+
+    % PP1 here and here.
+    \pic[scale=0.1,rotate=90] at (3,0.6) {Pacman=30};
+    \pic[scale=0.1,rotate=-90] at (4.5,0.6) {Pacman=30};
+
+    % Up and down camkii.
     \CaMKIIXKCD{c1}{(5,1.5)}
-        {45/0.4,80/0.45}{135/0.4,110/0.45}
+        {45/0.4,0/0.25}{135/0.4,180/0.25}
         {-75/0.4,-80/0.45}{-110/0.4,-100/0.45}
-        {0}
-    \CaMKIIXKCD{c2}{([xshift=0.5mm, yshift=-6.5mm]c1_head)}
+        {0}{4}
+    \CaMKIIXKCD{c2}{([xshift=0mm, yshift=13.5mm]c1_head)}
         {45/0.4,80/0.45}{135/0.4,110/0.45}
-        {-85/0.4,-86/0.45}{-95/0.4,-96/0.45}
-        {-180}
+        {-60/0.4,-70/0.45}{-120/0.4,-110/0.45}
+        {-0}{7}
 
     % handing camkii.
     \CaMKIIXKCD{c3}{(-10,-3.5)}
         {45/0.4,80/0.45}{135/0.4,110/0.45} % hands
         {-80/0.5,30/0.15}{-100/0.5,330/0.2} % legs
-        {-180}
-    \CaMKIIXKCD{c4}{(-13,-3.5)}
+        {-180}{7}
+    \CaMKIIXKCD{c4}{(-11.5,-3.5)}
+        {45/0.4,80/0.45}{135/0.4,110/0.45} % hands
+        {-80/0.5,30/0.15}{-100/0.5,330/0.2} % legs
+        {-180}{7}
+    \CaMKIIXKCD{c5}{(-13,-3.5)}
         {45/0.4,80/0.45}{135/0.4,110/0.45} % hands
         {-80/0.5,30/0.15}{-100/0.5,-30/0.2} % legs
-        {-180}
+        {-180}{7}
 
 
     % With CaMKII, the story id different.
     \draw[very thick, red, hobby] 
         let 
-            \p1=(c2_foot_left), \p2=(c2_foot_right),
-            \p3=(c3_hand_left), \p4=(c4_hand_right) 
+            \p1=(c2_hand_left), \p2=(c2_hand_right),
+            \p3=(c3_hand_left), \p4=(c4_hand_right), 
+            \p5=(c5_hand_left)
         in 
         plot[] coordinates { 
             (0.1,4) (1,3.8) (2,3.5) (3,3.2) (\x1,\y1) (\x2,\y2) (7,3) (\x3,\y3)
-            (\x4,\y4) (14,3)
-        };
+            (\x4,\y4) (\x5,\y5) (14,3)
+        } node[below] {\footnotesize Protected Memory};
 
     % make c3 and c4 hands in PSD.
-    \draw[red!50, decorate, decoration={lipidleaflet,mirror}] 
-        (c3_foot_left.west) -- ++(1,-0.1) -- (c4_foot_left.east) -- ++(1,0.2);
-    \draw[red!50,decorate, decoration={lipidleaflet}] 
-    ([yshift=4.5mm]c3_foot_left.west) -- ++(1,-0.1) -- ([yshift=4.5mm]c4_foot_left.east) --
-        ++(1,0.2);
+    \draw[red!70!blue, decorate, decoration={lipidleaflet,mirror}] 
+        (c3_foot_left.west) -- ++(1,-0.1) -- (c5_foot_left.east) -- ++(1,0.2);
+    \draw[red!70!blue, decorate, decoration={lipidleaflet}] 
+        ([yshift=4.5mm]c3_foot_left.west) -- ++(1,-0.1) -- 
+            ([yshift=4.5mm]c5_foot_left.east) -- ++(1,0.2);
 
+    % a  dead camkii
+    \CaMKIIXKCD{cdead}{(0.2,-11)}
+        {-45/0.4,0/0.25}{-15/0.4,-10/0.25}
+        {-80/0.4,-90/0.45}{-90/0.4,-100/0.45}
+        {90}{1}
+
+    \foreach \i in {1,...,10}
+    {
+        \pgfmathsetmacro{\TH}{random(3,30)}
+        \pgfmathsetmacro{\ROT}{-90+random(0,180)}
+        \pgfmathsetmacro{\Scale}{0.05+0.05*rnd}
+        \pic[scale=\Scale,rotate=\ROT] at (14*rnd,0.2+1.5*rnd) {Pacman=\TH};
+    }
 
 
 \end{tikzpicture}	
