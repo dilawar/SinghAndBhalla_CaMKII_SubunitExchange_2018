@@ -1,0 +1,369 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[tikz,multi=false]{standalone}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{eulervm}
+\usepackage{circuitikzgit}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,graphs,graphdrawing,fit,positioning}
+\usetikzlibrary{decorations,decorations.footprints,decorations.shapes}
+\usetikzlibrary{shapes,arrows,arrows.meta}
+\usetikzlibrary{arrows,arrows.meta}
+\usetikzlibrary{calc,positioning,fit,shapes}
+\usegdlibrary{layered}
+\usepackage{xstring}
+\pgfplotsset{compat=1.15}
+
+\begin{document}
+
+\input{../macros}
+
+\newcommand\SWITCH[6]{ % name, x, y, width, rotation, on-off
+    \edef\y{0.2}
+    \ifthenelse{#6=1}{\edef\y{0.1}}{}
+    \begin{scope}[xshift=-#2, yshift=-#3, rotate=#5]
+        \draw[-Circle,line width=#4] (0 cm,0 cm) node (#1_a) {} -- (1 cm,0);
+        \draw[Circle-,line width=#4] (1.5 cm,0) -- (2.5 cm,0) node (#1_b) {};
+        \draw[line width=#4] (1 cm,\y cm) -- (1.5 cm,\y cm);
+        \draw[line width=#4] (1.25 cm,\y cm) -- ++(0,0.2 cm);
+    \end{scope}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chemical equilibrium arrow 
+
+\newdimen\arrowsize
+\newdimen\mylw
+\pgfkeys{/my arrows/chemeq/.style={draw,thick,double distance=3pt,onearc-onearc}}
+\pgfkeys{/my arrows/size/.code={\pgfsetarrowoptions{onearc}{#1}}}
+\def\myalw{1pt}
+\pgfarrowsdeclare{onearc}{onearc}{%
+  \mylw=\myalw
+  \pgfarrowsleftextend{-\pgfgetarrowoptions{onearc}-.5\mylw}
+  \pgfarrowsrightextend{1pt}
+}{%
+  \pgfsetdash{}{0pt}
+  \mylw=\pgflinewidth
+  \pgfsetlinewidth{\myalw}
+  \advance\arrowsize by.5\pgflinewidth
+  \pgfpathmoveto{\pgfpoint{-\pgfgetarrowoptions{onearc}}{-\pgfgetarrowoptions{onearc}-.5\mylw}}%
+  \pgfpatharc{180}{90}{\pgfgetarrowoptions{onearc}}
+  \pgfusepathqstroke
+}
+
+\newcommand\PreSynSide[1]{%name
+    % Draw pre synaptic side.
+    % Draw synapse. Pre synaptic side.
+    \begin{scope}[rotate=180, local bounding box=#1]
+        \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
+            (-3,-5) (-3,-4) (-6,-2) (-7,1) 
+            (0,1) (3,1) (2.5,-2) (-1,-4) 
+            (-1,-5) 
+        };
+    \end{scope}
+
+    \begin{scope}[rotate=-90]
+        % Pre synaptic side fill-in.
+        \tikzset{every path/.style={line width=3pt,dashed}}
+        \tikzset{pre/.style={-{o[width=5pt]},very thick}}
+
+        \foreach[count=\i] \j in {-5,-4,...,5}
+        {
+            \draw[pre,color=blue!20] plot[smooth] coordinates { 
+                (-5+0.1*rnd,1.4+0.1*\i) 
+                (-4+0.1*rnd,1.15+0.15*\i)
+                (-3+0.1*rnd,-1.5+0.5*\i)
+                (-2+0.1*rnd,-2.5+0.75*\i)
+                (-1+0.1*rnd,-3+0.85*\i)
+                (0+0.1*rnd,-3.3+0.9*\i)
+                (1+0.1*rnd,-3.4+0.9*\i)
+            };
+        }
+    \end{scope}
+}
+
+
+\begin{tikzpicture}[scale=1]
+
+    \node[rotate=0, scale=1] (rawSyn) at (-12,0) 
+    {
+        \begin{tikzpicture}[scale=1, rotate=0]
+        \PreSynSide{a1}
+        \begin{scope}[xshift=4cm, yshift=-2.8cm]
+
+            % Draw synapse.
+            \draw[color=red,very thick, fill=red!20] plot[smooth] coordinates { 
+                (-3, -8) (-3, -4) (-7, -2) (-7,1) 
+                (0, 1) (3,1) (2.5,-3) 
+                (-1,-4) (-1,-8)
+            };
+
+            % draw PSD.
+            % PSD
+            \draw[draw=black, dashed, fill=red!30] plot[smooth] coordinates { 
+                (-6.5,0) (-6.3,1.1) (0,1.05) (2,1) (2.5,1) (2,0) (-4,0.5) (-6.5,0)
+            };
+            %\path[fill=blue!50,,decoration={random steps}]
+            %(-6,1.2) -- (-5,1.2) -- (-4,1.2) -- (0,1.1) -- (3,1.2) 
+            %--  (1,0) -- (0,0) -- (-3,0) -- (-5,0) -- cycle;
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % A lot of calcium outside  and calmodulin inside.
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            \foreach \i/\x/\y in {1/-7/2,2/-6.5/2.1,3/-6.2/1.9,4/-6.8/2.2}
+            {
+                \CA{ca\i}{(\x,\y)}{};
+            }
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Draw channels.
+            % VDCC or voltage dependant calcium channel opens when membrane potential at
+            % spine goes above threshold voltage of channel.
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            \coordinate (vdcc) at (-6,1);
+            \node[draw=blue,rotate=110,cylinder,fill=white,label=VDCC,minimum height=7 mm] 
+                at (vdcc) {};
+
+            \NMDAOLD{n0}{(-5,1)}{1}{0.05}{-10};
+
+            \CA{canmda}{(n0.east)}{};
+
+            \NMDAOLD{n1}{(1,1)}{1}{0.1}{10};
+
+            % Attach a CaMKII below it.
+            \CAMKII{camkiiPSD}{left=0mm of n1.south}{1,2,3,4,5,6}{0.2}{6};
+            \node[left=of n1,yshift=-5 mm,label=PP1,circle,fill=red] (pp1) {};
+            \draw[-triangle 90 reversed] (pp1) edge[out=-0,in=180] (camkiiPSD);
+
+            % CaMKII partial.
+            \node[left=of camkiiPSD,shift=(60:-2cm)] (camkii) {};
+            \CAMKII{camkiiPartial}{right=0cm of camkii}{1,2,5}{0.2}{6}
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Calcium inflow  
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            % Calcium can flow through VDCC
+            \CA{ca0}{(vdcc)}{};
+            \CACAM{cacam0}{(-5,0)}{0.3}
+            \CAM{cam0}{-6.5,0}{0.3}
+
+            \draw[-*,very thick] (cam0) to[midway] node (binding) {} (cacam0);
+            \draw[->] (ca0) to[] (binding);
+
+            \foreach \i in {1,2,...,5}
+            {
+                \coordinate (cacam) at (rnd*3-6,rnd-1)  {};
+                %\CACAM{cacam\i}{cacam}{0.3}
+            }
+
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Channels 
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            \node[below right=of cacam0] (can) {CaN};
+            \node[below=of can] (i1p) {I1P/I2P};
+            \node[above right=of i1p,xshift=5 mm] (ppx) {PP1/PP2};
+            \node[left=of i1p,rotate=-90] (pka) {PKA};
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Transportation of AMPA.
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            \draw[->,decorate,decoration={shape backgrounds,shape=dart,shape size=2 mm}] 
+            (camkiiPartial) -- (camkiiPSD);
+
+            %\draw[-*] (ca0) edge[ ]  (cacam0);
+
+            \draw[-*] (cacam0) edge[ ] (can);
+            \draw[-triangle 90 reversed] (can) edge[ ] (i1p);
+            \draw[-triangle 90 reversed] (i1p) edge[ ] (ppx);
+            \draw[-triangle 90 reversed] (pka) edge[ ] (i1p);
+
+            % Phosphorylation
+            \draw[-*] (cacam0) edge[ ] node[midway] (phospho) {} (camkiiPartial);
+            \draw[-latex] (camkiiPartial.north) edge[out=90,in=120] (phospho);
+            \draw[-triangle 90 reversed] (ppx) edge[] (camkiiPartial);
+            \draw[-triangle 90 reversed] (cacam0) edge[bend right] (pka.west);
+
+            %% Transportation of AMPA channels.
+            \AMPA{a0}{(2.8,-2)}{1}{0.1}{10};
+            \CAMKII{camkiiCyt1}{above left=1cm of a0}{1,2,3,4,5,6,7}{0.2}{7}
+            \draw[-triangle 90 reversed] (ppx) edge[] (camkiiCyt1);
+
+            % CaMKII help translocating AMPA channels via Ras/MaP-K. 
+            \AMPA{a1}{(-2,0.8)}{1}{0.15}{90};
+
+            % CaMKII phosphorylated AMPA thus increasing their conductance.
+            \CAMKII{camkiiCyt2}{right=0.3 cm of n0.south}{1,2,3,4,5,6,7}{0.2}{7}
+
+            \node at ([yshift=10 mm]a1) {};
+            \AMPA{a2}{(2.8,1)}{1}{0.1}{45};
+            \draw[-*] (camkiiCyt2) edge[bend right] (a1);
+
+            \draw[->,
+            % ,decorate
+            , decoration={footprints,foot length=10 pt,stride length=15pt}
+            ] ($(a0)+(0.5,.5)$)  to[bend right] node[below,sloped,midway,yshift=-5 mm] (transport) 
+            {\small MAPK} ([xshift=3mm]a2);
+
+            \draw[-*] (camkiiCyt1) -- (transport);
+        \end{scope}
+        \end{tikzpicture}    
+    };
+
+    \node (synapse) at (0,0)
+    {
+        \begin{tikzpicture}[scale=1, rotate=0, every node/.style={} ]
+            \PreSynSide{b1}
+
+            % Post synaptic side.
+            \begin{scope}[ local bounding box=c1
+                    , anchor=north east
+                    , at={(b1.south)}
+                    , xshift=4cm, yshift=-2.8cm
+                    , rotate=0
+                ]
+                \draw[color=red!40, very thick, fill=red!15] plot[smooth] coordinates { 
+                    (-3,-8) (-3,-4) (-7,-2) (-7,1) 
+                    (0,1) (2,1) (3,1) (2.5,-3.1) 
+                    (-1,-3.5) (-1,-8) 
+                };
+
+                %% PSD
+                %\draw[draw=black, dashed, fill=red!30] plot[smooth] coordinates { 
+                %    (-6.5,0) (-6.3,1.1) (0,1.05) (2,1) (2.5,1) (2,0) (-4,0.5) (-6.5,0)
+                %};
+            \end{scope}
+
+            % Add all
+            \node[fill=blue!10,circle,draw=blue] (int) at (2,-6.25) {};
+
+            % switches
+            \edef\CLR{blue!80}
+            \begin{scope}[rotate=0]
+                \foreach[count=\i] \x in {-1.5, 2.25, 6}
+                {
+                    \pgfmathsetmacro{\LW}{0.5+rnd}
+                    \pgfmathsetmacro{\AA}{rnd}
+                    \ifdim\AA pt<0.4pt
+                        \ctikzset{bipoles/pushbutton/height=1}
+                        \draw[line width=\LW pt, \CLR, smooth] (\x,-2) -- (\x,-2.5) 
+                            to[push button, color=blue] (\x,-4);
+                    \else
+                        \ctikzset{bipoles/pushbutton/height=0.5}
+                        \draw[line width=\LW pt, \CLR, smooth] (\x,-2) -- (\x,-2.5) 
+                            to[push button, color=blue] (\x,-4);
+                    \fi
+
+                    \draw[{Arc Barb[reversed,width=5mm,length=1mm]}-,line width=\LW pt, \CLR] 
+                        (\x, -1.8) -- (\x,-2);
+
+                    % path.
+                    \pgfmathsetmacro\xnew{2.25+(\i-2)}
+                    \draw[color=\CLR, thick ] plot[smooth] coordinates {
+                        (\x,-4) (\xnew,-5) (int)
+                    };
+                }
+
+
+                % integrators
+                \edef\x{0.5}
+                \draw[color=\CLR,] (\x,-4) node[circle, above, inner sep=2mm,
+                    draw] {\large $\int$} to[bend left] (int.south);
+
+                \edef\x{4}
+                \draw[color=\CLR] (\x,-4) node[circle, above, inner sep=2mm,
+                    draw] {\large $\int$} to[bend right] (int.south);
+
+                % Redraw to hide the overlap.
+                \node[fill=blue!10,circle,draw=blue] (int) at (2,-6.25) {\Huge $\sum$};
+            \end{scope}
+
+        \end{tikzpicture}	
+    };
+
+    \edef\CylWidth{1.5}
+    \edef\SUSIZE{0.15}
+    \edef\figW{10}
+    \edef\fW{\figW}
+
+    %\node (psd) [xshift=0cm, yshift=0.4cm]
+    %{
+    %    % PSD in cylinder with diffusion.
+    %    \begin{tikzpicture}[baseline]
+    %        % Draw camkii rings.
+    %        \foreach \i/\x in {-4/1, 0/2, 4/3}
+    %        {
+    %            \node[ draw=red, dotted, thick, circle
+    %                , minimum size=\CylWidth cm] (switch\x)  at (\i,0) { };
+
+    %            \foreach \j in {1,...,6}
+    %            {
+    %                \edef\activeSE{random(1,7),random(1,7),random(1,7)
+    %                ,random(1,7),random(1,7),random(1,7),random(1,7)}
+    %                % Each switch has some camkii here.
+    %                \coordinate (camkii0) at (\i+0.4*rand,0.3*\CylWidth*rand);
+    %                \begin{scope}[rotate=30*rand]
+    %                    \pgfmathsetmacro{\NumberOfSuInRing}{random(6,7)}
+    %                    \CAMKIIWithoutHub{c0}{camkii0}{\activeSE}{\SUSIZE}{\NumberOfSuInRing};
+    %                \end{scope}
+    %            }
+    %        }
+
+    %        % Draw PSD over switches.
+    %        \node[cylinder, minimum width=\CylWidth cm, minimum height=\figW cm
+    %        , draw=black, dashed, fill=red, opacity=0.2, inner sep=1mm
+    %        ] (psd) at (switch2) {};
+
+    %        \foreach \j in {1,2,...,9}
+    %        {
+    %            \node[shade,ball color=red, fill=red, circle
+    %                , minimum size=\SUSIZE cm ,inner sep=1pt] (su\j) 
+    %                at (\fW/2.1*rand,0.4*\CylWidth*rand) {};
+    %            \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
+    %            \draw[-latex,color=red,very thin] (su\j) -- ++(\Ang:3mm);
+    %        }
+
+    %        \foreach \j in {1,2,...,9}
+    %        {
+    %            \node[shade, ball color=blue, fill=blue, circle, minimum size=\SUSIZE cm, inner sep=1pt] 
+    %                (su\j) at (\fW/2.1*rand,0.4*\CylWidth*rand) { };
+    %            \pgfmathsetmacro{\Ang}{(rand>0)?0:180}
+    %            \draw[-latex,color=blue,very thin] (su\j) -- ++(\Ang:3mm);
+    %        }
+
+    %    \end{tikzpicture} 
+    %};
+
+    %% Bistable trajectory.
+    %\node[below=2cm of psd, xshift=0cm, yshift=0cm] (bistable) 
+    %{
+    %    \begin{tikzpicture}[scale=1]
+    %        \begin{axis}[
+    %            xlabel=Time (year), ylabel={$\Sigma$}
+    %            , ylabel style={font=\Large}
+    %            , width=0.75*\figW cm, height=\CylWidth cm, scale only axis
+    %            , ytick={0,18}
+    %            , yticklabels={\texttt{OFF},\texttt{ON}}
+    %            , axis lines*=left
+    %            , xmin=0, xmax=6
+    %            ]
+    %            \addplot [color=blue] gnuplot [ raw gnuplot ] {
+    %                plot
+    %                "../elifeFigure5/CaMKII-6+PP1-27+L-125e-9+N-3+diff-1e-12.dat_processed.dat"
+    %                using (column("time")/3600/365):"CaMKII*" every 10;
+    %            };
+    %        \end{axis}
+    %    \end{tikzpicture}
+    %};
+
+    % draw arrow from synapse to PSD.
+    % \draw[-latex, red, very thick] ($(synapse.center)+(2.5,2.5)$) to[bend left] (psd.west);
+
+\end{tikzpicture}	
+\end{document}
+

@@ -248,3 +248,64 @@
     \end{scope}
 }
 
+% Define decoration
+\pgfdeclaredecoration{lipidleaflet}{initial}
+{
+  % Place as many segments as possible along the path to decorate
+  % the minimum distance between two segments is set to 7 pt.
+  \state{initial}[width=\pgfdecoratedpathlength/floor(\pgfdecoratedpathlength/5pt)]
+  {
+    % Draw the two acyl chains
+    \pgfpathmoveto{\pgfpoint{-0.5pt}{0pt}}
+    \pgfpathlineto{\pgfpoint{-0.5pt}{-5pt}}
+    \pgfpathmoveto{\pgfpoint{0.5pt}{0pt}}
+    \pgfpathlineto{\pgfpoint{0.5pt}{-5pt}}
+    % Draw the head group
+    \pgfpathmoveto{\pgfpoint{0.5pt}{0pt}}
+    \pgfpathcircle{\pgfpoint{0pt}{1.5pt}}{1.5pt}
+  }
+  \state{final}
+  {
+    \pgfpathmoveto{\pgfpointdecoratedpathlast}
+  }
+}
+
+% declare axis decoration as xkcd.
+% https://tex.stackexchange.com/a/49961/8087 
+\pgfdeclaredecoration{penciline}{initial}{
+    \state{initial}[width=+\pgfdecoratedinputsegmentremainingdistance,auto corner on length=1mm,]{
+        \pgfpathcurveto%
+        {% From
+            \pgfqpoint{\pgfdecoratedinputsegmentremainingdistance}
+            {\pgfdecorationsegmentamplitude}
+        }
+        {%  Control 1
+            \pgfmathrand
+            \pgfpointadd{\pgfqpoint{\pgfdecoratedinputsegmentremainingdistance}{0pt}}
+            {\pgfqpoint{-\pgfdecorationsegmentaspect\pgfdecoratedinputsegmentremainingdistance}%
+                {\pgfmathresult\pgfdecorationsegmentamplitude}
+            }
+        }
+        {%TO 
+            \pgfpointadd{\pgfpointdecoratedinputsegmentlast}{\pgfpoint{1pt}{1pt}}
+        }
+    }
+    \state{final}{}
+}
+
+% Pacman: From  https://tex.stackexchange.com/a/428971/8087
+\tikzset{Pacman/.pic={
+        \fill (0,0)  to[out={1.75*#1},in={180-0.25*#1}] 
+            ({0.92*#1}:2) to[out={-180+0.25*#1},in={1.75*#1},looseness=0.5] 
+            (1,0) to[out={-1.75*#1},in={180-0.25*#1},looseness=0.5] 
+            ({-0.92*#1}:2) to [out={-180+0.25*#1},in={-1.75*#1}] cycle;
+
+        \shadedraw[ball color=yellow,thin, draw=none] 
+            (0,0)  to[out={1.75*#1},in={180-0.25*#1}] ({0.92*#1}:2)
+            arc({0.92*#1}:{360-0.92*#1}:2) to [out={-180+0.25*#1},in={-1.75*#1}]
+            cycle;
+
+        \fill ({0.3-0.01*#1},1) circle (0.3);
+    }
+}
+

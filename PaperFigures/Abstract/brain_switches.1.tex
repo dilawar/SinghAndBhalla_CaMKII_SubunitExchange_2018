@@ -1,0 +1,118 @@
+\RequirePackage{luatex85,shellesc}
+\documentclass[tikz,multi=false]{standalone}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{eulervm}
+\usepackage{circuitikzgit}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,graphs,graphdrawing,fit,positioning}
+\usetikzlibrary{decorations,decorations.footprints,decorations.shapes}
+\usetikzlibrary{shapes,arrows,arrows.meta}
+\usetikzlibrary{arrows,arrows.meta}
+\usetikzlibrary{calc,positioning,fit,shapes}
+\usegdlibrary{layered}
+\usepackage{xstring}
+\pgfplotsset{compat=1.15}
+
+\begin{document}
+
+\input{../macros}
+
+\newcommand\SWITCH[6]{ % name, x, y, width, rotation, on-off
+    \edef\y{0.2}
+    \ifthenelse{#6=1}{\edef\y{0.1}}{}
+    \begin{scope}[xshift=-#2, yshift=-#3, rotate=#5]
+        \draw[-Circle,line width=#4] (0 cm,0 cm) node (#1_a) {} -- (1 cm,0);
+        \draw[Circle-,line width=#4] (1.5 cm,0) -- (2.5 cm,0) node (#1_b) {};
+        \draw[line width=#4] (1 cm,\y cm) -- (1.5 cm,\y cm);
+        \draw[line width=#4] (1.25 cm,\y cm) -- ++(0,0.2 cm);
+    \end{scope}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chemical equilibrium arrow 
+
+\newdimen\arrowsize
+\newdimen\mylw
+\pgfkeys{/my arrows/chemeq/.style={draw,thick,double distance=3pt,onearc-onearc}}
+\pgfkeys{/my arrows/size/.code={\pgfsetarrowoptions{onearc}{#1}}}
+\def\myalw{1pt}
+\pgfarrowsdeclare{onearc}{onearc}{%
+  \mylw=\myalw
+  \pgfarrowsleftextend{-\pgfgetarrowoptions{onearc}-.5\mylw}
+  \pgfarrowsrightextend{1pt}
+}{%
+  \pgfsetdash{}{0pt}
+  \mylw=\pgflinewidth
+  \pgfsetlinewidth{\myalw}
+  \advance\arrowsize by.5\pgflinewidth
+  \pgfpathmoveto{\pgfpoint{-\pgfgetarrowoptions{onearc}}{-\pgfgetarrowoptions{onearc}-.5\mylw}}%
+  \pgfpatharc{180}{90}{\pgfgetarrowoptions{onearc}}
+  \pgfusepathqstroke
+}
+
+\newcommand\PreSynSide[1]{%name
+    % Draw pre synaptic side.
+    % Draw synapse. Pre synaptic side.
+    \begin{scope}[rotate=180, local bounding box=#1]
+        \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
+            (-3,-5) (-3,-4) (-6,-2) (-7,1) 
+            (0,1) (3,1) (2.5,-2) (-1,-4) 
+            (-1,-5) 
+        };
+    \end{scope}
+
+    \begin{scope}[rotate=-90]
+        % Pre synaptic side fill-in.
+        \tikzset{every path/.style={line width=3pt,dashed}}
+        \tikzset{pre/.style={-{o[width=5pt]},very thick}}
+
+        \foreach[count=\i] \j in {1,3,5,7,9,11}
+        {
+            \draw[pre,color=blue!20] plot[smooth] coordinates { 
+                (-5+0.1*rnd,1.4+0.1*\j) 
+                (-4+0.1*rnd,1.15+0.15*\j)
+                (-3+0.1*rnd,-1.5+0.55*\j)
+                (-2+0.1*rnd,-2.5+0.75*\j)
+                (-1+0.1*rnd,-3+0.85*\j)
+                (0+0.1*rnd,-3.3+0.9*\j)
+                (1+0.1*rnd,-3.4+0.9*\j)
+            };
+        }
+    \end{scope}
+}
+
+\newcommand\PostSynSide[1]{%name
+    % Draw pre synaptic side.
+    % Draw synapse. Pre synaptic side.
+    \begin{scope}[rotate=0, local bounding box=#1, xshift=4cm, yshift=-3cm]
+        \draw[color=red!30,very thick, fill=red!10] plot[smooth] coordinates { 
+            (-3,-5) (-3,-4) 
+            (-6,-2.5) 
+            (-7,1) (0,1) (3,1) 
+            (2.5,-2.5) 
+            (-1,-4) (-1,-5) 
+        };
+    \end{scope}
+}
+
+
+
+\begin{tikzpicture}[scale=1]
+
+    \PreSynSide{preA}
+    \PostSynSide{postA}
+    \node[rotate=0, scale=1] (camkii) at (postA) 
+    {
+        \includegraphics[width=5cm]{../elifeFigure1/camkii_pp1_switch_level1_detail.pdf}
+    };
+    \node[rotate=0, scale=1, above=0cm of camkii] (se) 
+    {
+        \includegraphics[width=5cm]{../elifeFigure1/camkii_subunit_exchange.pdf}
+    };
+
+\end{tikzpicture}	
+\end{document}
+
