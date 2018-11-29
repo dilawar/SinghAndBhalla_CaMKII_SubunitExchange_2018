@@ -75,7 +75,7 @@
                 plot [x=0:120] f(x);
             };
             \def\Tau{\GetTau{"fit.log"}}
-            \legend{{Stratton et al., eLife 2016, Fig 3C}, $100(1-e^{-t/\Tau}$ (fit)}
+            \legend{{Stratton et al., eLife 2016, Fig 3C}, $100(1-e^{-t/\Tau})$ (fit)}
         \end{axis}
         \node[above=0mm of current bounding box.north west] {\bf A};
     \end{tikzpicture}
@@ -203,7 +203,7 @@
                 f(x)=100*(1-exp(-x/tau));
                 fit f(x) "< cat ./CM8e-3_rg\OptRg*_rl\OptRl*.csv" using "time":"colocalization_perc" via tau;
             };
-        \addlegendentry{Sim $r_g=\OptRg,r_l=\OptRl$, $\tau$=\GetTau{"fitd3.log"}};
+        \addlegendentry{(\textbf{sim}) $r_g=\OptRg,r_l=\OptRl$, $\tau$=\GetTau{"fitd3.log"}};
 
             % and then plot its fit as well.
             \addplot+ [forget plot, red, only marks, error bars/.cd, y dir=both, y explicit] table 
@@ -230,7 +230,8 @@
                 f(x)=100*(1-exp(-x/tau));
                 fit f(x) "< cat ./CM1e-3_rg\OptRg*_rl\OptRl*.csv" using "time":"colocalization_perc" via tau;
             };
-            \addlegendentry{Sim $r_g=\SI{\OptRg}{},r_l=\OptRl$, $\tau$=\GetTau{"fitd4.log"}};
+            \addlegendentry{ (\textbf{sim}) $r_g=\SI{\OptRg}{},r_l=\OptRl$,
+            $\tau$=\GetTau{"fitd4.log"}};
 
         \end{axis}
         \node[above=0mm of current bounding box.north west] {\bf D};

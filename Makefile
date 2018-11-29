@@ -21,7 +21,7 @@ elifeFigure2.pdf:   ./PaperFigures/elifeFigure2/figure_effect_of_tolerace_140mm.
 elifeFigure3.pdf:   ./PaperFigures/elifeFigure3/figure_turnover_tolerance_114.pdf
 	$(CONVERT) $< $@
 
-elifeFigure4.pdf:   ./PaperFigures/elifeFigure4/figure_camkii_activation_114mm.pdf
+elifeFigure4.pdf:   ./PaperFigures/elifeFigure4/figure_camkii_activation_130mm.pdf
 	$(CONVERT) $< $@
 
 elifeFigure5.pdf:   ./PaperFigures/elifeFigure5/figure_sync_150mm.pdf
