@@ -3,8 +3,8 @@
 This repository contains model file, instructions to generate data, and some small 
 data-set used in the following paper:
 
-**Subunit exchange enhances information retention by CaMKII in dendritic spines**. 
-The preprint is available at [https://elifesciences.org/articles/41412](https://elifesciences.org/articles/41412).
+[__Subunit exchange enhances information retention by CaMKII in dendritic spines__](https://elifesciences.org/articles/41412) 
+published in eLife (https://elifesciences.org/articles/41412).
 
 # The model
 
