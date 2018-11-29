@@ -135,7 +135,8 @@
             , width=\PlotW cm
             , height=\Height cm
             , axis lines*=left
-            , legend style={at={(0,1)},anchor=south west}
+            , legend style={at={(-0.1,1)},anchor=south west }
+            , legend cell align={left}
             , legend columns=2
             , no marks
             , title={$r_g=0.1\si{\cubic\meter\per\mole\per\second}, r_l=0.14\si{\per\second}$ }
@@ -147,20 +148,19 @@
                 plot "./CM1e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
                     using "time":"colocalization_perc" every 20;
             };
+            \addlegendentry{[CaMKII]=\SI{1}{\micro M}};
             \addplot+[no marks, thick] gnuplot[raw gnuplot] {
                 set datafile separator ",";
                 plot "./CM8e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
                     using "time":"colocalization_perc" every 20;
             };
+            \addlegendentry{[CaMKII]=\SI{8}{\micro M}};
             \addplot+[no marks, thick] gnuplot[raw gnuplot] {
                 set datafile separator ",";
                 plot "./CM100e-3_rg0.10608183551394483_rl0.14384498882876628.csv"
                     using "time":"colocalization_perc" every 20;
             };
-            \legend{{CaMKII=\SI{1}{\micro M}}
-                , {CaMKII=\SI{8}{\micro M}}
-                , {CaMKII=\SI{100}{\micro M}}
-            };
+            \addlegendentry{[CaMKII]=\SI{100}{\micro M}};
     \end{axis}
     \node[above=0mm of current bounding box.north west] {\bf C};
     \end{tikzpicture}
@@ -170,7 +170,8 @@
         \def\DATAFILE{./data_fig2c_merged.csv}
         \begin{axis}[ xlabel=Time, x unit=min
             , ylabel={\% colocalization} 
-            , legend style={at={(0,1)}, anchor=south west}
+            , legend style={at={(-0.1,1)}, anchor=south west}
+            , legend cell align={left}
             , height=\Height cm
             , width=\PlotW cm
             , axis lines*=left
