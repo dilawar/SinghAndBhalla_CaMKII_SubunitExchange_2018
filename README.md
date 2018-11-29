@@ -41,8 +41,9 @@ See `README.md` file in each of these folders for details. In most folders, we
 do not include data when it is very large. For small data-set, however, I have
 included the data along with the scripts.
 
-# Main repository
+# Development repository
 
-This repository is a slimmed version of
+This repository is skimmed version of
 https://bitbucket.org/dilawar/camkii-pp1-system where model development took
-place. This repository contains history of work and unorganized.
+place. This repository contains history of work and very unorganized. It not a recommended
+source of this model. 
