@@ -1,5 +1,7 @@
 # Subunit exchange enhances information retention by CaMKII in dendritic spines
 
+![Cover page art by eLife](./41412-cover-a4.png)
+
 This repository contains model file, instructions to generate data, and some small 
 data-set used in the following paper:
 
