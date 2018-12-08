@@ -45,7 +45,7 @@ included the data along with the scripts.
 
 This repository is skimmed version of
 https://bitbucket.org/dilawar/camkii-pp1-system where model development took
-place. This repository contains history of work and very unorganized. It not a recommended
+place. This repository has full history of work but very unorganized. It not a recommended
 source of this model. 
 
 
